@@ -22,10 +22,6 @@
 		<param-name>ILog</param-name>
 		<param-value>log.HttpLog</param-value>
 	</context-param>
-	<context-param>
-	    <param-name>configFileName</param-name>
-	    <param-value>FileSystemServer.properties</param-value>
-	</context-param>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
