@@ -13,6 +13,7 @@ import org.grain.httpserver.ReplyFile;
 
 import action.BoxErrorSAction;
 import action.FileBaseAction;
+import action.IFileBaseAction;
 import action.UserBoxInfoAction;
 import action.UserFileAction;
 import action.UserFoldAction;
@@ -35,7 +36,7 @@ import tool.StringUtil;
 import util.SizeUtil;
 
 public class UploadService implements IHttpListener {
-
+	public IFileBaseAction fileBaseAction;
 	@Override
 	public Map<String, String> getHttps() {
 		HashMap<String, String> map = new HashMap<>();
@@ -60,7 +61,7 @@ public class UploadService implements IHttpListener {
 			}
 		}
 		UserData userData = (UserData) httpPacket.hSession.otherData;
-		FileBase fileBase = FileBaseAction.getFileBaseByMd5(message.getFileBaseMd5());
+		FileBase fileBase = fileBaseAction.getFileBaseByMd5(message.getFileBaseMd5());
 		if (userFile == null) {
 			// 校验大小开始
 			UserFold parentUserFold = UserFoldAction.getUserFoldById(message.getUserFoldParentId());
@@ -179,7 +180,7 @@ public class UploadService implements IHttpListener {
 			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_9, httpPacket.hSession.headParam.hOpCode);
 			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
-		FileBase fileBase = FileBaseAction.getFileBaseByMd5(userFile.getFileBase().getFileBaseMd5());
+		FileBase fileBase = fileBaseAction.getFileBaseByMd5(userFile.getFileBase().getFileBaseMd5());
 		if (fileBase != null) {
 			// 更新，然后秒传
 			boolean result = UserFileAction.changeFileBase(userFile.getUserFileId(), fileBase.getFileBaseId());
@@ -240,6 +241,7 @@ public class UploadService implements IHttpListener {
 
 	public UploadService() {
 		UserFileAction.createFileBaseDir();
+		fileBaseAction = new FileBaseAction();
 	}
 
 }

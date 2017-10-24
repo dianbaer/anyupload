@@ -1,5 +1,5 @@
 package action;
 
-public class IUserFileAction {
+public interface IUserFileAction {
 
 }
