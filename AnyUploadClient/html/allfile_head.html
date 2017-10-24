@@ -1,0 +1,102 @@
+<meta charset="UTF-8">
+<ul>
+    <!--<li>
+        <div class="search">
+            <input type="text"/>
+            <span>请搜索文件名</span>
+            <a href="javascript:;"></a>
+        </div>
+    </li>-->
+    <li class="update_PJY">
+        <a class="s-btn pr" href="javascript:;">
+            <i class="icon01"></i>
+            <span>上传</span>
+            <div class="fileBox_PJY">
+                <input type="file" class="myFile_PJY" multiple="multiple" id="allfile_head_uploadfilebutton"/>
+            </div>
+        </a>
+        <dl>
+            <dd>
+                <a class="s-btn pr" href="javascript:;">
+                    <span>上传文件</span>
+                    <div class="fileBox_PJY">
+                        <input type="file" class="myFile_PJY"/>
+                    </div>
+                </a>
+            </dd>
+            <dd>
+                <a class="s-btn pr" href="javascript:;">
+                    <span>上传文件夹</span>
+                    <div class="fileBox_PJY">
+                        <input type="file" class="myFile_PJY"/>
+                    </div>
+                </a>
+            </dd>
+        </dl>
+    </li>
+    <li id="createUserFold">
+        <a class="m-btn addPage_PJY" href="javascript:;">
+            <i class="icon02"></i>
+            <span>新建文件夹</span>
+        </a>
+    </li>
+    <li class="hide" id="allfile_rename">
+        <a class="s-btn resetBtn_PJY disabled" href="javascript:;">
+            <span>重命名</span>
+        </a>
+    </li>
+    <li class="hide downBtn_PJY disabled2_PJY" id="allfile_download">
+        <a class="s-btn" href="javascript:;">
+            <i class="icon03"></i>
+            <span>下载</span>
+        </a>
+        <div class="warning_PJY">暂不支持文件夹下载，请检查您的下载内容</div>
+    </li>
+    <li class="hide" id="allfile_delchoose">
+        <a class="s-btn delAll_PJY" href="javascript:;">
+            <i class="icon04"></i>
+            <span>删除</span>
+        </a>
+    </li>
+    <li class="hide" id="allfile_movechoose">
+        <a class="s-btn delBtn moveTo_PJY" href="javascript:;">
+            <span>移动到</span>
+        </a>
+    </li>
+</ul>
+<div class="function_PJY">
+    <dl>
+        <dd id="allfile_head_sortbutton">
+            <a href="javascript:;" class="paixu_PJY"></a>
+            <ul id="allfile_head_sortlist">
+                <li>
+                    <a class="s-btn delBtn" href="javascript:;" id="sort_name">
+                        <span>文件名</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="s-btn delBtn" href="javascript:;" id="sort_size">
+                        <span>大小</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="s-btn delBtn" href="javascript:;" id="sort_time">
+                        <span>修改日期</span>
+                    </a>
+                </li>
+            </ul>
+        </dd>
+        <dt>
+            <a href="javascript:;" class="" id="allfile_head_changeview"></a>
+        </dt>
+    </dl>
+</div>
+<dl class="total_PJY">
+    <dt id="allfile_head_crumb">
+
+    <dd>
+        已全部加载，共<span id="allfilehead_filenum"></span>个
+    </dd>
+    <dd class="clear"></dd>
+</dl>
+

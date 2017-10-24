@@ -1,0 +1,39 @@
+@charset "UTF-8";
+.yunImgBox img{width:200px;height:200px;}
+
+.yunPopBg{width:100%;height:100%;position:fixed;top:0;left:0;z-index:2;background:#222222;/*display:none;*/}
+.popWrap{width:100%;height:100%;position:relative;}
+.yunCloseBtn{width:23px;height:23px;background: url(../images/yunCloseBtn.png) no-repeat;position:absolute;right:20px;top:20px;cursor:pointer;}
+.yunCloseBtn:hover{background: url(../images/yunCloseBtn_hover.png) no-repeat;}
+.yunOperateWrap{width:100%;height:50px;padding:45px 0;position:absolute;bottom:0;background:rgba(34,34,34,0.4)}
+.yunPhotoInfo{padding-left:50px;}
+.yunPhotoInfo>p{line-height:20px;cursor: pointer;color:#999999;}
+.yunPhotoInfo>p:hover{color:#fff;}
+.popWrap .operateUl{width:300px;margin:0 auto;}
+.popWrap .operateUl li{float:left;height:20px;padding-top:30px;margin:0 20px;cursor:pointer;color:#999999;}
+.popWrap .operateUl li:hover{color:#fff;}
+.popWrap .operateUl li.li1{background:url(../images/yunLeft.png) top center no-repeat;}
+.popWrap .operateUl li.li1:hover{background:url(../images/yunLeft_hover.png) top center no-repeat;}
+.popWrap .operateUl li.li2{background:url(../images/yunRight.png) top center no-repeat;}
+.popWrap .operateUl li.li2:hover{background:url(../images/yunRight_hover.png) top center no-repeat;}
+.popWrap .operateUl li.li3{background:url(../images/yunDownLoad.png) top center no-repeat;}
+.popWrap .operateUl li.li3:hover{background:url(../images/yunDownLoad_hover.png) top center no-repeat;}
+.popWrap .operateUl li.li4{background:url(../images/yunDelete.png) top center no-repeat;}
+.popWrap .operateUl li.li4:hover{background:url(../images/yunDelete_hover.png) top center no-repeat;}
+
+.popWrap .yunPhotoWrap{width:100%;position:absolute;top:50%;margin-top: -250px;height: 500px;}
+.popWrap .slidePhoto{max-width:80%;min-width:100px;margin:0 auto;text-align:center;}
+.popWrap .slidePhoto img{display:inline-block;text-align: center}
+#yunLeft{width:44px;height:70px;background:url(../images/yunPrev.png) no-repeat;position:absolute;z-index:3;left:0;top:40%;cursor: pointer}
+#yunRight{width:44px;height:70px;background:url(../images/yunNext.png) no-repeat;position:absolute;z-index:3;right:0;top:40%;cursor: pointer}
+
+
+.popWrap .photoBox{width:100%;background: #222;position: absolute;z-index: 0;left: 50%;height: 500px;top:50%;}
+.popWrap .photoBox .leftBtn{display:block;width:50%;height:100%;position:absolute;left:0;top:0;z-index:4;cursor: pointer}
+.popWrap .photoBox .rightBtn{display:block;width:50%;height:100%;position:absolute;right:0;top:0;z-index:4;cursor: pointer}
+.photoBox>div{display: table-cell;height: 100%;vertical-align: middle}
+.popWrap .photoBox.show{display:block;vertical-align: middle;text-align:center;z-index: 1;}
+.popWrap .photoBox.hide{display:none}
+.slidePhotoIn{width:100%;display: table;vertical-align: middle;text-align: center;}
+.popWrap .slidePhoto img{max-width: 1000px;}
+

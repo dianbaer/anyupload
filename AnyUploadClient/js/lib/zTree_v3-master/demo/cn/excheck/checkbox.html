@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+	<TITLE> ZTREE DEMO - checkbox</TITLE>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<!--<link rel="stylesheet" href="../../../css/demo.css" type="text/css">-->
+	<link rel="stylesheet" href="../../../css/zTreeStyle/zTreeStyle.css" type="text/css">
+	<script type="text/javascript" src="../../../js/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="../../../js/jquery.ztree.core.js"></script>
+	<script type="text/javascript" src="../../../js/jquery.ztree.excheck.js"></script>
+	<!--
+	<script type="text/javascript" src="../../../js/jquery.ztree.exedit.js"></script>
+	-->
+	<SCRIPT type="text/javascript">
+		<!--
+		var setting = {
+			check: {
+				enable: true,
+//				设置 zTree 的节点上是否显示 checkbox / radio
+				nocheckInherit:true
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			}
+		};
+
+		var zNodes =[
+			{ id:1, pId:0, name:"随意勾选 1", open:true,nocheck:false},
+			{ id:11, pId:1, name:"随意勾选 1-1", open:true},
+			{ id:111, pId:11, name:"随意勾选 1-1-1"},
+			{ id:112, pId:11, name:"随意勾选 1-1-2"},
+			{ id:12, pId:1, name:"随意勾选 1-2", open:true},
+			{ id:121, pId:12, name:"随意勾选 1-2-1"},
+			{ id:122, pId:12, name:"随意勾选 1-2-2"},
+			{ id:2, pId:0, name:"随意勾选 2", checked:true, open:true},
+			{ id:21, pId:2, name:"随意勾选 2-1"},
+			{ id:22, pId:2, name:"随意勾选 2-2", open:true},
+			{ id:221, pId:22, name:"随意勾选 2-2-1"},
+			{ id:222, pId:22, name:"随意勾选 2-2-2"},
+			{ id:23, pId:2, name:"随意勾选 2-3"}
+		];
+		
+		var code;
+		
+		function setCheck() {
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+//			zTree v3.x 专门提供的根据 treeId 获取 zTree 对象的方法。
+//			必须在初始化 zTree 以后才可以使用此方法。
+//			有了这个方法，用户不再需要自己设定全局变量来保存 zTree 初始化后得到的对象了，而且在所有回调函数中全都会返回 treeId 属性，用户可以随时使用此			方法获取需要进行操作的 zTree 对象
+			py = $("#py").attr("checked")? "p":"",
+			sy = $("#sy").attr("checked")? "s":"",
+			pn = $("#pn").attr("checked")? "p":"",
+			sn = $("#sn").attr("checked")? "s":"",
+			type = { "Y":py + sy, "N":pn + sn};
+			zTree.setting.check.chkboxType = type;
+//			勾选 checkbox 对于父子节点的关联关系。[setting.check.enable = true 且 setting.check.chkStyle = "checkbox" 时生效]
+//			默认值：{ "Y": "ps", "N": "ps" }
+//			Y 属性定义 checkbox 被勾选后的情况；
+//			N 属性定义 checkbox 取消勾选后的情况；
+//			"p" 表示操作会影响父级节点；
+//			"s" 表示操作会影响子级节点。
+//			请注意大小写，不要改变
+			showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "' + type.N + '" };');
+		}
+		function showCode(str) {
+			if (!code) code = $("#code");
+			code.empty();
+			code.append("<li>"+str+"</li>");
+		}
+		
+		$(document).ready(function(){
+			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			setCheck();
+			$("#py").bind("change", setCheck);
+			$("#sy").bind("change", setCheck);
+			$("#pn").bind("change", setCheck);
+			$("#sn").bind("change", setCheck);
+		});
+		//-->
+	</SCRIPT>
+</HEAD>
+
+<BODY>
+<h1>Checkbox 勾选操作</h1>
+<h6>[ 文件路径: excheck/checkbox.html ]</h6>
+<div class="content_wrap">
+	<div class="zTreeDemoBackground left">
+		<ul id="treeDemo" class="ztree"></ul>
+	</div>
+</div>
+</BODY>
+</HTML>
