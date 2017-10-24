@@ -1,0 +1,35 @@
+syntax = "proto3";
+package protobuf.http;
+message MD5CheckC{
+	string hOpCode=1;
+	string fileBaseMd5=2;//md5
+	string userFileName=3;//文件名
+	string userFoldParentId=4;//父类文件夹id
+	int64 fileBaseTotalSize=5;//文件总大小
+	string userFileId=6;//文件id
+}
+message MD5CheckS{
+	string hOpCode=1;
+	int32 result=2;//结果1：秒传，2：可以上传
+	int64 fileBasePos=3;//开始位置
+	int32 uploadMaxLength=4;//一次上传最大长度
+	string userFileId=5;//文件id
+}
+message UploadFileC{
+	string hOpCode=1;
+	string userFileId=2;//文件id
+	int64 fileBasePos=3;//开始位置
+	int32 uploadLength=4;//上传的长度
+}
+message UploadFileS{
+	string hOpCode=1;
+	int32 result=2;//结果1：秒传，2：可以上传，3上传完成
+	int64 fileBasePos=3;//开始位置
+	int32 uploadMaxLength=4;//一次上传最大长度
+	string userFileId=5;//文件id
+	int32 waitTime=6;//等待时间
+}
+message UserFileDownloadC{
+	string hOpCode=1;
+	string userFileId=2;//文件id
+}

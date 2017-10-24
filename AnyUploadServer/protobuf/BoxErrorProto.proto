@@ -1,0 +1,36 @@
+syntax = "proto3";
+package protobuf.http;
+message BoxErrorS{
+	string hOpCode=1;
+	BoxErrorCode errorCode=2;
+	string errorHOpCode=3;
+	string extraMsg=4;
+}
+enum BoxErrorCode{
+	ERROR_CODE_0=0;//未知错误
+	ERROR_CODE_1=1;//不存在这个用户
+	ERROR_CODE_2=2;//创建用户顶级文件夹失败
+	ERROR_CODE_3=3;//md5校验失败
+	ERROR_CODE_4=4;//上传失败，不存在这个文件
+	ERROR_CODE_5=5;//上传失败，上传位置不对
+	ERROR_CODE_6=6;//上传失败，长度不对
+	ERROR_CODE_7=7;//上传失败，没发送文件
+	ERROR_CODE_8=8;//上传失败，不存在实体文件
+	ERROR_CODE_9=9;//上传失败，时间超前
+	ERROR_CODE_10=10;//上传失败，更换基础文件失败
+	ERROR_CODE_11=11;//上传失败，写入文件失败
+	ERROR_CODE_12=12;//上传失败，更新数据失败
+	ERROR_CODE_13=13;//创建文件夹失败，父类文件夹不能为空
+	ERROR_CODE_14=14;//创建文件夹失败
+	ERROR_CODE_15=15;//修改文件夹失败，不存在这个文件夹
+	ERROR_CODE_16=16;//获取文件夹子类失败
+	ERROR_CODE_17=17;//获取文件夹子文件夹失败
+	ERROR_CODE_18=18;//获取回收站文件失败
+	ERROR_CODE_19=19;//修改文件失败
+	ERROR_CODE_20=20;//将选择文件移动到回收站失败
+	ERROR_CODE_21=21;//将选择文件还原失败
+	ERROR_CODE_22=22;//将选择文件移动到指定文件夹失败
+	ERROR_CODE_23=23;//将选择文件彻底删除失败
+	ERROR_CODE_24=24;//清空回收站失败
+	ERROR_CODE_25=25;//md5校验失败，超出最大允许空间
+}

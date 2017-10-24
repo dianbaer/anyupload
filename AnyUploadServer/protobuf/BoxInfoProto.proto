@@ -1,0 +1,12 @@
+syntax = "proto3";
+package protobuf.http;
+message BoxInfoC{
+	string hOpCode=1;
+	string userFoldTopId=2;
+}
+message BoxInfoS{
+	string hOpCode=1;
+	string userFoldTopId=2;
+	int32 useSize=3;//已使用大小
+	int32 totalSize=4;//总大小
+}

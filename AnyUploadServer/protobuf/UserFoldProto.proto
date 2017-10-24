@@ -1,0 +1,100 @@
+syntax = "proto3";
+package protobuf.http;
+message CreateUserFoldC{
+	string hOpCode=1;
+	string userFoldName=2;//文件夹名
+	string userFoldParentId=3;//文件夹父类id，不能为空
+}
+message CreateUserFoldS{
+	string hOpCode=1;
+	UserFoldData userFold=2;
+}
+message UpdateUserFoldC{
+	string hOpCode=1;
+	string userFoldId=2;
+	string userFoldName=3;///空或""为不修改名字
+	bool isUpdateUserFoldParent=4;//true修改，false不修改
+	string userFoldParentId=5;//空或""为顶级（在是true的状态下）
+	int32 userFoldState=6;//1：可用2：回收站3：逻辑删除，其他为不修改
+}
+message UpdateUserFoldS{
+	string hOpCode=1;
+	UserFoldData userFold=2;
+}
+//获取全部文件列表
+message GetUserFoldChildrenC{
+	string hOpCode=1;
+	string userFoldParentId=2;//不能为空
+}
+message GetUserFoldChildrenS{
+	string hOpCode=1;
+	repeated UserFoldData recursionUserFoldList=2;//递归目录
+	repeated UserFoldData userFoldList=3;//文件夹列表
+	repeated UserFileData userFileList=4;//文件列表
+}
+//获取全部文件列表
+message GetUserFoldChildrenUserFoldC{
+	string hOpCode=1;
+	string userFoldParentId=2;//不能为空
+}
+message GetUserFoldChildrenUserFoldS{
+	string hOpCode=1;
+	repeated UserFoldData userFoldList=2;//文件夹列表
+}
+message GetRecycleBinListC{
+	string hOpCode=1;
+	string userFoldTopId=2;//不能为空,必须是顶级的
+}
+message GetRecycleBinListS{
+	string hOpCode=1;
+	repeated UserFoldData userFoldList=2;//文件夹列表
+	repeated UserFileData userFileList=3;//文件列表
+}
+message UpdateUserFileC{
+	string hOpCode=1;
+	string userFileId=2;
+	string userFileName=3;///空或""为不修改名字
+	bool isUpdateUserFoldParent=4;//true修改，false不修改
+	string userFoldParentId=5;//空或""为顶级（在是true的状态下）
+	int32 userFileState=6;//1：可用2：回收站3：逻辑删除，其他为不修改
+}
+message UpdateUserFileS{
+	string hOpCode=1;
+	UserFileData userFile=2;
+}
+message UserFoldData{
+	string userFoldId=1;
+	string userFoldName=2;
+	string userFoldParentId=3;
+	string userFoldCreateTime=4;
+	string userFoldUpdateTime=5;
+	int32 userFoldState=6;
+	string userFoldTopId=7;
+	string createUserId=8;
+	int32 userFoldOwnerType=9;
+	string userFoldOwnerId=10;
+	int32 userFoldChannelType=11;
+	string userFoldChannelUserId=12;
+	bool haveChildUserFold=13;//true有，false没有
+	int64 userFoldUpdateTimeStamp=14;//最后更新时间戳
+}
+message UserFileData{
+	string userFileId=1;
+	string userFileName=2;
+	string userFoldParentId=3;
+	string userFileCreateTime=4;
+	string userFileUpdateTime=5;
+	int32 userFileState=6;
+	string userFoldTopId=7;
+	string createUserId=8;
+	int64 userFileUpdateTimeStamp=9;//最后更新时间戳
+	FileData fileBase=10;
+}
+message FileData{
+	string fileBaseId=1;
+	string fileBaseRealPath=2;
+	string fileBaseMd5=3;
+	int32 fileBaseState=4;
+	int64 fileBaseTotalSize=5;
+	int64 fileBasePos=6;
+}

@@ -1,0 +1,42 @@
+syntax = "proto3";
+package protobuf.http;
+message MutilOperateToRecyclebinC{
+	string hOpCode=1;
+	repeated string userFileIds=2;
+	repeated string userFoldIds=3;
+}
+message MutilOperateToRecyclebinS{
+	string hOpCode=1;
+}
+message MutilOperateOffRecyclebinC{
+	string hOpCode=1;
+	repeated string userFileIds=2;
+	repeated string userFoldIds=3;
+}
+message MutilOperateOffRecyclebinS{
+	string hOpCode=1;
+}
+message MutilOperateMoveToC{
+	string hOpCode=1;
+	repeated string userFileIds=2;
+	repeated string userFoldIds=3;
+	string userFoldParentId=4;//不能为空
+}
+message MutilOperateMoveToS{
+	string hOpCode=1;
+}
+message MutilOperateRemoveC{
+	string hOpCode=1;
+	repeated string userFileIds=2;
+	repeated string userFoldIds=3;
+}
+message MutilOperateRemoveS{
+	string hOpCode=1;
+}
+message MutilOperateClearRecyclebinC{
+	string hOpCode=1;
+	string userFoldTopId=2;
+}
+message MutilOperateClearRecyclebinS{
+	string hOpCode=1;
+}

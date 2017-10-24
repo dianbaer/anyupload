@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.dao.ext.UserFileMapperExt">
+  <resultMap id="BaseResultMap" type="dao.model.ext.UserFileExt">
+    <id column="user_file_id" jdbcType="VARCHAR" property="userFileId" />
+    <result column="user_file_name" jdbcType="VARCHAR" property="userFileName" />
+    <result column="user_fold_parent_id" jdbcType="VARCHAR" property="userFoldParentId" />
+    <result column="user_file_create_time" jdbcType="TIMESTAMP" property="userFileCreateTime" />
+    <result column="user_file_update_time" jdbcType="TIMESTAMP" property="userFileUpdateTime" />
+    <result column="user_file_state" jdbcType="TINYINT" property="userFileState" />
+    <result column="user_fold_top_id" jdbcType="VARCHAR" property="userFoldTopId" />
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+    <result column="file_base_id" jdbcType="VARCHAR" property="fileBaseId" />
+    <association property="fileBase" javaType="dao.model.base.FileBase">
+    	<result column="file_base_id" jdbcType="VARCHAR" property="fileBaseId" />
+	    <result column="file_base_real_path" jdbcType="VARCHAR" property="fileBaseRealPath" />
+	    <result column="file_base_md5" jdbcType="VARCHAR" property="fileBaseMd5" />
+	    <result column="file_base_state" jdbcType="TINYINT" property="fileBaseState" />
+	    <result column="file_base_total_size" jdbcType="BIGINT" property="fileBaseTotalSize" />
+	    <result column="file_base_pos" jdbcType="BIGINT" property="fileBasePos" />
+	    <result column="file_base_create_time" jdbcType="TIMESTAMP" property="fileBaseCreateTime" />
+	    <result column="file_base_complete_time" jdbcType="TIMESTAMP" property="fileBaseCompleteTime" />
+	    <result column="file_base_next_upload_time" jdbcType="TIMESTAMP" property="fileBaseNextUploadTime" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+  	user_file_id, user_file_name, user_fold_parent_id, user_file_create_time, user_file_update_time, user_file_state,
+  	user_fold_top_id, create_user_id, t2.file_base_id as file_base_id, file_base_real_path, file_base_md5, file_base_state, file_base_total_size,
+  	file_base_pos, file_base_create_time, file_base_complete_time, file_base_next_upload_time
+  </sql>
+  <select id="selectByUserFoldParentId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from file_base as t1, user_file as t2
+    where t1.file_base_id = t2.file_base_id
+    and t2.user_fold_parent_id = #{userFoldParentId,jdbcType=VARCHAR}
+    and t2.user_file_state = 1
+    and t1.file_base_state = 1
+    order by user_file_name asc
+  </select>
+  <select id="selectRecycleBinByUserFoldTopId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from file_base as t1, user_file as t2
+    where t1.file_base_id = t2.file_base_id
+    and t2.user_fold_top_id = #{userFoldTopId,jdbcType=VARCHAR}
+    and t2.user_file_state = 2
+    and t1.file_base_state = 1
+    order by user_file_name asc
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from file_base as t1, user_file as t2
+    where t1.file_base_id = t2.file_base_id
+    and t2.user_file_id = #{userFileId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKeyComplete" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from file_base as t1, user_file as t2
+    where t1.file_base_id = t2.file_base_id
+    and t2.user_file_id = #{userFileId,jdbcType=VARCHAR}
+    and t1.file_base_state = 1
+  </select>
+  <select id="countSize" parameterType="java.lang.String" resultType="java.lang.Long">
+    select
+    sum(t1.file_base_total_size) as fileTotalSize
+    from file_base as t1, user_file as t2
+    where t1.file_base_id = t2.file_base_id
+    and t2.user_fold_top_id = #{userFoldTopId,jdbcType=VARCHAR}
+    and ( t2.user_file_state = 1 or t2.user_file_state = 2)
+    and t1.file_base_state = 1
+  </select>
+</mapper>
