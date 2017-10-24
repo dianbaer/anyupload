@@ -59,7 +59,7 @@ public class UploadService implements IHttpListener {
 		}
 		FileBase fileBase = fileBaseAction.getFileBaseByMd5(message.getFileBaseMd5());
 		if (userFile == null) {
-			userFile = UserFileAction.createUserFile(message.getUserFileName(), message.getUserFoldParentId(), userData.getUserId(), message.getFileBaseMd5(), message.getFileBaseTotalSize(), fileBase);
+			userFile = userFileAction.createUserFile(message.getUserFileName(), message.getUserFoldParentId(), "xxxxx", message.getFileBaseMd5(), message.getFileBaseTotalSize(), fileBase);
 			if (userFile == null) {
 				BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_3, httpPacket.hSession.headParam.hOpCode);
 				throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
@@ -86,7 +86,7 @@ public class UploadService implements IHttpListener {
 		} else {
 			if (fileBase != null) {
 				// 更新，然后秒传
-				boolean result = UserFileAction.changeFileBase(userFile.getUserFileId(), fileBase.getFileBaseId());
+				boolean result = userFileAction.changeFileBase(userFile, fileBase);
 				if (!result) {
 					BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_3, httpPacket.hSession.headParam.hOpCode);
 					throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
@@ -158,7 +158,7 @@ public class UploadService implements IHttpListener {
 		FileBase fileBase = fileBaseAction.getFileBaseByMd5(userFile.getFileBase().getFileBaseMd5());
 		if (fileBase != null) {
 			// 更新，然后秒传
-			boolean result = UserFileAction.changeFileBase(userFile.getUserFileId(), fileBase.getFileBaseId());
+			boolean result = userFileAction.changeFileBase(userFile, fileBase);
 			if (!result) {
 				BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_10, httpPacket.hSession.headParam.hOpCode);
 				throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);

@@ -16,9 +16,7 @@ import config.CommonConfigBox;
 import config.FileBaseConfig;
 import config.UserFileConfig;
 import dao.dao.base.FileBaseMapper;
-import dao.dao.base.UserFileMapper;
 import dao.model.base.FileBase;
-import dao.model.base.UserFold;
 import dao.model.ext.UserFileExt;
 import tool.StringUtil;
 import tool.TimeUtils;
@@ -50,30 +48,21 @@ public class UserFileAction implements IUserFileAction {
 		return null;
 	}
 
-	public static UserFileExt createUserFile(String userFileName, String userFoldParentId, String createUserId, String fileBaseMd5, long fileBaseTotalSize, FileBase fileBase) {
+	@Override
+	public UserFileExt createUserFile(String userFileName, String userFoldParentId, String createUserId, String fileBaseMd5, long fileBaseTotalSize, FileBase fileBase) {
 		if (StringUtil.stringIsNull(userFileName) || StringUtil.stringIsNull(userFoldParentId) || StringUtil.stringIsNull(createUserId) || StringUtil.stringIsNull(fileBaseMd5)) {
-			return null;
-		}
-		UserFold parentUserFold = UserFoldAction.getUserFoldById(userFoldParentId);
-		if (parentUserFold == null) {
 			return null;
 		}
 		UserFileExt userFile = new UserFileExt();
 		Date date = new Date();
 		userFile.setUserFileId(IdUtil.getUuid());
 		userFile.setUserFileName(userFileName);
-		userFile.setUserFoldParentId(parentUserFold.getUserFoldId());
+		userFile.setUserFoldParentId(userFoldParentId);
 		userFile.setUserFileCreateTime(date);
 		userFile.setUserFileUpdateTime(date);
 		userFile.setUserFileState((byte) UserFileConfig.STATE_CAN_USE);
-		if (StringUtil.stringIsNull(parentUserFold.getUserFoldTopId())) {
-			userFile.setUserFoldTopId(parentUserFold.getUserFoldId());
-		} else {
-			userFile.setUserFoldTopId(parentUserFold.getUserFoldTopId());
-		}
 		userFile.setCreateUserId(createUserId);
 		if (fileBase == null) {
-
 			FileBase newFileBase = new FileBase();
 			newFileBase.setFileBaseId(IdUtil.getUuid());
 			String fileBaseRealPath = createFile(getFileName(userFileName, newFileBase.getFileBaseId()));
@@ -91,74 +80,18 @@ public class UserFileAction implements IUserFileAction {
 			userFile.setFileBase(newFileBase);
 		} else {
 			userFile.setFileBaseId(fileBase.getFileBaseId());
+			userFile.setFileBase(fileBase);
 		}
-		SqlSession sqlSession = null;
-		try {
-			sqlSession = MybatisManager.getSqlSession();
-			UserFileMapper userFileMapper = sqlSession.getMapper(UserFileMapper.class);
-			FileBaseMapper fileBaseMapper = sqlSession.getMapper(FileBaseMapper.class);
-			int result;
-			// 需要创建基础文件
-			if (userFile.getFileBase() != null) {
-				result = fileBaseMapper.insert(userFile.getFileBase());
-				if (result != 1) {
-					throw new Exception("插入filebase异常");
-				}
-			}
-			result = userFileMapper.insert(userFile);
-			if (result != 1) {
-				throw new Exception("插入userfile异常");
-			}
-			sqlSession.commit();
-		} catch (Exception e) {
-			if (sqlSession != null) {
-				sqlSession.rollback();
-			}
-			MybatisManager.log.error("创建文件失败", e);
-			if (userFile.getFileBase() != null) {
-				deleteFile(userFile.getFileBase().getFileBaseRealPath());
-			}
-			return null;
-		} finally {
-			if (sqlSession != null) {
-				sqlSession.close();
-			}
-		}
+		userFileMap.put(userFile.getUserFileId(), userFile);
 		return userFile;
 	}
 
-	public static boolean changeFileBase(String userFileId, String fileBaseId) {
-		if (StringUtil.stringIsNull(userFileId) || StringUtil.stringIsNull(fileBaseId)) {
-			return false;
-		}
-		UserFileExt userFile = new UserFileExt();
-		Date date = new Date();
-		userFile.setUserFileId(userFileId);
-		userFile.setUserFileUpdateTime(date);
-		userFile.setFileBaseId(fileBaseId);
-
-		SqlSession sqlSession = null;
-		try {
-			sqlSession = MybatisManager.getSqlSession();
-			UserFileMapper userFileMapper = sqlSession.getMapper(UserFileMapper.class);
-			int result = userFileMapper.updateByPrimaryKeySelective(userFile);
-			if (result != 1) {
-				MybatisManager.log.warn("修改文件失败");
-				return false;
-			}
-			sqlSession.commit();
-		} catch (Exception e) {
-			if (sqlSession != null) {
-				sqlSession.rollback();
-			}
-			MybatisManager.log.error("修改文件异常", e);
-			return false;
-		} finally {
-			if (sqlSession != null) {
-				sqlSession.close();
-			}
-		}
+	@Override
+	public boolean changeFileBase(UserFileExt userFile, FileBase fileBase) {
+		userFile.setFileBaseId(fileBase.getFileBaseId());
+		userFile.setFileBase(fileBase);
 		return true;
+
 	}
 
 	public static boolean updateFile(File file, File chunkFile) {
