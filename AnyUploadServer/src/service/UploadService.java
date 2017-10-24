@@ -14,16 +14,12 @@ import org.grain.httpserver.ReplyFile;
 import action.BoxErrorSAction;
 import action.FileBaseAction;
 import action.IFileBaseAction;
-import action.UserBoxInfoAction;
+import action.IUserFileAction;
 import action.UserFileAction;
-import action.UserFoldAction;
 import config.CommonConfigBox;
 import config.FileBaseConfig;
 import dao.model.base.FileBase;
-import dao.model.base.UserBoxinfo;
-import dao.model.base.UserFold;
 import dao.model.ext.UserFileExt;
-import data.UserData;
 import http.HOpCodeBox;
 import protobuf.http.BoxErrorProto.BoxErrorCode;
 import protobuf.http.BoxErrorProto.BoxErrorS;
@@ -33,10 +29,11 @@ import protobuf.http.UploadFileProto.UploadFileC;
 import protobuf.http.UploadFileProto.UploadFileS;
 import protobuf.http.UploadFileProto.UserFileDownloadC;
 import tool.StringUtil;
-import util.SizeUtil;
 
 public class UploadService implements IHttpListener {
 	public IFileBaseAction fileBaseAction;
+	public IUserFileAction userFileAction;
+
 	@Override
 	public Map<String, String> getHttps() {
 		HashMap<String, String> map = new HashMap<>();
@@ -50,7 +47,7 @@ public class UploadService implements IHttpListener {
 		MD5CheckC message = (MD5CheckC) httpPacket.getData();
 		UserFileExt userFile = null;
 		if (!StringUtil.stringIsNull(message.getUserFileId())) {
-			userFile = UserFileAction.getUserFile(message.getUserFileId());
+			userFile = userFileAction.getUserFile(message.getUserFileId());
 			if (userFile != null && userFile.getFileBase().getFileBaseState().intValue() == FileBaseConfig.STATE_COMPLETE) {
 				MD5CheckS.Builder builder = MD5CheckS.newBuilder();
 				builder.setHOpCode(httpPacket.hSession.headParam.hOpCode);
@@ -60,30 +57,8 @@ public class UploadService implements IHttpListener {
 				return packet;
 			}
 		}
-		UserData userData = (UserData) httpPacket.hSession.otherData;
 		FileBase fileBase = fileBaseAction.getFileBaseByMd5(message.getFileBaseMd5());
 		if (userFile == null) {
-			// 校验大小开始
-			UserFold parentUserFold = UserFoldAction.getUserFoldById(message.getUserFoldParentId());
-			String userFoldTopId = null;
-			if (StringUtil.stringIsNull(parentUserFold.getUserFoldTopId())) {
-				userFoldTopId = parentUserFold.getUserFoldId();
-			} else {
-				userFoldTopId = parentUserFold.getUserFoldTopId();
-			}
-			Long userFileTotalSize = UserFileAction.getUserFileTotalSize(userFoldTopId);
-			UserBoxinfo userBoxinfo = UserBoxInfoAction.getUserBoxinfoById(userData.getUserId());
-			int boxSize = CommonConfigBox.BOX_INIT_SIZE;
-			if (userBoxinfo != null) {
-				boxSize = CommonConfigBox.BOX_INIT_SIZE + userBoxinfo.getBoxSizeOffset();
-			}
-			if (userFileTotalSize != null) {
-				if (userFileTotalSize.longValue() + message.getFileBaseTotalSize() > boxSize * SizeUtil.KB_SIZE) {
-					BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_25, httpPacket.hSession.headParam.hOpCode);
-					throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
-				}
-			}
-			// 校验大小结束
 			userFile = UserFileAction.createUserFile(message.getUserFileName(), message.getUserFoldParentId(), userData.getUserId(), message.getFileBaseMd5(), message.getFileBaseTotalSize(), fileBase);
 			if (userFile == null) {
 				BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_3, httpPacket.hSession.headParam.hOpCode);
@@ -138,7 +113,7 @@ public class UploadService implements IHttpListener {
 
 	public HttpPacket uploadFileHandle(HttpPacket httpPacket) throws HttpException {
 		UploadFileC message = (UploadFileC) httpPacket.getData();
-		UserFileExt userFile = UserFileAction.getUserFile(message.getUserFileId());
+		UserFileExt userFile = userFileAction.getUserFile(message.getUserFileId());
 		if (userFile == null) {
 			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_4, httpPacket.hSession.headParam.hOpCode);
 			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
@@ -227,7 +202,7 @@ public class UploadService implements IHttpListener {
 
 	public ReplyFile userFileDownloadHandle(HttpPacket httpPacket) {
 		UserFileDownloadC message = (UserFileDownloadC) httpPacket.getData();
-		UserFileExt userFile = UserFileAction.getUserFileComplete(message.getUserFileId());
+		UserFileExt userFile = userFileAction.getUserFileComplete(message.getUserFileId());
 		if (userFile == null) {
 			return null;
 		}
@@ -242,6 +217,7 @@ public class UploadService implements IHttpListener {
 	public UploadService() {
 		UserFileAction.createFileBaseDir();
 		fileBaseAction = new FileBaseAction();
+		userFileAction = new UserFileAction();
 	}
 
 }

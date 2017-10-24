@@ -5,7 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.grain.httpserver.HttpConfig;
@@ -16,133 +17,37 @@ import config.FileBaseConfig;
 import config.UserFileConfig;
 import dao.dao.base.FileBaseMapper;
 import dao.dao.base.UserFileMapper;
-import dao.dao.ext.UserFileMapperExt;
 import dao.model.base.FileBase;
-import dao.model.base.UserFile;
-import dao.model.base.UserFileCriteria;
 import dao.model.base.UserFold;
 import dao.model.ext.UserFileExt;
-import protobuf.http.UserFoldProto.FileData;
-import protobuf.http.UserFoldProto.UserFileData;
 import tool.StringUtil;
 import tool.TimeUtils;
 import util.IdUtil;
 
-public class UserFileAction {
+public class UserFileAction implements IUserFileAction {
 	public static String FILE_BASE_PATH;
+	public static Map<String, UserFileExt> userFileMap = new ConcurrentHashMap<String, UserFileExt>();
 
-	public static List<UserFileExt> getUserFoldChildren(String userFoldParentId) {
-		if (StringUtil.stringIsNull(userFoldParentId)) {
-			return null;
-		}
-		SqlSession sqlSession = null;
-		try {
-			sqlSession = MybatisManager.getSqlSession();
-			UserFileMapperExt userFileMapperExt = sqlSession.getMapper(UserFileMapperExt.class);
-			List<UserFileExt> userFileList = userFileMapperExt.selectByUserFoldParentId(userFoldParentId);
-			return userFileList;
-		} catch (Exception e) {
-			if (sqlSession != null) {
-				sqlSession.rollback();
-			}
-			MybatisManager.log.error("查询文件夹子集失败", e);
-			return null;
-		} finally {
-			if (sqlSession != null) {
-				sqlSession.close();
-			}
-		}
-	}
-
-	public static List<UserFileExt> getRecycleBinUserFile(String userFoldTopId) {
-		if (StringUtil.stringIsNull(userFoldTopId)) {
-			return null;
-		}
-		SqlSession sqlSession = null;
-		try {
-			sqlSession = MybatisManager.getSqlSession();
-			UserFileMapperExt userFileMapperExt = sqlSession.getMapper(UserFileMapperExt.class);
-			List<UserFileExt> userFileList = userFileMapperExt.selectRecycleBinByUserFoldTopId(userFoldTopId);
-			return userFileList;
-		} catch (Exception e) {
-			if (sqlSession != null) {
-				sqlSession.rollback();
-			}
-			MybatisManager.log.error("查询回收站文件失败", e);
-			return null;
-		} finally {
-			if (sqlSession != null) {
-				sqlSession.close();
-			}
-		}
-	}
-
-	public static UserFileData.Builder getUserFileBuilder(UserFileExt userFile) {
-		UserFileData.Builder dataBuilder = UserFileData.newBuilder();
-		dataBuilder.setUserFileId(userFile.getUserFileId());
-		dataBuilder.setUserFileName(userFile.getUserFileName());
-		dataBuilder.setUserFoldParentId(userFile.getUserFoldParentId());
-		dataBuilder.setUserFileCreateTime(TimeUtils.dateToString(userFile.getUserFileCreateTime()));
-		dataBuilder.setUserFileUpdateTime(TimeUtils.dateToString(userFile.getUserFileUpdateTime()));
-		dataBuilder.setUserFileState(userFile.getUserFileState());
-		dataBuilder.setUserFoldTopId(userFile.getUserFoldTopId());
-		dataBuilder.setCreateUserId(userFile.getCreateUserId());
-		dataBuilder.setUserFileUpdateTimeStamp(userFile.getUserFileUpdateTime().getTime());
-		FileData.Builder fileDataBuilder = FileData.newBuilder();
-		fileDataBuilder.setFileBaseId(userFile.getFileBase().getFileBaseId());
-		fileDataBuilder.setFileBaseRealPath(userFile.getFileBase().getFileBaseRealPath());
-		fileDataBuilder.setFileBaseMd5(userFile.getFileBase().getFileBaseMd5());
-		fileDataBuilder.setFileBaseState(userFile.getFileBase().getFileBaseState());
-		fileDataBuilder.setFileBaseTotalSize(userFile.getFileBase().getFileBaseTotalSize());
-		fileDataBuilder.setFileBasePos(userFile.getFileBase().getFileBasePos());
-		dataBuilder.setFileBase(fileDataBuilder);
-		return dataBuilder;
-	}
-
-	public static UserFileExt getUserFile(String userFileId) {
+	@Override
+	public UserFileExt getUserFile(String userFileId) {
 		if (StringUtil.stringIsNull(userFileId)) {
 			return null;
 		}
-		SqlSession sqlSession = null;
-		try {
-			sqlSession = MybatisManager.getSqlSession();
-			UserFileMapperExt userFileMapperExt = sqlSession.getMapper(UserFileMapperExt.class);
-			UserFileExt userFile = userFileMapperExt.selectByPrimaryKey(userFileId);
-			return userFile;
-		} catch (Exception e) {
-			if (sqlSession != null) {
-				sqlSession.rollback();
-			}
-			MybatisManager.log.error("查询文件失败", e);
-			return null;
-		} finally {
-			if (sqlSession != null) {
-				sqlSession.close();
-			}
-		}
+		return userFileMap.get(userFileId);
 	}
 
-	public static UserFileExt getUserFileComplete(String userFileId) {
+	@Override
+	public UserFileExt getUserFileComplete(String userFileId) {
 		if (StringUtil.stringIsNull(userFileId)) {
 			return null;
 		}
-		SqlSession sqlSession = null;
-		try {
-			sqlSession = MybatisManager.getSqlSession();
-			UserFileMapperExt userFileMapperExt = sqlSession.getMapper(UserFileMapperExt.class);
-			UserFileExt userFile = userFileMapperExt.selectByPrimaryKeyComplete(userFileId);
-			return userFile;
-		} catch (Exception e) {
-			if (sqlSession != null) {
-				sqlSession.rollback();
-			}
-			MybatisManager.log.error("查询文件失败", e);
-			return null;
-		} finally {
-			if (sqlSession != null) {
-				sqlSession.close();
+		UserFileExt userFile = userFileMap.get(userFileId);
+		if (userFile != null) {
+			if (userFile.getFileBase().getFileBaseState().intValue() == 1) {
+				return userFile;
 			}
 		}
+		return null;
 	}
 
 	public static UserFileExt createUserFile(String userFileName, String userFoldParentId, String createUserId, String fileBaseMd5, long fileBaseTotalSize, FileBase fileBase) {
@@ -405,180 +310,6 @@ public class UserFileAction {
 		} catch (Exception e) {
 			MybatisManager.log.error("创建文件夹异常", e);
 			return false;
-		}
-
-	}
-
-	public static UserFileExt updateUserFile(String userFileId, String userFileName, int userFileState, boolean isUpdateUserFoldParent, String userFoldParentId) {
-		if (StringUtil.stringIsNull(userFileId)) {
-			return null;
-		}
-		UserFileExt userFile = getUserFileComplete(userFileId);
-		if (userFile == null) {
-			return null;
-		}
-		// 顶级不可能为空
-		if (userFile.getUserFoldTopId() == null) {
-			return null;
-		}
-		UserFileExt userFileNew = new UserFileExt();
-		userFileNew.setUserFileId(userFileId);
-		Date date = new Date();
-		userFileNew.setUserFileUpdateTime(date);
-		if (!StringUtil.stringIsNull(userFileName)) {
-			userFileNew.setUserFileName(userFileName);
-		}
-		if (userFileState == UserFileConfig.STATE_CAN_USE || userFileState == UserFileConfig.STATE_IN_RECYCLEBIN || userFileState == UserFileConfig.STATE_DELETE) {
-			userFileNew.setUserFileState((byte) userFileState);
-		}
-		if (isUpdateUserFoldParent) {
-			// 如果是空，就说明是放到顶级文件夹
-			if (StringUtil.stringIsNull(userFoldParentId)) {
-				userFoldParentId = userFile.getUserFoldTopId();
-			}
-			UserFold parentUserFold = UserFoldAction.getUserFoldById(userFoldParentId);
-			if (parentUserFold == null) {
-				return null;
-			}
-			userFileNew.setUserFoldParentId(parentUserFold.getUserFoldId());
-		}
-		SqlSession sqlSession = null;
-		try {
-			sqlSession = MybatisManager.getSqlSession();
-			UserFileMapper userFileMapper = sqlSession.getMapper(UserFileMapper.class);
-			int result = userFileMapper.updateByPrimaryKeySelective(userFileNew);
-			if (result != 1) {
-				MybatisManager.log.warn("修改文件失败");
-				return null;
-			}
-			sqlSession.commit();
-		} catch (Exception e) {
-			if (sqlSession != null) {
-				sqlSession.rollback();
-			}
-			MybatisManager.log.error("修改文件异常", e);
-			return null;
-		} finally {
-			if (sqlSession != null) {
-				sqlSession.close();
-			}
-		}
-		return getUserFileComplete(userFileNew.getUserFileId());
-	}
-
-	public static boolean clearRecycleBin(String userFoldTopId) {
-		SqlSession sqlSession = null;
-		UserFile userFile = new UserFile();
-		Date date = new Date();
-		userFile.setUserFileState((byte) UserFileConfig.STATE_DELETE);
-		userFile.setUserFileUpdateTime(date);
-		try {
-			sqlSession = MybatisManager.getSqlSession();
-			UserFileMapper userFileMapper = sqlSession.getMapper(UserFileMapper.class);
-			UserFileCriteria userFileCriteria = new UserFileCriteria();
-			UserFileCriteria.Criteria criteriaFile = userFileCriteria.createCriteria();
-			criteriaFile.andUserFoldTopIdEqualTo(userFoldTopId).andUserFileStateEqualTo((byte) UserFileConfig.STATE_IN_RECYCLEBIN);
-			int result = userFileMapper.updateByExampleSelective(userFile, userFileCriteria);
-			sqlSession.commit();
-		} catch (Exception e) {
-			if (sqlSession != null) {
-				sqlSession.rollback();
-			}
-			MybatisManager.log.error("清空回收站失败", e);
-			return false;
-		} finally {
-			if (sqlSession != null) {
-				sqlSession.close();
-			}
-		}
-		return true;
-	}
-
-	public static boolean updateUserFileListState(List<String> userFileIds, int userFileState) {
-		if (userFileState != UserFileConfig.STATE_CAN_USE && userFileState != UserFileConfig.STATE_IN_RECYCLEBIN && userFileState != UserFileConfig.STATE_DELETE) {
-			return false;
-		}
-		SqlSession sqlSession = null;
-		UserFile userFile = new UserFile();
-		Date date = new Date();
-		userFile.setUserFileState((byte) userFileState);
-		userFile.setUserFileUpdateTime(date);
-		try {
-			sqlSession = MybatisManager.getSqlSession();
-			UserFileMapper userFileMapper = sqlSession.getMapper(UserFileMapper.class);
-			UserFileCriteria userFileCriteria = new UserFileCriteria();
-			UserFileCriteria.Criteria criteriaFile = userFileCriteria.createCriteria();
-			criteriaFile.andUserFileIdIn(userFileIds);
-			int result = userFileMapper.updateByExampleSelective(userFile, userFileCriteria);
-			sqlSession.commit();
-		} catch (Exception e) {
-			if (sqlSession != null) {
-				sqlSession.rollback();
-			}
-			MybatisManager.log.error("修改文件状态失败", e);
-			return false;
-		} finally {
-			if (sqlSession != null) {
-				sqlSession.close();
-			}
-		}
-		return true;
-	}
-
-	public static boolean updateUserFileListParentId(List<String> userFileIds, String userFoldParentId) {
-		if (StringUtil.stringIsNull(userFoldParentId)) {
-			return false;
-		}
-		UserFold parentUserFold = UserFoldAction.getUserFoldById(userFoldParentId);
-		if (parentUserFold == null) {
-			return false;
-		}
-		SqlSession sqlSession = null;
-		UserFile userFile = new UserFile();
-		Date date = new Date();
-		userFile.setUserFoldParentId(userFoldParentId);
-		userFile.setUserFileUpdateTime(date);
-		try {
-			sqlSession = MybatisManager.getSqlSession();
-			UserFileMapper userFileMapper = sqlSession.getMapper(UserFileMapper.class);
-			UserFileCriteria userFileCriteria = new UserFileCriteria();
-			UserFileCriteria.Criteria criteriaFile = userFileCriteria.createCriteria();
-			criteriaFile.andUserFileIdIn(userFileIds);
-			int result = userFileMapper.updateByExampleSelective(userFile, userFileCriteria);
-			sqlSession.commit();
-		} catch (Exception e) {
-			if (sqlSession != null) {
-				sqlSession.rollback();
-			}
-			MybatisManager.log.error("修改父类文件夹异常", e);
-			return false;
-		} finally {
-			if (sqlSession != null) {
-				sqlSession.close();
-			}
-		}
-		return true;
-	}
-
-	public static Long getUserFileTotalSize(String userFoldTopId) {
-		if (StringUtil.stringIsNull(userFoldTopId)) {
-			return null;
-		}
-		SqlSession sqlSession = null;
-		try {
-			sqlSession = MybatisManager.getSqlSession();
-			UserFileMapperExt userFileMapperExt = sqlSession.getMapper(UserFileMapperExt.class);
-			return userFileMapperExt.countSize(userFoldTopId);
-		} catch (Exception e) {
-			if (sqlSession != null) {
-				sqlSession.rollback();
-			}
-			MybatisManager.log.error("查询所有文件大小失败", e);
-			return null;
-		} finally {
-			if (sqlSession != null) {
-				sqlSession.close();
-			}
 		}
 
 	}
