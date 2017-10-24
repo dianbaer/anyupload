@@ -341,8 +341,12 @@ public class UserFileAction {
 
 	public static String getFileName(String userFileName, String fileBaseId) {
 		int postfixIndex = userFileName.lastIndexOf(".");
-		String postfix = userFileName.substring(postfixIndex);
-		return fileBaseId + postfix;
+		if (postfixIndex == -1) {
+			return fileBaseId;
+		} else {
+			String postfix = userFileName.substring(postfixIndex);
+			return fileBaseId + postfix;
+		}
 	}
 
 	public static String getFoldName() {
