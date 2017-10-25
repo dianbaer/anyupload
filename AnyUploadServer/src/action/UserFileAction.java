@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.ibatis.session.SqlSession;
@@ -19,7 +20,6 @@ import dao.model.base.FileBase;
 import dao.model.ext.UserFileExt;
 import tool.StringUtil;
 import tool.TimeUtils;
-import util.IdUtil;
 
 public class UserFileAction implements IUserFileAction {
 	public static String FILE_BASE_PATH;
@@ -54,7 +54,7 @@ public class UserFileAction implements IUserFileAction {
 		}
 		UserFileExt userFile = new UserFileExt();
 		Date date = new Date();
-		userFile.setUserFileId(IdUtil.getUuid());
+		userFile.setUserFileId(UUID.randomUUID().toString().trim().replaceAll("-", ""));
 		userFile.setUserFileName(userFileName);
 		userFile.setUserFoldParentId(userFoldParentId);
 		userFile.setUserFileCreateTime(date);
@@ -63,7 +63,7 @@ public class UserFileAction implements IUserFileAction {
 		userFile.setCreateUserId(createUserId);
 		if (fileBase == null) {
 			FileBase newFileBase = new FileBase();
-			newFileBase.setFileBaseId(IdUtil.getUuid());
+			newFileBase.setFileBaseId(UUID.randomUUID().toString().trim().replaceAll("-", ""));
 			String fileBaseRealPath = createFile(getFileName(userFileName, newFileBase.getFileBaseId()));
 			if (fileBaseRealPath == null) {
 				return null;
