@@ -69,7 +69,7 @@ public class UserFileAction implements IUserFileAction {
 
 	@Override
 	public UserFileExt createUserFile(String userFileName, String userFoldParentId, String createUserId, String fileBaseMd5, long fileBaseTotalSize, FileBase fileBase) {
-		if (stringIsNull(userFileName) || stringIsNull(userFoldParentId) || stringIsNull(createUserId) || stringIsNull(fileBaseMd5)) {
+		if (stringIsNull(userFileName) || stringIsNull(createUserId) || stringIsNull(fileBaseMd5)) {
 			return null;
 		}
 		UserFileExt userFile = new UserFileExt();
