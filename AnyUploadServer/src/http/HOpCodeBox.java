@@ -20,6 +20,5 @@ public class HOpCodeBox {
 		HttpManager.addMapping(MD5_CHECK, MD5CheckC.class, MD5CheckS.class);
 		HttpManager.addMapping(UPLOAD_FILE, UploadFileC.class, UploadFileS.class);
 		HttpManager.addMapping(USERFILE_DOWNLOAD, UserFileDownloadC.class, null);
-
 	}
 }

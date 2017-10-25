@@ -14,7 +14,5 @@ public class Expand implements IExpandServer {
 	public void init(HttpServlet servlet) throws Exception {
 		HOpCodeBox.init();
 		HttpManager.addHttpListener(new UploadService());
-
 	}
-
 }

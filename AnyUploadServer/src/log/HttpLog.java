@@ -14,19 +14,16 @@ public class HttpLog implements ILog {
 	@Override
 	public void warn(String warn) {
 		this.log.warn(warn);
-
 	}
 
 	@Override
 	public void error(String error, Throwable e) {
 		this.log.error(error, e);
-
 	}
 
 	@Override
 	public void info(String info) {
 		this.log.info(info);
-
 	}
 
 }
