@@ -23,28 +23,29 @@ function FileMediator() {
     this.listNotificationInterests = [notificationExt.UPLOAD_FILE, notificationExt.MD5_CHECK_SUCCESS, notificationExt.MD5_CHECK_FAIL, notificationExt.UPLOAD_FILE_SUCCESS, notificationExt.UPLOAD_FILE_FAIL, notificationExt.OPEN_UPLOADBOX];
     // 关心的消息处理
     this.handleNotification = function (data) {
+        var result, sendParam;
         switch (data.name) {
             case notificationExt.UPLOAD_FILE:
                 this.upLoadFile(data.body);
                 break;
             case notificationExt.MD5_CHECK_SUCCESS:
-                var result = data.body.result;
-                var sendParam = data.body.sendParam;
+                result = data.body.result;
+                sendParam = data.body.sendParam;
                 this.uploadFileMap[sendParam.uploadFileId].checkMD5Success(result);
                 break;
             case notificationExt.MD5_CHECK_FAIL:
-                var result = data.body.result;
-                var sendParam = data.body.sendParam;
+                result = data.body.result;
+                sendParam = data.body.sendParam;
                 this.uploadFileMap[sendParam.uploadFileId].checkMD5Fail(result);
                 break;
             case notificationExt.UPLOAD_FILE_SUCCESS:
-                var result = data.body.result;
-                var sendParam = data.body.sendParam;
+                result = data.body.result;
+                sendParam = data.body.sendParam;
                 this.uploadFileMap[sendParam.uploadFileId].uploadFileSuccess(result);
                 break;
             case notificationExt.UPLOAD_FILE_FAIL:
-                var result = data.body.result;
-                var sendParam = data.body.sendParam;
+                result = data.body.result;
+                sendParam = data.body.sendParam;
                 this.uploadFileMap[sendParam.uploadFileId].uploadFileFail(result);
                 break;
             case notificationExt.OPEN_UPLOADBOX:
@@ -60,9 +61,10 @@ function FileMediator() {
 
     };
     this.advanceTime = function (passedTime) {
-        if (this.md5Array.length < $T.fileConfig.MAX_MD5_MAKE_FILE_NUM) {
-            for (var i = 0; i < this.waitMD5Array.length; i++) {
-                var uploadFileObj = this.waitMD5Array.shift();
+        if (this.md5Array.length < fileConfig.MAX_MD5_MAKE_FILE_NUM) {
+            var i, uploadFileObj;
+            for (i = 0; i < this.waitMD5Array.length; i++) {
+                uploadFileObj = this.waitMD5Array.shift();
                 if (uploadFileObj.isStop) {
                     uploadFileObj.stop();
                     i--;
@@ -84,8 +86,8 @@ function FileMediator() {
 
             }
         }
-        for (var i = 0; i < this.md5Array.length; i++) {
-            var uploadFileObj = this.md5Array[i];
+        for (i = 0; i < this.md5Array.length; i++) {
+            uploadFileObj = this.md5Array[i];
             // 正在异步，不进行操作
             if (uploadFileObj.isLoad) {
                 continue;
@@ -120,8 +122,8 @@ function FileMediator() {
             }
         }
         if (this.checkArray.length < fileConfig.MAX_MD5_CHECK_FILE_NUM) {
-            for (var i = 0; i < this.waitCheckArray.length; i++) {
-                var uploadFileObj = this.waitCheckArray.shift();
+            for (i = 0; i < this.waitCheckArray.length; i++) {
+                uploadFileObj = this.waitCheckArray.shift();
                 if (uploadFileObj.isStop) {
                     uploadFileObj.stop();
                     i--;
@@ -142,8 +144,8 @@ function FileMediator() {
                 }
             }
         }
-        for (var i = 0; i < this.checkArray.length; i++) {
-            var uploadFileObj = this.checkArray[i];
+        for (i = 0; i < this.checkArray.length; i++) {
+            uploadFileObj = this.checkArray[i];
             if (uploadFileObj.isLoad) {
                 continue;
             }
@@ -181,8 +183,8 @@ function FileMediator() {
             }
         }
         if (this.uploadArray.length < fileConfig.MAX_UPLOAD_FILE_NUM) {
-            for (var i = 0; i < this.waitUploadArray.length; i++) {
-                var uploadFileObj = this.waitUploadArray.shift();
+            for (i = 0; i < this.waitUploadArray.length; i++) {
+                uploadFileObj = this.waitUploadArray.shift();
                 if (uploadFileObj.isStop) {
                     uploadFileObj.stop();
                     i--;
@@ -203,8 +205,8 @@ function FileMediator() {
                 }
             }
         }
-        for (var i = 0; i < this.uploadArray.length; i++) {
-            var uploadFileObj = this.uploadArray[i];
+        for (i = 0; i < this.uploadArray.length; i++) {
+            uploadFileObj = this.uploadArray[i];
             if (uploadFileObj.isLoad) {
                 continue;
             }
@@ -243,13 +245,12 @@ function FileMediator() {
                 uploadFileObj.uploadFile(false);
             }
         }
-        for (var i = 0; i < this.closeArray.length; i++) {
-            var uploadFileObj = this.closeArray[i];
+        for (i = 0; i < this.closeArray.length; i++) {
+            uploadFileObj = this.closeArray[i];
             if (uploadFileObj.isCancel) {
                 this.closeArray.splice(i, 1);
                 this.removeUploadFile(uploadFileObj);
                 i--;
-                continue;
             }
         }
     };
@@ -262,7 +263,7 @@ function FileMediator() {
             var file = fileList[i];
             var uploadFileObj = new UploadFileObj();
             uploadFileObj.init(file, fileConfig.getIncrementId());
-            $(".uploadBoxB .mCSB_container").append(uploadFileObj.view);
+            $("#upload_box_upload_itemcontainer").append(uploadFileObj.view);
             $("#mCSB_1_container").append(uploadFileObj.view1);
             uploadFileObj.addListener();
             uploadFileObj.addEventListener(uploadEventType.ADD_WAIT_MD5_ARRAY, this.addWaitMd5Array, this);
