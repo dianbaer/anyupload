@@ -26,12 +26,23 @@ public class UserFileAction implements IUserFileAction {
 	public static String FILE_BASE_PATH;
 	public static SimpleDateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	public static Map<String, UserFileExt> userFileMap = new ConcurrentHashMap<String, UserFileExt>();
+	public static Map<String, FileBase> completeFileBaseMap = new ConcurrentHashMap<String, FileBase>();
+
+	@Override
+	public FileBase getFileBaseByMd5(String fileBaseMd5) {
+		if (StringUtil.stringIsNull(fileBaseMd5)) {
+			return null;
+		}
+		return completeFileBaseMap.get(fileBaseMd5);
+	}
+
 	public static String dateToStringDay(Date date) {
 		if (date == null) {
 			return null;
 		}
 		return shortDateFormat.format(date);
 	}
+
 	@Override
 	public UserFileExt getUserFile(String userFileId) {
 		if (StringUtil.stringIsNull(userFileId)) {
@@ -100,7 +111,8 @@ public class UserFileAction implements IUserFileAction {
 
 	}
 
-	public static boolean updateFile(File file, File chunkFile) {
+	@Override
+	public boolean updateFile(File file, File chunkFile) {
 		FileOutputStream fileOutputStream = null;
 		FileInputStream fileInputStream = null;
 		try {
@@ -175,7 +187,8 @@ public class UserFileAction implements IUserFileAction {
 		return true;
 	}
 
-	public static void createFileBaseDir() {
+	@Override
+	public void createFileBaseDir() {
 		FILE_BASE_PATH = HttpConfig.PROJECT_PATH + "/" + CommonConfigBox.FILE_BASE_PATH;
 		File file = new File(FILE_BASE_PATH);
 		if (!file.exists()) {
@@ -219,7 +232,8 @@ public class UserFileAction implements IUserFileAction {
 		}
 	}
 
-	public static File getFile(String fileBaseRealPath) {
+	@Override
+	public File getFile(String fileBaseRealPath) {
 		File file = new File(FILE_BASE_PATH + "/" + fileBaseRealPath);
 		if (file.exists()) {
 			return file;

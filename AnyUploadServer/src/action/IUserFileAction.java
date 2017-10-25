@@ -1,9 +1,19 @@
 package action;
 
+import java.io.File;
+
 import dao.model.base.FileBase;
 import dao.model.ext.UserFileExt;
 
 public interface IUserFileAction {
+	/**
+	 * 根据md5获取已经存在并且上传完成的
+	 * 
+	 * @param fileBaseMd5
+	 * @return
+	 */
+	public FileBase getFileBaseByMd5(String fileBaseMd5);
+
 	/**
 	 * 根据文件id获取文件
 	 * 
@@ -47,4 +57,26 @@ public interface IUserFileAction {
 	 * @return
 	 */
 	public boolean changeFileBase(UserFileExt userFile, FileBase fileBase);
+
+	/**
+	 * 创建一个存储地址
+	 */
+	public void createFileBaseDir();
+
+	/**
+	 * 获取真实文件
+	 * 
+	 * @param fileBaseRealPath
+	 * @return
+	 */
+	public File getFile(String fileBaseRealPath);
+
+	/**
+	 * 写入文件块
+	 * 
+	 * @param file
+	 * @param chunkFile
+	 * @return
+	 */
+	public boolean updateFile(File file, File chunkFile);
 }
