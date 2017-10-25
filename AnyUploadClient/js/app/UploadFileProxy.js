@@ -29,7 +29,7 @@ function UploadFileProxy() {
         // this.checkMD5Success(result, sendParam);
     };
     this.checkMD5Success = function (event) {
-        var result = event.mData;
+        var result = JSON.parse(event.mData);
         var sendParam = event.mTarget.sendParam;
 
         if (result.fileBasePos === null || result.fileBasePos === undefined) {
@@ -77,7 +77,7 @@ function UploadFileProxy() {
         // this.uploadFileSuccess(result, sendParam);
     };
     this.uploadFileSuccess = function (event) {
-        var result = event.mData;
+        var result = JSON.parse(event.mData);
         var sendParam = event.mTarget.sendParam;
         if (result.fileBasePos === null || result.fileBasePos === undefined) {
             result.fileBasePos = 0;
