@@ -79,4 +79,13 @@ public interface IUserFileAction {
 	 * @return
 	 */
 	public boolean updateFile(File file, File chunkFile);
+
+	/**
+	 * 更新filebase
+	 * 
+	 * @param userFile
+	 * @param uploadLength
+	 * @return
+	 */
+	public boolean updateUserFile(UserFileExt userFile, int uploadLength);
 }

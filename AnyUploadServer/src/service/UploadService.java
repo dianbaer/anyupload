@@ -172,7 +172,7 @@ public class UploadService implements IHttpListener {
 			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_11, httpPacket.hSession.headParam.hOpCode);
 			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
-		result = UserFileAction.updateUserFile(userFile, message.getUploadLength());
+		result = userFileAction.updateUserFile(userFile, message.getUploadLength());
 		if (!result) {
 			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_12, httpPacket.hSession.headParam.hOpCode);
 			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);

@@ -10,17 +10,13 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.ibatis.session.SqlSession;
 import org.grain.httpserver.HttpConfig;
-import org.grain.mariadb.MybatisManager;
 
 import config.CommonConfigBox;
 import config.FileBaseConfig;
-import dao.dao.base.FileBaseMapper;
 import dao.model.base.FileBase;
 import dao.model.ext.UserFileExt;
 import tool.StringUtil;
-import tool.TimeUtils;
 
 public class UserFileAction implements IUserFileAction {
 	public static String FILE_BASE_PATH;
@@ -147,42 +143,21 @@ public class UserFileAction implements IUserFileAction {
 		}
 	}
 
-	public static boolean updateUserFile(UserFileExt userFile, int uploadLength) {
-		FileBase fileBase = new FileBase();
-		fileBase.setFileBaseId(userFile.getFileBase().getFileBaseId());
+	@Override
+	public boolean updateUserFile(UserFileExt userFile, int uploadLength) {
 		Date date = new Date();
-		fileBase.setFileBasePos(userFile.getFileBase().getFileBasePos() + uploadLength);
+		userFile.getFileBase().setFileBasePos(userFile.getFileBase().getFileBasePos() + uploadLength);
 		// 已完成
-		if (fileBase.getFileBasePos() == userFile.getFileBase().getFileBaseTotalSize()) {
-			fileBase.setFileBaseNextUploadTime(null);
-			fileBase.setFileBaseCompleteTime(date);
-			fileBase.setFileBaseState((byte) FileBaseConfig.STATE_COMPLETE);
+		if (userFile.getFileBase().getFileBasePos() == userFile.getFileBase().getFileBaseTotalSize()) {
+			userFile.getFileBase().setFileBaseNextUploadTime(null);
+			userFile.getFileBase().setFileBaseCompleteTime(date);
+			userFile.getFileBase().setFileBaseState((byte) FileBaseConfig.STATE_COMPLETE);
+			// 存入md5映射表
+			completeFileBaseMap.put(userFile.getFileBase().getFileBaseMd5(), userFile.getFileBase());
 		} else {
 			long fileBaseNextUploadTimeLong = date.getTime() + CommonConfigBox.WAIT_TIME;
 			Date fileBaseNextUploadTime = new Date(fileBaseNextUploadTimeLong);
-			fileBase.setFileBaseNextUploadTime(fileBaseNextUploadTime);
-		}
-
-		SqlSession sqlSession = null;
-		try {
-			sqlSession = MybatisManager.getSqlSession();
-			FileBaseMapper fileBaseMapper = sqlSession.getMapper(FileBaseMapper.class);
-			int result = fileBaseMapper.updateByPrimaryKeySelective(fileBase);
-			if (result != 1) {
-				MybatisManager.log.warn("修改基础文件失败");
-				return false;
-			}
-			sqlSession.commit();
-		} catch (Exception e) {
-			if (sqlSession != null) {
-				sqlSession.rollback();
-			}
-			MybatisManager.log.error("修改基础文件异常", e);
-			return false;
-		} finally {
-			if (sqlSession != null) {
-				sqlSession.close();
-			}
+			userFile.getFileBase().setFileBaseNextUploadTime(fileBaseNextUploadTime);
 		}
 		return true;
 	}
@@ -208,7 +183,7 @@ public class UserFileAction implements IUserFileAction {
 
 	public static String getFoldName() {
 		Date date = new Date();
-		String foldName = TimeUtils.dateToStringDay(date);
+		String foldName = dateToStringDay(date);
 		return foldName;
 	}
 
