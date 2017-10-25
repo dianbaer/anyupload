@@ -25,7 +25,6 @@ import protobuf.http.UploadFileProto.MD5CheckS;
 import protobuf.http.UploadFileProto.UploadFileC;
 import protobuf.http.UploadFileProto.UploadFileS;
 import protobuf.http.UploadFileProto.UserFileDownloadC;
-import tool.StringUtil;
 
 public class UploadService implements IHttpListener {
 	public IUserFileAction userFileAction;
@@ -42,8 +41,11 @@ public class UploadService implements IHttpListener {
 	public HttpPacket md5CheckHandle(HttpPacket httpPacket) throws HttpException {
 		MD5CheckC message = (MD5CheckC) httpPacket.getData();
 		UserFileExt userFile = null;
-		if (!StringUtil.stringIsNull(message.getUserFileId())) {
+		// 不为空
+		if (message.getUserFileId() != null && !message.getUserFileId().equals("")) {
+			// 获取文件
 			userFile = userFileAction.getUserFile(message.getUserFileId());
+			// 如果已经完成，秒传
 			if (userFile != null && userFile.getFileBase().getFileBaseState() == FileBaseConfig.STATE_COMPLETE) {
 				MD5CheckS.Builder builder = MD5CheckS.newBuilder();
 				builder.setHOpCode(httpPacket.hSession.headParam.hOpCode);
@@ -53,8 +55,10 @@ public class UploadService implements IHttpListener {
 				return packet;
 			}
 		}
+		// 取已经完成的基础文件
 		FileBase fileBase = userFileAction.getFileBaseByMd5(message.getFileBaseMd5());
 		if (userFile == null) {
+			// 文件为空，则创建文件
 			userFile = userFileAction.createUserFile(message.getUserFileName(), message.getUserFoldParentId(), "xxxxx", message.getFileBaseMd5(), message.getFileBaseTotalSize(), fileBase);
 			if (userFile == null) {
 				BoxErrorS boxErrorS = createError(BoxErrorCode.ERROR_CODE_3, httpPacket.hSession.headParam.hOpCode);

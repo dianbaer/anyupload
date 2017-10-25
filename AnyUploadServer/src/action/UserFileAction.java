@@ -23,10 +23,15 @@ public class UserFileAction implements IUserFileAction {
 	public static SimpleDateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	public static Map<String, UserFileExt> userFileMap = new ConcurrentHashMap<String, UserFileExt>();
 	public static Map<String, FileBase> completeFileBaseMap = new ConcurrentHashMap<String, FileBase>();
-
+	public static boolean stringIsNull(String str) {
+		if (str == null || str.equals("")) {
+			return true;
+		}
+		return false;
+	}
 	@Override
 	public FileBase getFileBaseByMd5(String fileBaseMd5) {
-		if (StringUtil.stringIsNull(fileBaseMd5)) {
+		if (stringIsNull(fileBaseMd5)) {
 			return null;
 		}
 		return completeFileBaseMap.get(fileBaseMd5);
@@ -41,7 +46,7 @@ public class UserFileAction implements IUserFileAction {
 
 	@Override
 	public UserFileExt getUserFile(String userFileId) {
-		if (StringUtil.stringIsNull(userFileId)) {
+		if (stringIsNull(userFileId)) {
 			return null;
 		}
 		return userFileMap.get(userFileId);
@@ -49,7 +54,7 @@ public class UserFileAction implements IUserFileAction {
 
 	@Override
 	public UserFileExt getUserFileComplete(String userFileId) {
-		if (StringUtil.stringIsNull(userFileId)) {
+		if (stringIsNull(userFileId)) {
 			return null;
 		}
 		UserFileExt userFile = userFileMap.get(userFileId);
@@ -63,7 +68,7 @@ public class UserFileAction implements IUserFileAction {
 
 	@Override
 	public UserFileExt createUserFile(String userFileName, String userFoldParentId, String createUserId, String fileBaseMd5, long fileBaseTotalSize, FileBase fileBase) {
-		if (StringUtil.stringIsNull(userFileName) || StringUtil.stringIsNull(userFoldParentId) || StringUtil.stringIsNull(createUserId) || StringUtil.stringIsNull(fileBaseMd5)) {
+		if (stringIsNull(userFileName) || stringIsNull(userFoldParentId) || stringIsNull(createUserId) || stringIsNull(fileBaseMd5)) {
 			return null;
 		}
 		UserFileExt userFile = new UserFileExt();

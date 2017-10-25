@@ -123,110 +123,6 @@ public final class BoxErrorProto {
      * <code>ERROR_CODE_12 = 12;</code>
      */
     ERROR_CODE_12(12),
-    /**
-     * <pre>
-     *创建文件夹失败，父类文件夹不能为空
-     * </pre>
-     *
-     * <code>ERROR_CODE_13 = 13;</code>
-     */
-    ERROR_CODE_13(13),
-    /**
-     * <pre>
-     *创建文件夹失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_14 = 14;</code>
-     */
-    ERROR_CODE_14(14),
-    /**
-     * <pre>
-     *修改文件夹失败，不存在这个文件夹
-     * </pre>
-     *
-     * <code>ERROR_CODE_15 = 15;</code>
-     */
-    ERROR_CODE_15(15),
-    /**
-     * <pre>
-     *获取文件夹子类失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_16 = 16;</code>
-     */
-    ERROR_CODE_16(16),
-    /**
-     * <pre>
-     *获取文件夹子文件夹失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_17 = 17;</code>
-     */
-    ERROR_CODE_17(17),
-    /**
-     * <pre>
-     *获取回收站文件失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_18 = 18;</code>
-     */
-    ERROR_CODE_18(18),
-    /**
-     * <pre>
-     *修改文件失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_19 = 19;</code>
-     */
-    ERROR_CODE_19(19),
-    /**
-     * <pre>
-     *将选择文件移动到回收站失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_20 = 20;</code>
-     */
-    ERROR_CODE_20(20),
-    /**
-     * <pre>
-     *将选择文件还原失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_21 = 21;</code>
-     */
-    ERROR_CODE_21(21),
-    /**
-     * <pre>
-     *将选择文件移动到指定文件夹失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_22 = 22;</code>
-     */
-    ERROR_CODE_22(22),
-    /**
-     * <pre>
-     *将选择文件彻底删除失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_23 = 23;</code>
-     */
-    ERROR_CODE_23(23),
-    /**
-     * <pre>
-     *清空回收站失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_24 = 24;</code>
-     */
-    ERROR_CODE_24(24),
-    /**
-     * <pre>
-     *md5校验失败，超出最大允许空间
-     * </pre>
-     *
-     * <code>ERROR_CODE_25 = 25;</code>
-     */
-    ERROR_CODE_25(25),
     UNRECOGNIZED(-1),
     ;
 
@@ -334,110 +230,6 @@ public final class BoxErrorProto {
      * <code>ERROR_CODE_12 = 12;</code>
      */
     public static final int ERROR_CODE_12_VALUE = 12;
-    /**
-     * <pre>
-     *创建文件夹失败，父类文件夹不能为空
-     * </pre>
-     *
-     * <code>ERROR_CODE_13 = 13;</code>
-     */
-    public static final int ERROR_CODE_13_VALUE = 13;
-    /**
-     * <pre>
-     *创建文件夹失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_14 = 14;</code>
-     */
-    public static final int ERROR_CODE_14_VALUE = 14;
-    /**
-     * <pre>
-     *修改文件夹失败，不存在这个文件夹
-     * </pre>
-     *
-     * <code>ERROR_CODE_15 = 15;</code>
-     */
-    public static final int ERROR_CODE_15_VALUE = 15;
-    /**
-     * <pre>
-     *获取文件夹子类失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_16 = 16;</code>
-     */
-    public static final int ERROR_CODE_16_VALUE = 16;
-    /**
-     * <pre>
-     *获取文件夹子文件夹失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_17 = 17;</code>
-     */
-    public static final int ERROR_CODE_17_VALUE = 17;
-    /**
-     * <pre>
-     *获取回收站文件失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_18 = 18;</code>
-     */
-    public static final int ERROR_CODE_18_VALUE = 18;
-    /**
-     * <pre>
-     *修改文件失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_19 = 19;</code>
-     */
-    public static final int ERROR_CODE_19_VALUE = 19;
-    /**
-     * <pre>
-     *将选择文件移动到回收站失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_20 = 20;</code>
-     */
-    public static final int ERROR_CODE_20_VALUE = 20;
-    /**
-     * <pre>
-     *将选择文件还原失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_21 = 21;</code>
-     */
-    public static final int ERROR_CODE_21_VALUE = 21;
-    /**
-     * <pre>
-     *将选择文件移动到指定文件夹失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_22 = 22;</code>
-     */
-    public static final int ERROR_CODE_22_VALUE = 22;
-    /**
-     * <pre>
-     *将选择文件彻底删除失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_23 = 23;</code>
-     */
-    public static final int ERROR_CODE_23_VALUE = 23;
-    /**
-     * <pre>
-     *清空回收站失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_24 = 24;</code>
-     */
-    public static final int ERROR_CODE_24_VALUE = 24;
-    /**
-     * <pre>
-     *md5校验失败，超出最大允许空间
-     * </pre>
-     *
-     * <code>ERROR_CODE_25 = 25;</code>
-     */
-    public static final int ERROR_CODE_25_VALUE = 25;
 
 
     public final int getNumber() {
@@ -471,19 +263,6 @@ public final class BoxErrorProto {
         case 10: return ERROR_CODE_10;
         case 11: return ERROR_CODE_11;
         case 12: return ERROR_CODE_12;
-        case 13: return ERROR_CODE_13;
-        case 14: return ERROR_CODE_14;
-        case 15: return ERROR_CODE_15;
-        case 16: return ERROR_CODE_16;
-        case 17: return ERROR_CODE_17;
-        case 18: return ERROR_CODE_18;
-        case 19: return ERROR_CODE_19;
-        case 20: return ERROR_CODE_20;
-        case 21: return ERROR_CODE_21;
-        case 22: return ERROR_CODE_22;
-        case 23: return ERROR_CODE_23;
-        case 24: return ERROR_CODE_24;
-        case 25: return ERROR_CODE_25;
         default: return null;
       }
     }
@@ -1422,20 +1201,14 @@ public final class BoxErrorProto {
       "\n\023BoxErrorProto.proto\022\rprotobuf.http\"t\n\t" +
       "BoxErrorS\022\017\n\007hOpCode\030\001 \001(\t\022.\n\terrorCode\030" +
       "\002 \001(\0162\033.protobuf.http.BoxErrorCode\022\024\n\014er" +
-      "rorHOpCode\030\003 \001(\t\022\020\n\010extraMsg\030\004 \001(\t*\362\003\n\014B" +
+      "rorHOpCode\030\003 \001(\t\022\020\n\010extraMsg\030\004 \001(\t*\373\001\n\014B" +
       "oxErrorCode\022\020\n\014ERROR_CODE_0\020\000\022\020\n\014ERROR_C" +
       "ODE_1\020\001\022\020\n\014ERROR_CODE_2\020\002\022\020\n\014ERROR_CODE_" +
       "3\020\003\022\020\n\014ERROR_CODE_4\020\004\022\020\n\014ERROR_CODE_5\020\005\022" +
       "\020\n\014ERROR_CODE_6\020\006\022\020\n\014ERROR_CODE_7\020\007\022\020\n\014E" +
       "RROR_CODE_8\020\010\022\020\n\014ERROR_CODE_9\020\t\022\021\n\rERROR" +
       "_CODE_10\020\n\022\021\n\rERROR_CODE_11\020\013\022\021\n\rERROR_C",
-      "ODE_12\020\014\022\021\n\rERROR_CODE_13\020\r\022\021\n\rERROR_COD" +
-      "E_14\020\016\022\021\n\rERROR_CODE_15\020\017\022\021\n\rERROR_CODE_" +
-      "16\020\020\022\021\n\rERROR_CODE_17\020\021\022\021\n\rERROR_CODE_18" +
-      "\020\022\022\021\n\rERROR_CODE_19\020\023\022\021\n\rERROR_CODE_20\020\024" +
-      "\022\021\n\rERROR_CODE_21\020\025\022\021\n\rERROR_CODE_22\020\026\022\021" +
-      "\n\rERROR_CODE_23\020\027\022\021\n\rERROR_CODE_24\020\030\022\021\n\r" +
-      "ERROR_CODE_25\020\031b\006proto3"
+      "ODE_12\020\014b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
