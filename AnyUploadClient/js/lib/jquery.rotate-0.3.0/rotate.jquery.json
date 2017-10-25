@@ -1,0 +1,24 @@
+{
+    "name": "rotate",
+    "title": "jQuery Rotate",
+    "description": "jQuery Rotate is simple plugin that add css rotate property and animation.",
+    "version": "0.3.0",
+    "keywords": [
+        "rotate", "css", "animation", "effect"
+    ],
+    "author": {
+        "name": "Jakub Jankiewicz",
+        "email": "jcubic@onet.pl",
+        "url": "http://jcubic.pl"
+    },
+    "licenses": [{
+        "type": "LGPLv3",
+        "url": "http://www.gnu.org/licenses/lgpl.html"
+    }],
+    "bugs": "https://github.com/jcubic/jquery.rotate/issues",
+    "demo": "http://jquery.jcubic.pl/rotate.php",
+    "download": "https://github.com/jcubic/jquery.rotate/archive/0.3.0.zip",
+    "dependencies": {
+        "jquery": ">=1.5"
+    }
+}

@@ -1,0 +1,63 @@
+<meta charset="UTF-8">
+<!-- 回收站部分开始-->
+<div class="garCon_PJY">
+    <!-- 回收站头部部分开始-->
+    <div class="fileHead_PJY">
+        <ul>
+            <li id="recycle_allDel">
+                <a class="m-btn allDel_PJY" href="javascript:;">
+                    <i class="icon04"></i>
+                    <span>清空回收站</span>
+                </a>
+            </li>
+            <li class="allRe_PJY hide" id="recycle_allRe">
+                <a class="s-btn allRe_PJY" href="javascript:;">
+                    <i class="icon11"></i>
+                    <span>还原</span>
+                </a>
+            </li>
+            <li class="hide" id="recycle_ChooseDel">
+                <a class="s-btn delAll_PJY" href="javascript:;">
+                    <i class="icon04"></i>
+                    <span>删除</span>
+                </a>
+            </li>
+        </ul>
+        <dl class="total_PJY garSty_PJY">
+            <dt>
+                <label for="">回收站</label>
+                <span>提示：回收站不占用网盘空间，文件保存<span>10</span>天后将被自动清除。</span>
+            </dt>
+            <dd>
+                已全部加载，共<span id="recyclebin_userfilenum"></span>个
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+    </div>
+    <!-- 回收站头部部分结束-->
+    <!-- 回收站列表部分开始-->
+    <div class="fileList_PJY">
+        <div class="listHead_PJY">
+            <ul>
+                <li class="li1_PJY">
+                    <div class="checkbox">
+                        <input type="checkbox" class="allCheck"/>
+                    </div>
+                    <span class="title1_PJY" id="recycle_title1_pyj">文件名</span>
+                    <span class="title2_PJY hide" id="recycle_title2_pyj">已选中<span>0</span>文件/文件夹</span><i
+                        class="xuBtn_PJY"></i>
+                </li>
+                <li class="li3_PJY">大小<i class="xuBtn_PJY"></i></li>
+                <li class="li4_PJY">有效时间<i class="xuBtn_PJY"></i></li>
+                <li class="li5_PJY">修改日期<i class="xuBtn_PJY"></i></li>
+            </ul>
+        </div>
+        <div class="window2_PJY">
+            <ul class="list_PJY listSty1_PJY hide" id="recyclebin_userfilelist">
+
+            </ul>
+        </div>
+    </div>
+    <!-- 回收站列表部分结束-->
+</div>
+<!-- 回收站部分结束-->
