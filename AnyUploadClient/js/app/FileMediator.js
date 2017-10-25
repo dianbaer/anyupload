@@ -19,7 +19,6 @@ function FileMediator() {
     this.allNum = 0;
     this.nowCompleteNum = 0;
     this.view1Num = 0;
-    this.isFirst = true;
     this.init = function (view) {
 
     };
@@ -265,10 +264,7 @@ function FileMediator() {
         if (fileList === null || fileList.length === 0) {
             return;
         }
-        if (this.isFirst) {
-            this.openUploadBox();
-            this.isFirst = false;
-        }
+
         for (var i = 0; i < fileList.length; i++) {
             var file = fileList[i];
             var uploadFileObj = new UploadFileObj();
@@ -378,6 +374,6 @@ function FileMediator() {
         var uploadFileObj = event.mTarget;
         $T.userFoldProxy.getUserFoldChildren(uploadFileObj.nowFoldId);
     };
-    juggler.Mediator.apply(this);
+    juggle.Mediator.apply(this);
 }
 fileMediator = new FileMediator();
