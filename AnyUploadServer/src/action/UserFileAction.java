@@ -16,19 +16,20 @@ import config.CommonConfigBox;
 import config.FileBaseConfig;
 import dao.model.base.FileBase;
 import dao.model.ext.UserFileExt;
-import tool.StringUtil;
 
 public class UserFileAction implements IUserFileAction {
 	public static String FILE_BASE_PATH;
 	public static SimpleDateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	public static Map<String, UserFileExt> userFileMap = new ConcurrentHashMap<String, UserFileExt>();
 	public static Map<String, FileBase> completeFileBaseMap = new ConcurrentHashMap<String, FileBase>();
+
 	public static boolean stringIsNull(String str) {
 		if (str == null || str.equals("")) {
 			return true;
 		}
 		return false;
 	}
+
 	@Override
 	public FileBase getFileBaseByMd5(String fileBaseMd5) {
 		if (stringIsNull(fileBaseMd5)) {
