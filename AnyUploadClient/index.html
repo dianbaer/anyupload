@@ -22,10 +22,13 @@
 </head>
 <script type="text/javascript">
     window.onload = function () {
-        juggle.jugglerManager.juggler.add(fileMediator);
+        var fileMediator = new FileMediator();
+        fileMediator.initView();
+
     }
 </script>
 <body>
+<input type="file" class="myFile_PJY" multiple="multiple" id="allfile_head_uploadfilebutton"/>
 <div id="index_uploadbox">
     <div class="uploader_list_header">
         <div class="file_name">文件名</div>

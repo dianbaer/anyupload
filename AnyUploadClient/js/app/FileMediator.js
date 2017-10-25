@@ -19,6 +19,19 @@ function FileMediator() {
     this.allNum = 0;
     this.nowCompleteNum = 0;
     this.view1Num = 0;
+    this.initView = function () {
+        $("#allfile_head_uploadfilebutton").on("change", this.onUploadFileButtonChange);
+        juggle.jugglerManager.juggler.add(this);
+    };
+    this.onUploadFileButtonChange = function (e) {
+        if (!("FileReader" in window) || !("File" in window)) {
+            alert("您的浏览器不支持html5，请使用google，firefox，ie10等浏览器");
+            return;
+        }
+        var files = e.target.files;
+        this.upLoadFile(files);
+        $("#allfile_head_uploadfilebutton").val("");
+    }
     // 关心消息数组
     this.listNotificationInterests = [notificationExt.UPLOAD_FILE, notificationExt.MD5_CHECK_SUCCESS, notificationExt.MD5_CHECK_FAIL, notificationExt.UPLOAD_FILE_SUCCESS, notificationExt.UPLOAD_FILE_FAIL, notificationExt.OPEN_UPLOADBOX];
     // 关心的消息处理
@@ -370,4 +383,3 @@ function FileMediator() {
     };
     juggle.Mediator.apply(this);
 }
-fileMediator = new FileMediator();
