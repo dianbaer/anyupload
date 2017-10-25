@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
@@ -23,8 +24,14 @@ import tool.TimeUtils;
 
 public class UserFileAction implements IUserFileAction {
 	public static String FILE_BASE_PATH;
+	public static SimpleDateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	public static Map<String, UserFileExt> userFileMap = new ConcurrentHashMap<String, UserFileExt>();
-
+	public static String dateToStringDay(Date date) {
+		if (date == null) {
+			return null;
+		}
+		return shortDateFormat.format(date);
+	}
 	@Override
 	public UserFileExt getUserFile(String userFileId) {
 		if (StringUtil.stringIsNull(userFileId)) {
