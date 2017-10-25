@@ -1,5 +1,5 @@
 function UploadFileProxy() {
-    this.NAME = "UploadFileProxy";
+    juggle.Proxy.apply(this);
     this.checkMD5 = function (uploadFileId, fileBaseMd5, userFileName, userFoldParentId, fileBaseTotalSize, userFileId) {
         var data = {
             "hOpCode": 50000,
@@ -9,17 +9,16 @@ function UploadFileProxy() {
             "fileBaseTotalSize": fileBaseTotalSize,
             "userFileId": userFileId
         };
-        var sendParam = new SendParam();
-        sendParam.successHandle = this.checkMD5Success;
-        sendParam.failHandle = this.checkMD5Fail;
-        sendParam.object = this;
-        sendParam.data = data;
-        sendParam.url = $T.url.boxUrl;
         // 用于确认回调到底是哪个文件的消息
-        sendParam.uploadFileId = uploadFileId;
-        sendParam.token = $T.cookieParam.getCookieParam($T.cookieName.TOKEN);
-        sendParam.canContinuous = true;
-        $T.httpUtil.send(sendParam);
+        var sendParam = {
+            "data": data,
+            "uploadFileId": uploadFileId
+        };
+        var httpClient = new juggle.HttpClient();
+        httpClient.sendParam = sendParam;
+        httpClient.send(data, "http://localhost:8080/AnyUploadServer/s", null);
+        httpClient.addEventListener(juggle.httpEventType.SUCCESS, this.checkMD5Success, this);
+        httpClient.addEventListener(juggle.httpEventType.ERROR, this.checkMD5Fail, this);
         // var result = {
         // "hOpCode" : 50000,
         // "result" : 2,
@@ -28,22 +27,27 @@ function UploadFileProxy() {
         // "userFileId" : Math.uuid()
         // }
         // this.checkMD5Success(result, sendParam);
-    }
-    this.checkMD5Success = function (result, sendParam) {
-        if (result.fileBasePos == null) {
+    };
+    this.checkMD5Success = function (event) {
+        var result = event.mData;
+        var sendParam = event.mTarget.sendParam;
+
+        if (result.fileBasePos === null || result.fileBasePos === undefined) {
             result.fileBasePos = 0;
         }
-        $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.MD5_CHECK_SUCCESS, {
+        this.notifyObservers(this.getNotification(notificationExt.MD5_CHECK_SUCCESS, {
             "result": result,
             "sendParam": sendParam
         }));
-    }
-    this.checkMD5Fail = function (result, sendParam) {
-        $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.MD5_CHECK_FAIL, {
+    };
+    this.checkMD5Fail = function (event) {
+        var result = event.mData;
+        var sendParam = event.mTarget.sendParam;
+        this.notifyObservers(this.getNotification(notificationExt.MD5_CHECK_FAIL, {
             "result": result,
             "sendParam": sendParam
         }));
-    }
+    };
     this.uploadFile = function (uploadFileId, userFileId, fileBasePos, uploadLength, fileArray) {
         var data = {
             "hOpCode": 50001,
@@ -51,18 +55,17 @@ function UploadFileProxy() {
             "fileBasePos": fileBasePos,
             "uploadLength": uploadLength
         };
-        var sendParam = new SendParam();
-        sendParam.successHandle = this.uploadFileSuccess;
-        sendParam.failHandle = this.uploadFileFail;
-        sendParam.object = this;
-        sendParam.data = data;
-        sendParam.url = $T.url.boxUrl;
         // 用于确认回调到底是哪个文件的消息
-        sendParam.uploadFileId = uploadFileId;
-        sendParam.fileArray = fileArray;
-        sendParam.token = $T.cookieParam.getCookieParam($T.cookieName.TOKEN);
-        sendParam.canContinuous = true;
-        $T.httpUtil.send(sendParam);
+        var sendParam = {
+            "data": data,
+            "uploadFileId": uploadFileId
+        };
+
+        var httpClient = new juggle.HttpClient();
+        httpClient.sendParam = sendParam;
+        httpClient.sendFile(fileArray, data, "http://localhost:8080/AnyUploadServer/s", null);
+        httpClient.addEventListener(juggle.httpEventType.SUCCESS, this.uploadFileSuccess, this);
+        httpClient.addEventListener(juggle.httpEventType.ERROR, this.uploadFileFail, this);
         // var result = {
         // "hOpCode" : 50001,
         // "result" : 2,
@@ -72,21 +75,24 @@ function UploadFileProxy() {
         // "waitTime" : 640
         // };
         // this.uploadFileSuccess(result, sendParam);
-    }
-    this.uploadFileSuccess = function (result, sendParam) {
-        if (result.fileBasePos == null) {
+    };
+    this.uploadFileSuccess = function (event) {
+        var result = event.mData;
+        var sendParam = event.mTarget.sendParam;
+        if (result.fileBasePos === null || result.fileBasePos === undefined) {
             result.fileBasePos = 0;
         }
-        $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.UPLOAD_FILE_SUCCESS, {
+        this.notifyObservers(this.getNotification(notificationExt.UPLOAD_FILE_SUCCESS, {
             "result": result,
             "sendParam": sendParam
         }));
-    }
-    this.uploadFileFail = function (result, sendParam) {
-        $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.UPLOAD_FILE_FAIL, {
+    };
+    this.uploadFileFail = function (event) {
+        var result = event.mData;
+        var sendParam = event.mTarget.sendParam;
+        this.notifyObservers(this.getNotification(notificationExt.UPLOAD_FILE_FAIL, {
             "result": result,
             "sendParam": sendParam
         }));
     }
 }
-$T.uploadFileProxy = new UploadFileProxy();

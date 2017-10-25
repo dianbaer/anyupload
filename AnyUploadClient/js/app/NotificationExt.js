@@ -33,4 +33,4 @@ function NotificationExt() {
     this.GET_BOX_INFO_SUCCESS = "getBoxInfoSuccess";
 
 }
-$T.notificationExt = new NotificationExt();
+notificationExt = new NotificationExt();

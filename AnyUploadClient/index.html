@@ -2,65 +2,15 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>企业网盘--首页</title>
-    <script src="js/lib/threecss-c.js?v=v1.0.0" type="text/javascript"></script>
+    <title></title>
+    <script src="js/lib/juggle-all.js" type="text/javascript"></script>
+    <script src="js/lib/spark-md5.js" type="text/javascript"></script>
+    <script src="js/lib/Math.uuid.js" type="text/javascript"></script>
+    <script src="js/lib/jquery.min.js" type="text/javascript"></script>
+    <script src="js/lib/jquery.cookie.js" type="text/javascript"></script>
 </head>
 <script type="text/javascript">
-    //加载内部类
-    $T.version.loadScript("js/lib/jquery.min.js");
-    $T.version.loadScript("js/lib/jquery.cookie.js");
-    $T.version.loadScript("js/lib/Math.uuid.js");
-    $T.version.loadScript("js/lib/spark-md5.js");
-
-    $T.version.loadScript("js/app/NotificationExt.js");
-    $T.version.loadScript("js/app/Url.js");
-    $T.version.loadScript("js/app/CookieParam.js");
-    $T.version.loadScript("js/app/CookieName.js");
-    $T.version.loadScript("js/app/BoxErrorFilter.js");
-    $T.version.loadScript("js/app/BoxErrorMsg.js");
-    $T.version.loadScript("js/app/SortTool.js");
-    $T.version.loadScript("js/app/PageFormat.js");
-
-    $T.version.loadScript("js/app/data/http/UploadFileProxy.js");
-    $T.version.loadScript("js/app/data/http/TokenProxy.js");
-    $T.version.loadScript("js/app/data/http/UserFoldProxy.js");
-    $T.version.loadScript("js/app/data/http/UserFileProxy.js");
-    $T.version.loadScript("js/app/data/http/MutliOperateProxy.js");
-    $T.version.loadScript("js/app/data/http/BoxInfoProxy.js");
-
-    $T.version.loadScript("js/app/IndexMediator.js");
-    $T.version.loadScript("js/app/module/LeftMediator.js");
-    $T.version.loadScript("js/app/module/RightMediator.js");
-    $T.version.loadScript("js/app/module/ContainerAllFileMediator.js");
-    $T.version.loadScript("js/app/module/AllFileHeadMediator.js");
-    $T.version.loadScript("js/app/module/AllFileView1Mediator.js");
-    $T.version.loadScript("js/app/module/AllFileView2Mediator.js");
-    $T.version.loadScript("js/app/module/ContainerRecyclebinMediator.js");
-    $T.version.loadScript("js/app/module/ImagePreviewMediator.js");
-    $T.version.loadScript("js/app/module/MoveToMediator.js");
-
-
-    $T.version.loadScript("js/app/FileMediator.js");
-    $T.version.loadScript("js/app/FileConfig.js");
-    $T.version.loadScript("js/app/UploadFileObj.js");
-    $T.version.loadScript("js/app/FileSystemStatus.js");
-    $T.version.loadScript("js/app/ByteUtil.js");
-    $T.version.loadScript("js/app/UploadEventType.js");
-    $T.version.loadScript("js/app/GetUrlParam.js");
-    $T.version.loadScript("js/app/PostfixUtil.js");
-
-    $T.version.loadScript("js/lib/check.js");
-    $T.version.loadScript("js/lib/jquery.mCustomScrollbar.concat.min.js");
-    $T.version.loadScript("js/lib/layer/layer.js");
-    $T.version.loadCss("css/base.css");
-    $T.version.loadCss("css/jquery.mCustomScrollbar.min.css");
-    $T.version.loadCss("css/yun_zy.css");
-    $T.version.loadCss("css/mes_PJY.css");
-    $T.version.loadScript("js/lib/jQueryRotate.2.2.js");
-
     window.onload = function () {
-        //初始化内部类
-        $T.version.init();
         //初始化过滤器
         var boxErrorFilter = new BoxErrorFilter();
         $T.httpResultFilter.addFilter(boxErrorFilter);
@@ -70,26 +20,7 @@
     }
 </script>
 <body>
-<div class="body_PJY" id="index_body">
-    <!-- 左侧导航开始-->
-    <div class="nav_left" id="index_left">
-    </div>
-    <!-- 左侧导航结束-->
-    <!-- 中间部分开始-->
-    <div class="container" id="index_container">
-    </div>
-    <!-- 中间部分结束-->
-    <!-- 右侧导航开始-->
-    <div class="nav_right" id="index_right">
-    </div>
-    <!-- 右侧导航结束-->
-    <div class="clear"></div>
-</div>
 <div class="uploadBox hide" id="index_uploadbox">
-</div>
-<div class="yunPopBg hide" id="index_image_preview">
-</div>
-<div id="layer1">
 </div>
 </body>
 </html>
