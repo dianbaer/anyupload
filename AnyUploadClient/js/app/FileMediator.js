@@ -20,8 +20,14 @@ function FileMediator() {
     this.nowCompleteNum = 0;
     this.view1Num = 0;
     this.initView = function () {
-        $("#allfile_head_uploadfilebutton").on("change", this.onUploadFileButtonChange);
+        this.onChange(this, this.onUploadFileButtonChange);
         juggle.jugglerManager.juggler.add(this);
+    };
+    this.onChange = function (mediator, call) {
+        this.onLoadFunc = function (event) {
+            call.call(mediator, event);
+        };
+        $("#allfile_head_uploadfilebutton").on("change", this.onLoadFunc);
     };
     this.onUploadFileButtonChange = function (e) {
         if (!("FileReader" in window) || !("File" in window)) {
@@ -31,7 +37,7 @@ function FileMediator() {
         var files = e.target.files;
         this.upLoadFile(files);
         $("#allfile_head_uploadfilebutton").val("");
-    }
+    };
     // 关心消息数组
     this.listNotificationInterests = [notificationExt.UPLOAD_FILE, notificationExt.MD5_CHECK_SUCCESS, notificationExt.MD5_CHECK_FAIL, notificationExt.UPLOAD_FILE_SUCCESS, notificationExt.UPLOAD_FILE_FAIL, notificationExt.OPEN_UPLOADBOX];
     // 关心的消息处理

@@ -16,7 +16,7 @@ function UploadFileProxy() {
         };
         var httpClient = new juggle.HttpClient();
         httpClient.sendParam = sendParam;
-        httpClient.send(data, "http://localhost:8080/AnyUploadServer/s", null);
+        httpClient.send(data, "http://localhost:8081/AnyUploadServer/s", null);
         httpClient.addEventListener(juggle.httpEventType.SUCCESS, this.checkMD5Success, this);
         httpClient.addEventListener(juggle.httpEventType.ERROR, this.checkMD5Fail, this);
         // var result = {
@@ -63,7 +63,7 @@ function UploadFileProxy() {
 
         var httpClient = new juggle.HttpClient();
         httpClient.sendParam = sendParam;
-        httpClient.sendFile(fileArray, data, "http://localhost:8080/AnyUploadServer/s", null);
+        httpClient.sendFile(fileArray, data, "http://localhost:8081/AnyUploadServer/s", null);
         httpClient.addEventListener(juggle.httpEventType.SUCCESS, this.uploadFileSuccess, this);
         httpClient.addEventListener(juggle.httpEventType.ERROR, this.uploadFileFail, this);
         // var result = {
