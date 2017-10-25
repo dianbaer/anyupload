@@ -14,7 +14,6 @@ import org.grain.mariadb.MybatisManager;
 
 import config.CommonConfigBox;
 import config.FileBaseConfig;
-import config.UserFileConfig;
 import dao.dao.base.FileBaseMapper;
 import dao.model.base.FileBase;
 import dao.model.ext.UserFileExt;
@@ -41,7 +40,7 @@ public class UserFileAction implements IUserFileAction {
 		}
 		UserFileExt userFile = userFileMap.get(userFileId);
 		if (userFile != null) {
-			if (userFile.getFileBase().getFileBaseState().intValue() == 1) {
+			if (userFile.getFileBase().getFileBaseState() == FileBaseConfig.STATE_COMPLETE) {
 				return userFile;
 			}
 		}
@@ -60,7 +59,7 @@ public class UserFileAction implements IUserFileAction {
 		userFile.setUserFoldParentId(userFoldParentId);
 		userFile.setUserFileCreateTime(date);
 		userFile.setUserFileUpdateTime(date);
-		userFile.setUserFileState((byte) UserFileConfig.STATE_CAN_USE);
+		userFile.setUserFileState(1);
 		userFile.setCreateUserId(createUserId);
 		if (fileBase == null) {
 			FileBase newFileBase = new FileBase();
@@ -71,7 +70,7 @@ public class UserFileAction implements IUserFileAction {
 			}
 			newFileBase.setFileBaseRealPath(fileBaseRealPath);
 			newFileBase.setFileBaseMd5(fileBaseMd5);
-			newFileBase.setFileBaseState((byte) FileBaseConfig.STATE_UPLOADING);
+			newFileBase.setFileBaseState(FileBaseConfig.STATE_UPLOADING);
 			newFileBase.setFileBaseTotalSize(fileBaseTotalSize);
 			newFileBase.setFileBasePos(0L);
 			newFileBase.setFileBaseCreateTime(date);
@@ -109,21 +108,21 @@ public class UserFileAction implements IUserFileAction {
 			fileOutputStream.flush();
 			return true;
 		} catch (Exception e) {
-			MybatisManager.log.error("修改文件失败", e);
+			HttpConfig.log.error("修改文件失败", e);
 			return false;
 		} finally {
 			if (fileInputStream != null) {
 				try {
 					fileInputStream.close();
 				} catch (IOException e) {
-					MybatisManager.log.error("关闭块文件输入流失败", e);
+					HttpConfig.log.error("关闭块文件输入流失败", e);
 				}
 			}
 			if (fileOutputStream != null) {
 				try {
 					fileOutputStream.close();
 				} catch (IOException e) {
-					MybatisManager.log.error("关闭输出流失败", e);
+					HttpConfig.log.error("关闭输出流失败", e);
 				}
 			}
 		}
@@ -135,7 +134,7 @@ public class UserFileAction implements IUserFileAction {
 		Date date = new Date();
 		fileBase.setFileBasePos(userFile.getFileBase().getFileBasePos() + uploadLength);
 		// 已完成
-		if (fileBase.getFileBasePos().longValue() == userFile.getFileBase().getFileBaseTotalSize().longValue()) {
+		if (fileBase.getFileBasePos() == userFile.getFileBase().getFileBaseTotalSize()) {
 			fileBase.setFileBaseNextUploadTime(null);
 			fileBase.setFileBaseCompleteTime(date);
 			fileBase.setFileBaseState((byte) FileBaseConfig.STATE_COMPLETE);
@@ -208,7 +207,7 @@ public class UserFileAction implements IUserFileAction {
 				return null;
 			}
 		} catch (IOException e) {
-			MybatisManager.log.error("创建文件异常", e);
+			HttpConfig.log.error("创建文件异常", e);
 			return null;
 		}
 	}
@@ -227,7 +226,7 @@ public class UserFileAction implements IUserFileAction {
 		try {
 			return file.delete();
 		} catch (Exception e) {
-			MybatisManager.log.error("删除文件异常", e);
+			HttpConfig.log.error("删除文件异常", e);
 			return false;
 		}
 
@@ -241,7 +240,7 @@ public class UserFileAction implements IUserFileAction {
 			}
 			return true;
 		} catch (Exception e) {
-			MybatisManager.log.error("创建文件夹异常", e);
+			HttpConfig.log.error("创建文件夹异常", e);
 			return false;
 		}
 
