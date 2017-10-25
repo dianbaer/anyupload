@@ -31,7 +31,13 @@ function UploadFileProxy() {
     this.checkMD5Success = function (event) {
         var result = JSON.parse(event.mData);
         var sendParam = event.mTarget.sendParam;
-
+        if (result.hOpCode === 49999) {
+            this.notifyObservers(this.getNotification(notificationExt.MD5_CHECK_FAIL, {
+                "result": result,
+                "sendParam": sendParam
+            }));
+            return;
+        }
         if (result.fileBasePos === null || result.fileBasePos === undefined) {
             result.fileBasePos = 0;
         }
@@ -79,6 +85,13 @@ function UploadFileProxy() {
     this.uploadFileSuccess = function (event) {
         var result = JSON.parse(event.mData);
         var sendParam = event.mTarget.sendParam;
+        if (result.hOpCode === 49999) {
+            this.notifyObservers(this.getNotification(notificationExt.UPLOAD_FILE_FAIL, {
+                "result": result,
+                "sendParam": sendParam
+            }));
+            return;
+        }
         if (result.fileBasePos === null || result.fileBasePos === undefined) {
             result.fileBasePos = 0;
         }
