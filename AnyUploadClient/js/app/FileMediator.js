@@ -18,7 +18,6 @@ function FileMediator() {
     this.isOpen = false;
     this.allNum = 0;
     this.nowCompleteNum = 0;
-    this.view1Num = 0;
     this.initView = function () {
         this.onChange(this, this.onUploadFileButtonChange);
         juggle.jugglerManager.juggler.add(this);
@@ -39,14 +38,11 @@ function FileMediator() {
         $("#allfile_head_uploadfilebutton").val("");
     };
     // 关心消息数组
-    this.listNotificationInterests = [notificationExt.UPLOAD_FILE, notificationExt.MD5_CHECK_SUCCESS, notificationExt.MD5_CHECK_FAIL, notificationExt.UPLOAD_FILE_SUCCESS, notificationExt.UPLOAD_FILE_FAIL, notificationExt.OPEN_UPLOADBOX];
+    this.listNotificationInterests = [notificationExt.MD5_CHECK_SUCCESS, notificationExt.MD5_CHECK_FAIL, notificationExt.UPLOAD_FILE_SUCCESS, notificationExt.UPLOAD_FILE_FAIL];
     // 关心的消息处理
     this.handleNotification = function (data) {
         var result, sendParam;
         switch (data.name) {
-            case notificationExt.UPLOAD_FILE:
-                this.upLoadFile(data.body);
-                break;
             case notificationExt.MD5_CHECK_SUCCESS:
                 result = data.body.result;
                 sendParam = data.body.sendParam;
@@ -66,9 +62,6 @@ function FileMediator() {
                 result = data.body.result;
                 sendParam = data.body.sendParam;
                 this.uploadFileMap[sendParam.uploadFileId].uploadFileFail(result);
-                break;
-            case notificationExt.OPEN_UPLOADBOX:
-                this.openUploadBox();
                 break;
         }
     };
@@ -283,7 +276,6 @@ function FileMediator() {
             var uploadFileObj = new UploadFileObj();
             uploadFileObj.init(file, fileConfig.getIncrementId());
             $("#upload_box_upload_itemcontainer").append(uploadFileObj.view);
-            $("#mCSB_1_container").append(uploadFileObj.view1);
             uploadFileObj.addListener();
             uploadFileObj.addEventListener(uploadEventType.ADD_WAIT_MD5_ARRAY, this.addWaitMd5Array, this);
             uploadFileObj.addEventListener(uploadEventType.ADD_MD5_CHECK_ARRAY_AND_LOAD, this.addMd5CheckArrayAndLoad, this);
@@ -293,22 +285,17 @@ function FileMediator() {
             uploadFileObj.addEventListener(uploadEventType.ADD_WAIT_UPLOAD_ARRAY, this.addWaitUploadArray, this);
             uploadFileObj.addEventListener(uploadEventType.ADD_UPLOAD_ARRAY, this.addUploadArray, this);
             uploadFileObj.addEventListener(uploadEventType.UPLOAD_COMPLETE, this.onUploadComplete, this);
-            uploadFileObj.addEventListener(uploadEventType.OPEN_UPLOAD_BOX, this.onOpenUploadBox, this);
             uploadFileObj.addEventListener(uploadEventType.OPEN_CANCEL_CHOOSE_BOX, this.onOpenCancelChooseBox, this);
-            uploadFileObj.addEventListener(uploadEventType.REMOVE_VIEW1, this.onRemoveView1, this);
             uploadFileObj.addEventListener(uploadEventType.CHANGE_USER_FOLD, this.onChangeUserFold, this);
             this.waitMD5Array.push(uploadFileObj);
             this.uploadFileMap[uploadFileObj.id] = uploadFileObj;
             this.allNum++;
-            this.view1Num++;
         }
         $("#upload_box_num_text").text("正在上传（" + this.nowCompleteNum + "/" + this.allNum + "）");
-        $("#right_upload_num_text").text("正在上传（" + this.view1Num + "）");
         $("#right_uploadnone_style").hide();
     };
     this.removeUploadFile = function (uploadFileObj) {
         uploadFileObj.view.remove();
-        uploadFileObj.view1.remove();
         this.allNum--;
         if (uploadFileObj.status === fileConfig.STATUS_MD5_MOMENT_UPLOAD || uploadFileObj.status === fileConfig.STATUS_UPLOAD_SUCCESS) {
             this.nowCompleteNum--;
@@ -365,19 +352,8 @@ function FileMediator() {
         }
     };
     this.onUploadComplete = function (event) {
-        this.notifyObservers(this.getNotification(notificationExt.REFRESH_NOW_USERFOLD));
         this.nowCompleteNum++;
         $("#upload_box_num_text").text("正在上传（" + this.nowCompleteNum + "/" + this.allNum + "）");
-    };
-    this.onOpenUploadBox = function (event) {
-        this.openUploadBox();
-    };
-    this.onRemoveView1 = function () {
-        this.view1Num--;
-        if (this.view1Num === 0) {
-            $("#right_uploadnone_style").show();
-        }
-        $("#right_upload_num_text").text("正在上传（" + this.view1Num + "）");
     };
     this.onOpenCancelChooseBox = function (event) {
         var uploadFileObj = event.mTarget;
@@ -385,7 +361,8 @@ function FileMediator() {
     };
     this.onChangeUserFold = function (event) {
         var uploadFileObj = event.mTarget;
-        $T.userFoldProxy.getUserFoldChildren(uploadFileObj.nowFoldId);
+        //更换文件夹
+        //uploadFileObj.nowFoldId
     };
     juggle.Mediator.apply(this);
 }

@@ -2,7 +2,6 @@ function UploadFileObj() {
     this.file;// 文件
     this.id;// 唯一id
     this.view;// 视图
-    this.view1;// 视图
     this.sparkMD5;// md5工具
     this.fileReader;// 读取文件工具
     this.currentChunk;// 当前块
@@ -20,23 +19,6 @@ function UploadFileObj() {
     this.isCancel = false;// 是否关闭
     this.isLoad = false;// 是否正在异步
 }
-UploadFileObj.prototype.createView1 = function (text) {
-    var view = document.createElement("li");
-    var body =
-        '<div class="file_name clearfix">' +
-        '<span class="file_icon ' + postfixUtil.getClassByFileName(this.file.name) + '"></span>' +
-        '<p title="' + this.file.name + '">' +
-        this.file.name +
-        '</p>' +
-        '</div>' +
-        '<div class="file_status">' +
-        '<span class="pro_pre" id="' + this.id + '_text1">' + text + '</span>' +
-        '</div>' +
-        '<div class="progress" id="' + this.id + '_progress1"></div>';
-    view.innerHTML = body;
-    this.view1 = $(view);
-
-};
 UploadFileObj.prototype.createView = function (text) {
     var view = document.createElement("li");
     var body =
@@ -75,14 +57,8 @@ UploadFileObj.prototype.createView = function (text) {
 UploadFileObj.prototype.updateView = function (text) {
     $("#" + this.id + "_text").text(text);
 };
-UploadFileObj.prototype.updateView1 = function (text) {
-    $("#" + this.id + "_text1").text(text);
-};
 UploadFileObj.prototype.updateProgress = function (text) {
     $("#" + this.id + "_progress").attr({"style": "width:" + text + ""});
-};
-UploadFileObj.prototype.updateProgress1 = function (text) {
-    $("#" + this.id + "_progress1").attr({"style": "width:" + text + ""});
 };
 UploadFileObj.prototype.init = function (file, id) {
     this.file = file;
@@ -95,7 +71,6 @@ UploadFileObj.prototype.init = function (file, id) {
     this.nowFoldId = fileSystemStatus.nowFoldId;
     this.nowFoldName = fileSystemStatus.nowFoldName;
     this.createView("等待中..");
-    this.createView1("等待中..");
     juggle.EventDispatcher.apply(this);
 };
 UploadFileObj.prototype.addListener = function () {
@@ -103,19 +78,10 @@ UploadFileObj.prototype.addListener = function () {
     this.onStopClickListener(this, this.onStopClick);
     this.onCancelClickListener(this, this.onCancelClick);
     this.onRetryClickListener(this, this.onRetryClick);
-    this.onView1ClickListener(this, this.onView1Click);
     this.onFoldClickListener(this, this.onFoldClick);
     $("#" + this.id + "_start").hide();
     $("#" + this.id + "_retry").hide();
     this.updateProgress("0%");
-    this.updateProgress1("100%");
-    this.view1.css({cursor: "pointer"});
-};
-UploadFileObj.prototype.onView1ClickListener = function (uploadFileObj, call) {
-    this.onLoadFunc = function (event) {
-        call.call(uploadFileObj, event);
-    };
-    this.view1.on("click", this.onLoadFunc);
 };
 UploadFileObj.prototype.onStartClickListener = function (uploadFileObj, call) {
     this.onLoadFunc = function (event) {
@@ -146,9 +112,6 @@ UploadFileObj.prototype.onFoldClickListener = function (uploadFileObj, call) {
         call.call(uploadFileObj, event);
     };
     $("#" + this.id + "_fold").on("click", this.onLoadFunc);
-};
-UploadFileObj.prototype.onView1Click = function () {
-    this.dispatchEventWith(uploadEventType.OPEN_UPLOAD_BOX);
 };
 UploadFileObj.prototype.onStartClick = function () {
     if (this.isStop) {
@@ -193,7 +156,6 @@ UploadFileObj.prototype.stop = function () {
     $("#" + this.id + "_start").show();
     $("#" + this.id + "_stop").hide();
     this.updateView("暂停");
-    this.updateView1("暂停");
 };
 UploadFileObj.prototype.clear = function () {
     this.file = null;
@@ -209,7 +171,6 @@ UploadFileObj.prototype.startMD5Make = function () {
     this.onErrorListener(this, this.onError);
     this.loadNext();
     this.updateView("生成MD5..");
-    this.updateView1("生成MD5..");
     this.status = fileConfig.STATUS_START_MD5_CHECK;
 };
 UploadFileObj.prototype.onLoadListener = function (uploadFileObj, call) {
@@ -240,20 +201,15 @@ UploadFileObj.prototype.onLoad = function (event) {
         }
         this.loadNext();
         this.updateView("MD5：" + parseInt(this.currentChunk / this.totalChunk * 100) + "%");
-        this.updateView1("MD5：" + parseInt(this.currentChunk / this.totalChunk * 100) + "%");
     } else {
         this.md5 = this.sparkMD5.end();
         this.updateView("MD5完成");
-        this.updateView1("MD5完成");
         this.status = fileConfig.STATUS_MD5_SUCCESS;
     }
 };
 UploadFileObj.prototype.onError = function (event) {
     this.isLoad = false;
     this.updateView("生成md5失败，读取文件异常");
-    this.updateView1("生成md5失败，读取文件异常");
-    this.view1.remove();
-    this.dispatchEventWith(uploadEventType.REMOVE_VIEW1);
     this.status = fileConfig.STATUS_READ_FILE_FAIL;
     $("#" + this.id + "_start").hide();
     $("#" + this.id + "_stop").hide();
@@ -261,11 +217,9 @@ UploadFileObj.prototype.onError = function (event) {
 UploadFileObj.prototype.enterMD5CheckArray = function () {
     this.status = fileConfig.STATUS_ENTER_MD5CHECK_ARRAY;
     this.updateView("等待校验..");
-    this.updateView1("等待校验..");
 };
 UploadFileObj.prototype.startMD5Check = function () {
     this.updateView("开始校验..");
-    this.updateView1("开始校验..");
     this.isLoad = true;
     this.status = fileConfig.STATUS_START_MD5CHECK;
     uploadFileProxy.checkMD5(this.id, this.md5, this.file.name, this.nowFoldId, this.file.size, this.userFileId);
@@ -277,13 +231,9 @@ UploadFileObj.prototype.checkMD5Success = function (result) {
         // 秒传
         this.status = fileConfig.STATUS_MD5_MOMENT_UPLOAD;
         this.updateView("急速上传!");
-        this.updateView1("急速上传!");
         $("#" + this.id + "_start").hide();
         $("#" + this.id + "_stop").hide();
         this.updateProgress("100%");
-        this.updateProgress1("0%");
-        this.view1.remove();
-        this.dispatchEventWith(uploadEventType.REMOVE_VIEW1);
         this.dispatchEventWith(uploadEventType.UPLOAD_COMPLETE);
     } else {
         // 可以上传
@@ -291,7 +241,6 @@ UploadFileObj.prototype.checkMD5Success = function (result) {
         this.resultData = result;
         this.userFileId = result.userFileId;
         this.updateView("校验完成");
-        this.updateView1("校验完成");
     }
 
 };
@@ -299,20 +248,15 @@ UploadFileObj.prototype.checkMD5Fail = function (result) {
     this.isLoad = false;
     this.status = fileConfig.STATUS_MD5_CHECK_FAIL;
     this.updateView("md5校验失败");
-    this.updateView1("md5校验失败");
-    this.view1.remove();
-    this.dispatchEventWith(uploadEventType.REMOVE_VIEW1);
     $("#" + this.id + "_start").hide();
     $("#" + this.id + "_stop").hide();
 };
 UploadFileObj.prototype.enterWaitUploadArray = function () {
     this.status = fileConfig.STATUS_ENTER_WAIT_UPLOAD_ARRAY;
     this.updateView("等待中..");
-    this.updateView1("等待中..");
 };
 UploadFileObj.prototype.startUploadFile = function () {
     this.updateView("开始上传");
-    this.updateView1("开始上传");
     this.lastTime = new Date().getTime();
     this.uploadFile(true);
 
@@ -328,13 +272,9 @@ UploadFileObj.prototype.uploadFile = function (isStart) {
         // 上传已经完成了，服务器出问题了
         this.status = fileConfig.STATUS_UPLOAD_SUCCESS;
         this.updateView("上传完成");
-        this.updateView1("上传完成");
         $("#" + this.id + "_start").hide();
         $("#" + this.id + "_stop").hide();
         this.updateProgress("100%");
-        this.updateProgress1("0%");
-        this.view1.remove();
-        this.dispatchEventWith(uploadEventType.REMOVE_VIEW1);
         this.dispatchEventWith(uploadEventType.UPLOAD_COMPLETE);
         return;
     }
@@ -351,13 +291,9 @@ UploadFileObj.prototype.uploadFileSuccess = function (result) {
         // 秒传
         this.status = fileConfig.STATUS_MD5_MOMENT_UPLOAD;
         this.updateView("极速上传!");
-        this.updateView1("极速上传!");
         $("#" + this.id + "_start").hide();
         $("#" + this.id + "_stop").hide();
         this.updateProgress("100%");
-        this.updateProgress1("0%");
-        this.view1.remove();
-        this.dispatchEventWith(uploadEventType.REMOVE_VIEW1);
         this.dispatchEventWith(uploadEventType.UPLOAD_COMPLETE);
     } else if (result.result === 2) {
         var endPos = this.resultData.fileBasePos + this.resultData.uploadMaxLength >= this.file.size ? this.file.size : this.resultData.fileBasePos + this.resultData.uploadMaxLength;
@@ -367,21 +303,15 @@ UploadFileObj.prototype.uploadFileSuccess = function (result) {
         var passedTime = nowTime - this.lastTime;
         this.lastTime = nowTime;
         this.updateView(byteUtil.getSpeed(passedTime, (endPos - this.resultData.fileBasePos)));
-        this.updateView1(byteUtil.getSpeed(passedTime, (endPos - this.resultData.fileBasePos)));
         this.resultData = result;
         this.updateProgress((this.resultData.fileBasePos / this.file.size) * 100 + "%");
-        this.updateProgress1((100 - ((this.resultData.fileBasePos / this.file.size) * 100)) + "%");
     } else {
         // 秒传
         this.status = fileConfig.STATUS_UPLOAD_SUCCESS;
         this.updateView("上传完成");
-        this.updateView1("上传完成");
         $("#" + this.id + "_start").hide();
         $("#" + this.id + "_stop").hide();
         this.updateProgress("100%");
-        this.updateProgress1("0%");
-        this.view1.remove();
-        this.dispatchEventWith(uploadEventType.REMOVE_VIEW1);
         this.dispatchEventWith(uploadEventType.UPLOAD_COMPLETE);
     }
 };
@@ -389,9 +319,6 @@ UploadFileObj.prototype.uploadFileFail = function (result) {
     this.isLoad = false;
     this.status = fileConfig.STATUS_RESPONSE_UPLOAD_FAIL;
     this.updateView("md5校验失败");
-    this.updateView1("md5校验失败");
-    this.view1.remove();
-    this.dispatchEventWith(uploadEventType.REMOVE_VIEW1);
     $("#" + this.id + "_start").hide();
     $("#" + this.id + "_stop").hide();
 };

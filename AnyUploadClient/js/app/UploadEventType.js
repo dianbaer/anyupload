@@ -9,9 +9,7 @@ function UploadEventType() {
     this.ADD_WAIT_UPLOAD_ARRAY = "addWaitUploadArray";
     this.ADD_UPLOAD_ARRAY = "addUploadArray";
     this.UPLOAD_COMPLETE = "uploadComplete";
-    this.OPEN_UPLOAD_BOX = "openUploadBox";
     this.CHANGE_USER_FOLD = "changeUserFold";
     this.OPEN_CANCEL_CHOOSE_BOX = "openCancelChooseBox";
-    this.REMOVE_VIEW1 = "REMOVE_VIEW1";
 }
 uploadEventType = new UploadEventType();
