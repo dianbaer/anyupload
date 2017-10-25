@@ -11,24 +11,24 @@ function ByteUtil() {
         } else {
             return (speed / this.KB_SIZE).toFixed(2) + "MB/S";
         }
-    }
+    };
     this.getByte = function (bit, fixSizeKB, fixSizeMB, fixSizeGM) {
         if (bit < this.B_SIZE) {
             return bit + "B";
         } else if (bit < this.KB_SIZE) {
-            if (fixSizeKB != null) {
+            if (fixSizeKB !== null) {
                 return (bit / this.B_SIZE).toFixed(fixSizeKB) + "KB";
             } else {
                 return (bit / this.B_SIZE).toFixed(2) + "KB";
             }
         } else if (bit < this.MB_SIZE) {
-            if (fixSizeMB != null) {
+            if (fixSizeMB !== null) {
                 return (bit / this.KB_SIZE).toFixed(fixSizeMB) + "MB";
             } else {
                 return (bit / this.KB_SIZE).toFixed(2) + "MB";
             }
         } else {
-            if (fixSizeGM != null) {
+            if (fixSizeGM !== null) {
                 return (bit / this.MB_SIZE).toFixed(fixSizeGM) + "GB";
             } else {
                 return (bit / this.MB_SIZE).toFixed(2) + "GB";
@@ -36,4 +36,4 @@ function ByteUtil() {
         }
     }
 }
-$T.byteUtil = new ByteUtil();
+byteUtil = new ByteUtil();
