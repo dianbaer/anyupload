@@ -84,34 +84,34 @@ UploadFileObj.prototype.addListener = function () {
     this.updateProgress("0%");
 };
 UploadFileObj.prototype.onStartClickListener = function (uploadFileObj, call) {
-    this.onLoadFunc = function (event) {
+    var onLoadFunc = function (event) {
         call.call(uploadFileObj, event);
     };
-    $("#" + this.id + "_start").on("click", this.onLoadFunc);
+    $("#" + this.id + "_start").on("click", onLoadFunc);
 };
 UploadFileObj.prototype.onStopClickListener = function (uploadFileObj, call) {
-    this.onLoadFunc = function (event) {
+    var onLoadFunc = function (event) {
         call.call(uploadFileObj, event);
     };
-    $("#" + this.id + "_stop").on("click", this.onLoadFunc);
+    $("#" + this.id + "_stop").on("click", onLoadFunc);
 };
 UploadFileObj.prototype.onCancelClickListener = function (uploadFileObj, call) {
-    this.onLoadFunc = function (event) {
+    var onLoadFunc = function (event) {
         call.call(uploadFileObj, event);
     };
-    $("#" + this.id + "_cancel").on("click", this.onLoadFunc);
+    $("#" + this.id + "_cancel").on("click", onLoadFunc);
 };
 UploadFileObj.prototype.onRetryClickListener = function (uploadFileObj, call) {
-    this.onLoadFunc = function (event) {
+    var onLoadFunc = function (event) {
         call.call(uploadFileObj, event);
     };
-    $("#" + this.id + "_retry").on("click", this.onLoadFunc);
+    $("#" + this.id + "_retry").on("click", onLoadFunc);
 };
 UploadFileObj.prototype.onFoldClickListener = function (uploadFileObj, call) {
-    this.onLoadFunc = function (event) {
+    var onLoadFunc = function (event) {
         call.call(uploadFileObj, event);
     };
-    $("#" + this.id + "_fold").on("click", this.onLoadFunc);
+    $("#" + this.id + "_fold").on("click", onLoadFunc);
 };
 UploadFileObj.prototype.onStartClick = function () {
     if (this.isStop) {
