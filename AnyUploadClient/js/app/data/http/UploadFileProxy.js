@@ -96,3 +96,4 @@ function UploadFileProxy() {
         }));
     }
 }
+uploadFileProxy = new UploadFileProxy();
