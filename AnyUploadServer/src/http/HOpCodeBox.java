@@ -13,14 +13,12 @@ public class HOpCodeBox {
 	public static String BOX_ERROR = "49999";
 	public static String MD5_CHECK = "50000";
 	public static String UPLOAD_FILE = "50001";
-
 	public static String USERFILE_DOWNLOAD = "50008";
 
 	public static void init() {
 		HttpManager.addMapping(BOX_ERROR, null, BoxErrorS.class);
 		HttpManager.addMapping(MD5_CHECK, MD5CheckC.class, MD5CheckS.class);
 		HttpManager.addMapping(UPLOAD_FILE, UploadFileC.class, UploadFileS.class);
-
 		HttpManager.addMapping(USERFILE_DOWNLOAD, UserFileDownloadC.class, null);
 
 	}
