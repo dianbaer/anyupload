@@ -19,13 +19,6 @@ function FileMediator() {
     this.allNum = 0;
     this.nowCompleteNum = 0;
     this.view1Num = 0;
-    this.init = function (view) {
-
-    };
-    // 注销方法
-    this.dispose = function () {
-
-    };
     // 关心消息数组
     this.listNotificationInterests = [notificationExt.UPLOAD_FILE, notificationExt.MD5_CHECK_SUCCESS, notificationExt.MD5_CHECK_FAIL, notificationExt.UPLOAD_FILE_SUCCESS, notificationExt.UPLOAD_FILE_FAIL, notificationExt.OPEN_UPLOADBOX];
     // 关心的消息处理
