@@ -37,4 +37,4 @@ function FileConfig() {
         return "uploadFile_" + this.INCREMENT_ID++;
     }
 }
-$T.fileConfig = new FileConfig();
+fileConfig = new FileConfig();

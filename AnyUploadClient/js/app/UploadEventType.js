@@ -14,4 +14,4 @@ function UploadEventType() {
     this.OPEN_CANCEL_CHOOSE_BOX = "openCancelChooseBox";
     this.REMOVE_VIEW1 = "REMOVE_VIEW1";
 }
-$T.uploadEventType = new UploadEventType();
+uploadEventType = new UploadEventType();
