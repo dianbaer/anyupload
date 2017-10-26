@@ -21,7 +21,6 @@
         this.uploadArray = [];
         // 可以关闭的数组
         this.closeArray = [];
-        this.isOpen = false;
         this.allNum = 0;
         this.nowCompleteNum = 0;
         this.initView = function () {
@@ -70,13 +69,6 @@
                     this.uploadFileMap[sendParam.uploadFileId].uploadFileFail(result);
                     break;
             }
-        };
-        this.openUploadBox = function () {
-            if (this.isOpen) {
-                return;
-            }
-            this.isOpen = true;
-
         };
         this.advanceTime = function (passedTime) {
             if (this.md5Array.length < fileConfig.MAX_MD5_MAKE_FILE_NUM) {
