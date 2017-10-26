@@ -34,7 +34,7 @@
     window.onload = function () {
         fileMediator = new anyupload.FileMediator();
         fileMediator.initView($("#anyUploadContainer"));
-        anyupload.uploadFileProxy.url = "http://localhost:8081/AnyUploadServer/s";
+        anyupload.uploadFileProxy.url = "http://localhost:8080/AnyUploadServer/s";
         $("#uploadFileButton").on("change", this.uploadFileButtonChange);
 
     }

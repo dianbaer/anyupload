@@ -6,7 +6,7 @@
         this.url = null;
         this.checkMD5 = function (uploadFileId, fileBaseMd5, userFileName, userFoldParentId, fileBaseTotalSize, userFileId) {
             var data = {
-                "hOpCode": 50000,
+                "hOpCode": "50000",
                 "fileBaseMd5": fileBaseMd5,
                 "userFileName": userFileName,
                 "userFoldParentId": userFoldParentId,
@@ -27,7 +27,7 @@
         this.checkMD5Success = function (event) {
             var result = JSON.parse(event.mData);
             var sendParam = event.mTarget.sendParam;
-            if (result.hOpCode === 49999) {
+            if (result.hOpCode === "49999") {
                 this.notifyObservers(this.getNotification(notificationExt.MD5_CHECK_FAIL, {
                     "result": result,
                     "sendParam": sendParam
@@ -52,7 +52,7 @@
         };
         this.uploadFile = function (uploadFileId, userFileId, fileBasePos, uploadLength, fileArray) {
             var data = {
-                "hOpCode": 50001,
+                "hOpCode": "50001",
                 "userFileId": userFileId,
                 "fileBasePos": fileBasePos,
                 "uploadLength": uploadLength
@@ -72,7 +72,7 @@
         this.uploadFileSuccess = function (event) {
             var result = JSON.parse(event.mData);
             var sendParam = event.mTarget.sendParam;
-            if (result.hOpCode === 49999) {
+            if (result.hOpCode === "49999") {
                 this.notifyObservers(this.getNotification(notificationExt.UPLOAD_FILE_FAIL, {
                     "result": result,
                     "sendParam": sendParam
