@@ -155,7 +155,7 @@ https://www.threecss.com/AnyUploadClient/
 
 	
 	
-### 基于grain与juggle：
+### java服务器基于grain，js客户端基于juggle：
 
 https://github.com/dianbaer/grain
 
