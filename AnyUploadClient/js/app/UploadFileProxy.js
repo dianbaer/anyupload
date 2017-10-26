@@ -43,10 +43,9 @@
             }));
         };
         this.checkMD5Fail = function (event) {
-            var result = event.mData;
             var sendParam = event.mTarget.sendParam;
             this.notifyObservers(this.getNotification(notificationExt.MD5_CHECK_FAIL, {
-                "result": result,
+                "result": null,
                 "sendParam": sendParam
             }));
         };
@@ -88,10 +87,9 @@
             }));
         };
         this.uploadFileFail = function (event) {
-            var result = event.mData;
             var sendParam = event.mTarget.sendParam;
             this.notifyObservers(this.getNotification(notificationExt.UPLOAD_FILE_FAIL, {
-                "result": result,
+                "result": null,
                 "sendParam": sendParam
             }));
         }
