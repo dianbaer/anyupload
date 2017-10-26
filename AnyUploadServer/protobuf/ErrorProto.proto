@@ -7,14 +7,14 @@ message ErrorS{
 	string extraMsg=4;
 }
 enum ErrorCode{
-	ERROR_CODE_3=0;//md5校验失败
-	ERROR_CODE_4=1;//上传失败，不存在这个文件
-	ERROR_CODE_5=2;//上传失败，上传位置不对
-	ERROR_CODE_6=3;//上传失败，长度不对
-	ERROR_CODE_7=4;//上传失败，没发送文件
-	ERROR_CODE_8=5;//上传失败，不存在实体文件
-	ERROR_CODE_9=6;//上传失败，时间超前
-	ERROR_CODE_10=7;//上传失败，更换基础文件失败
-	ERROR_CODE_11=8;//上传失败，写入文件失败
-	ERROR_CODE_12=9;//上传失败，更新数据失败
+	ERROR_CODE_0=0;//md5校验失败
+	ERROR_CODE_1=1;//上传失败，不存在这个文件
+	ERROR_CODE_2=2;//上传失败，上传位置不对
+	ERROR_CODE_3=3;//上传失败，长度不对
+	ERROR_CODE_4=4;//上传失败，没发送文件
+	ERROR_CODE_5=5;//上传失败，不存在实体文件
+	ERROR_CODE_6=6;//上传失败，时间超前
+	ERROR_CODE_7=7;//上传失败，更换基础文件失败
+	ERROR_CODE_8=8;//上传失败，写入文件失败
+	ERROR_CODE_9=9;//上传失败，更新数据失败
 }

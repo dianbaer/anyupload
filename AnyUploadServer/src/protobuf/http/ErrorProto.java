@@ -24,81 +24,81 @@ public final class ErrorProto {
      *md5校验失败
      * </pre>
      *
-     * <code>ERROR_CODE_3 = 0;</code>
+     * <code>ERROR_CODE_0 = 0;</code>
      */
-    ERROR_CODE_3(0),
+    ERROR_CODE_0(0),
     /**
      * <pre>
      *上传失败，不存在这个文件
      * </pre>
      *
-     * <code>ERROR_CODE_4 = 1;</code>
+     * <code>ERROR_CODE_1 = 1;</code>
      */
-    ERROR_CODE_4(1),
+    ERROR_CODE_1(1),
     /**
      * <pre>
      *上传失败，上传位置不对
      * </pre>
      *
-     * <code>ERROR_CODE_5 = 2;</code>
+     * <code>ERROR_CODE_2 = 2;</code>
      */
-    ERROR_CODE_5(2),
+    ERROR_CODE_2(2),
     /**
      * <pre>
      *上传失败，长度不对
      * </pre>
      *
-     * <code>ERROR_CODE_6 = 3;</code>
+     * <code>ERROR_CODE_3 = 3;</code>
      */
-    ERROR_CODE_6(3),
+    ERROR_CODE_3(3),
     /**
      * <pre>
      *上传失败，没发送文件
      * </pre>
      *
-     * <code>ERROR_CODE_7 = 4;</code>
+     * <code>ERROR_CODE_4 = 4;</code>
      */
-    ERROR_CODE_7(4),
+    ERROR_CODE_4(4),
     /**
      * <pre>
      *上传失败，不存在实体文件
      * </pre>
      *
-     * <code>ERROR_CODE_8 = 5;</code>
+     * <code>ERROR_CODE_5 = 5;</code>
      */
-    ERROR_CODE_8(5),
+    ERROR_CODE_5(5),
     /**
      * <pre>
      *上传失败，时间超前
      * </pre>
      *
-     * <code>ERROR_CODE_9 = 6;</code>
+     * <code>ERROR_CODE_6 = 6;</code>
      */
-    ERROR_CODE_9(6),
+    ERROR_CODE_6(6),
     /**
      * <pre>
      *上传失败，更换基础文件失败
      * </pre>
      *
-     * <code>ERROR_CODE_10 = 7;</code>
+     * <code>ERROR_CODE_7 = 7;</code>
      */
-    ERROR_CODE_10(7),
+    ERROR_CODE_7(7),
     /**
      * <pre>
      *上传失败，写入文件失败
      * </pre>
      *
-     * <code>ERROR_CODE_11 = 8;</code>
+     * <code>ERROR_CODE_8 = 8;</code>
      */
-    ERROR_CODE_11(8),
+    ERROR_CODE_8(8),
     /**
      * <pre>
      *上传失败，更新数据失败
      * </pre>
      *
-     * <code>ERROR_CODE_12 = 9;</code>
+     * <code>ERROR_CODE_9 = 9;</code>
      */
-    ERROR_CODE_12(9),
+    ERROR_CODE_9(9),
     UNRECOGNIZED(-1),
     ;
 
@@ -107,81 +107,81 @@ public final class ErrorProto {
      *md5校验失败
      * </pre>
      *
-     * <code>ERROR_CODE_3 = 0;</code>
+     * <code>ERROR_CODE_0 = 0;</code>
      */
-    public static final int ERROR_CODE_3_VALUE = 0;
+    public static final int ERROR_CODE_0_VALUE = 0;
     /**
      * <pre>
      *上传失败，不存在这个文件
      * </pre>
      *
-     * <code>ERROR_CODE_4 = 1;</code>
+     * <code>ERROR_CODE_1 = 1;</code>
      */
-    public static final int ERROR_CODE_4_VALUE = 1;
+    public static final int ERROR_CODE_1_VALUE = 1;
     /**
      * <pre>
      *上传失败，上传位置不对
      * </pre>
      *
-     * <code>ERROR_CODE_5 = 2;</code>
+     * <code>ERROR_CODE_2 = 2;</code>
      */
-    public static final int ERROR_CODE_5_VALUE = 2;
+    public static final int ERROR_CODE_2_VALUE = 2;
     /**
      * <pre>
      *上传失败，长度不对
      * </pre>
      *
-     * <code>ERROR_CODE_6 = 3;</code>
+     * <code>ERROR_CODE_3 = 3;</code>
      */
-    public static final int ERROR_CODE_6_VALUE = 3;
+    public static final int ERROR_CODE_3_VALUE = 3;
     /**
      * <pre>
      *上传失败，没发送文件
      * </pre>
      *
-     * <code>ERROR_CODE_7 = 4;</code>
+     * <code>ERROR_CODE_4 = 4;</code>
      */
-    public static final int ERROR_CODE_7_VALUE = 4;
+    public static final int ERROR_CODE_4_VALUE = 4;
     /**
      * <pre>
      *上传失败，不存在实体文件
      * </pre>
      *
-     * <code>ERROR_CODE_8 = 5;</code>
+     * <code>ERROR_CODE_5 = 5;</code>
      */
-    public static final int ERROR_CODE_8_VALUE = 5;
+    public static final int ERROR_CODE_5_VALUE = 5;
     /**
      * <pre>
      *上传失败，时间超前
      * </pre>
      *
-     * <code>ERROR_CODE_9 = 6;</code>
+     * <code>ERROR_CODE_6 = 6;</code>
      */
-    public static final int ERROR_CODE_9_VALUE = 6;
+    public static final int ERROR_CODE_6_VALUE = 6;
     /**
      * <pre>
      *上传失败，更换基础文件失败
      * </pre>
      *
-     * <code>ERROR_CODE_10 = 7;</code>
+     * <code>ERROR_CODE_7 = 7;</code>
      */
-    public static final int ERROR_CODE_10_VALUE = 7;
+    public static final int ERROR_CODE_7_VALUE = 7;
     /**
      * <pre>
      *上传失败，写入文件失败
      * </pre>
      *
-     * <code>ERROR_CODE_11 = 8;</code>
+     * <code>ERROR_CODE_8 = 8;</code>
      */
-    public static final int ERROR_CODE_11_VALUE = 8;
+    public static final int ERROR_CODE_8_VALUE = 8;
     /**
      * <pre>
      *上传失败，更新数据失败
      * </pre>
      *
-     * <code>ERROR_CODE_12 = 9;</code>
+     * <code>ERROR_CODE_9 = 9;</code>
      */
-    public static final int ERROR_CODE_12_VALUE = 9;
+    public static final int ERROR_CODE_9_VALUE = 9;
 
 
     public final int getNumber() {
@@ -202,16 +202,16 @@ public final class ErrorProto {
 
     public static ErrorCode forNumber(int value) {
       switch (value) {
-        case 0: return ERROR_CODE_3;
-        case 1: return ERROR_CODE_4;
-        case 2: return ERROR_CODE_5;
-        case 3: return ERROR_CODE_6;
-        case 4: return ERROR_CODE_7;
-        case 5: return ERROR_CODE_8;
-        case 6: return ERROR_CODE_9;
-        case 7: return ERROR_CODE_10;
-        case 8: return ERROR_CODE_11;
-        case 9: return ERROR_CODE_12;
+        case 0: return ERROR_CODE_0;
+        case 1: return ERROR_CODE_1;
+        case 2: return ERROR_CODE_2;
+        case 3: return ERROR_CODE_3;
+        case 4: return ERROR_CODE_4;
+        case 5: return ERROR_CODE_5;
+        case 6: return ERROR_CODE_6;
+        case 7: return ERROR_CODE_7;
+        case 8: return ERROR_CODE_8;
+        case 9: return ERROR_CODE_9;
         default: return null;
       }
     }
@@ -530,7 +530,7 @@ public final class ErrorProto {
       if (!getHOpCodeBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, hOpCode_);
       }
-      if (errorCode_ != protobuf.http.ErrorProto.ErrorCode.ERROR_CODE_3.getNumber()) {
+      if (errorCode_ != protobuf.http.ErrorProto.ErrorCode.ERROR_CODE_0.getNumber()) {
         output.writeEnum(2, errorCode_);
       }
       if (!getErrorHOpCodeBytes().isEmpty()) {
@@ -549,7 +549,7 @@ public final class ErrorProto {
       if (!getHOpCodeBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, hOpCode_);
       }
-      if (errorCode_ != protobuf.http.ErrorProto.ErrorCode.ERROR_CODE_3.getNumber()) {
+      if (errorCode_ != protobuf.http.ErrorProto.ErrorCode.ERROR_CODE_0.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(2, errorCode_);
       }
@@ -1150,12 +1150,12 @@ public final class ErrorProto {
       "\n\020ErrorProto.proto\022\rprotobuf.http\"n\n\006Err" +
       "orS\022\017\n\007hOpCode\030\001 \001(\t\022+\n\terrorCode\030\002 \001(\0162" +
       "\030.protobuf.http.ErrorCode\022\024\n\014errorHOpCod" +
-      "e\030\003 \001(\t\022\020\n\010extraMsg\030\004 \001(\t*\302\001\n\tErrorCode\022" +
-      "\020\n\014ERROR_CODE_3\020\000\022\020\n\014ERROR_CODE_4\020\001\022\020\n\014E" +
-      "RROR_CODE_5\020\002\022\020\n\014ERROR_CODE_6\020\003\022\020\n\014ERROR" +
-      "_CODE_7\020\004\022\020\n\014ERROR_CODE_8\020\005\022\020\n\014ERROR_COD" +
-      "E_9\020\006\022\021\n\rERROR_CODE_10\020\007\022\021\n\rERROR_CODE_1" +
-      "1\020\010\022\021\n\rERROR_CODE_12\020\tb\006proto3"
+      "e\030\003 \001(\t\022\020\n\010extraMsg\030\004 \001(\t*\277\001\n\tErrorCode\022" +
+      "\020\n\014ERROR_CODE_0\020\000\022\020\n\014ERROR_CODE_1\020\001\022\020\n\014E" +
+      "RROR_CODE_2\020\002\022\020\n\014ERROR_CODE_3\020\003\022\020\n\014ERROR" +
+      "_CODE_4\020\004\022\020\n\014ERROR_CODE_5\020\005\022\020\n\014ERROR_COD" +
+      "E_6\020\006\022\020\n\014ERROR_CODE_7\020\007\022\020\n\014ERROR_CODE_8\020" +
+      "\010\022\020\n\014ERROR_CODE_9\020\tb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
