@@ -125,3 +125,9 @@
 		string userFileId=5;//文件id
 		int32 waitTime=6;//等待时间
 	}
+	
+基于grain与juggle：
+
+https://github.com/dianbaer/grain
+
+https://github.com/dianbaer/juggle
