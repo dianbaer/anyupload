@@ -8,7 +8,7 @@ public class CommonConfig {
 	/**
 	 * 最大上传长度
 	 */
-	public static int UPLOAD_MAX_LENGTH = 1048576;
+	public static int UPLOAD_MAX_LENGTH = 65536;
 	/**
 	 * 客户端下一次上传文件间隔
 	 */
