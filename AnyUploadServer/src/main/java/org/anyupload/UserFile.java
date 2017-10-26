@@ -2,7 +2,7 @@ package org.anyupload;
 
 import java.util.Date;
 
-public class UserFileExt {
+public class UserFile {
 
 	private String userFileId;
 

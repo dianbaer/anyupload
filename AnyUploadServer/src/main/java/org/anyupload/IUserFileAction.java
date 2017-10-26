@@ -17,7 +17,7 @@ public interface IUserFileAction {
 	 * @param userFileId
 	 * @return
 	 */
-	public UserFileExt getUserFile(String userFileId);
+	public UserFile getUserFile(String userFileId);
 
 	/**
 	 * 获取已经完成的文件，如果未完成返回空
@@ -25,7 +25,7 @@ public interface IUserFileAction {
 	 * @param userFileId
 	 * @return
 	 */
-	public UserFileExt getUserFileComplete(String userFileId);
+	public UserFile getUserFileComplete(String userFileId);
 
 	/**
 	 * 创建文件
@@ -44,7 +44,7 @@ public interface IUserFileAction {
 	 *            基础文件对象
 	 * @return
 	 */
-	public UserFileExt createUserFile(String userFileName, String userFoldParentId, String createUserId, String fileBaseMd5, long fileBaseTotalSize, FileBase fileBase);
+	public UserFile createUserFile(String userFileName, String userFoldParentId, String createUserId, String fileBaseMd5, long fileBaseTotalSize, FileBase fileBase);
 
 	/**
 	 * 改变文件指向
@@ -53,7 +53,7 @@ public interface IUserFileAction {
 	 * @param fileBase
 	 * @return
 	 */
-	public boolean changeFileBase(UserFileExt userFile, FileBase fileBase);
+	public boolean changeFileBase(UserFile userFile, FileBase fileBase);
 
 	/**
 	 * 创建一个存储地址
@@ -84,5 +84,5 @@ public interface IUserFileAction {
 	 * @param uploadLength
 	 * @return
 	 */
-	public boolean updateUserFile(UserFileExt userFile, int uploadLength);
+	public boolean updateUserFile(UserFile userFile, int uploadLength);
 }

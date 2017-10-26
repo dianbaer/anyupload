@@ -22,14 +22,14 @@ public class UploadService implements IHttpListener {
 	@Override
 	public Map<String, String> getHttps() {
 		HashMap<String, String> map = new HashMap<>();
-		map.put(HOpCodeBox.MD5_CHECK, "md5CheckHandle");
-		map.put(HOpCodeBox.UPLOAD_FILE, "uploadFileHandle");
+		map.put(HOpCode.MD5_CHECK, "md5CheckHandle");
+		map.put(HOpCode.UPLOAD_FILE, "uploadFileHandle");
 		return map;
 	}
 
 	public HttpPacket md5CheckHandle(HttpPacket httpPacket) throws HttpException {
 		MD5CheckC message = (MD5CheckC) httpPacket.getData();
-		UserFileExt userFile = null;
+		UserFile userFile = null;
 		// 不为空
 		if (message.getUserFileId() != null && !message.getUserFileId().equals("")) {
 			// 获取文件
@@ -51,7 +51,7 @@ public class UploadService implements IHttpListener {
 			userFile = userFileAction.createUserFile(message.getUserFileName(), message.getUserFoldParentId(), "xxxxx", message.getFileBaseMd5(), message.getFileBaseTotalSize(), fileBase);
 			if (userFile == null) {
 				ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_0, httpPacket.gethOpCode());
-				throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
+				throw new HttpException(HOpCode.BOX_ERROR, boxErrorS);
 			}
 			if (fileBase != null) {
 				// 秒传
@@ -68,7 +68,7 @@ public class UploadService implements IHttpListener {
 				builder.setResult(2);
 				builder.setUserFileId(userFile.getUserFileId());
 				builder.setFileBasePos(userFile.getFileBase().getFileBasePos());
-				builder.setUploadMaxLength(CommonConfigBox.UPLOAD_MAX_LENGTH);
+				builder.setUploadMaxLength(CommonConfig.UPLOAD_MAX_LENGTH);
 				HttpPacket packet = new HttpPacket(httpPacket.gethOpCode(), builder.build());
 				return packet;
 			}
@@ -78,7 +78,7 @@ public class UploadService implements IHttpListener {
 				boolean result = userFileAction.changeFileBase(userFile, fileBase);
 				if (!result) {
 					ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_0, httpPacket.gethOpCode());
-					throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
+					throw new HttpException(HOpCode.BOX_ERROR, boxErrorS);
 				}
 				MD5CheckS.Builder builder = MD5CheckS.newBuilder();
 				builder.setHOpCode(httpPacket.gethOpCode());
@@ -93,7 +93,7 @@ public class UploadService implements IHttpListener {
 				builder.setResult(2);
 				builder.setUserFileId(userFile.getUserFileId());
 				builder.setFileBasePos(userFile.getFileBase().getFileBasePos());
-				builder.setUploadMaxLength(CommonConfigBox.UPLOAD_MAX_LENGTH);
+				builder.setUploadMaxLength(CommonConfig.UPLOAD_MAX_LENGTH);
 				HttpPacket packet = new HttpPacket(httpPacket.gethOpCode(), builder.build());
 				return packet;
 			}
@@ -102,47 +102,47 @@ public class UploadService implements IHttpListener {
 
 	public HttpPacket uploadFileHandle(HttpPacket httpPacket) throws HttpException {
 		UploadFileC message = (UploadFileC) httpPacket.getData();
-		UserFileExt userFile = userFileAction.getUserFile(message.getUserFileId());
+		UserFile userFile = userFileAction.getUserFile(message.getUserFileId());
 		if (userFile == null) {
 			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_1, httpPacket.gethOpCode());
-			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
+			throw new HttpException(HOpCode.BOX_ERROR, boxErrorS);
 		}
 		// 位置不对
 		if (message.getFileBasePos() != userFile.getFileBase().getFileBasePos()) {
 			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_2, httpPacket.gethOpCode());
-			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
+			throw new HttpException(HOpCode.BOX_ERROR, boxErrorS);
 		}
 		// 不能大于默认长度
-		if (message.getUploadLength() > CommonConfigBox.UPLOAD_MAX_LENGTH) {
+		if (message.getUploadLength() > CommonConfig.UPLOAD_MAX_LENGTH) {
 			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_3, httpPacket.gethOpCode());
-			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
+			throw new HttpException(HOpCode.BOX_ERROR, boxErrorS);
 		}
 		// 没有文件
 		if (httpPacket.fileList == null || httpPacket.fileList.size() == 0) {
 			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_4, httpPacket.gethOpCode());
-			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
+			throw new HttpException(HOpCode.BOX_ERROR, boxErrorS);
 		}
 		FileData fileData = httpPacket.fileList.get(0);
 		// 文件长度与消息长度不符
 		if ((int) fileData.getFile().length() != message.getUploadLength()) {
 			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_3, httpPacket.gethOpCode());
-			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
+			throw new HttpException(HOpCode.BOX_ERROR, boxErrorS);
 		}
 		// 不存在这个文件
 		File file = userFileAction.getFile(userFile.getFileBase().getFileBaseRealPath());
 		if (file == null) {
 			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_5, httpPacket.gethOpCode());
-			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
+			throw new HttpException(HOpCode.BOX_ERROR, boxErrorS);
 		}
 		if (file.length() != message.getFileBasePos()) {
 			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_3, httpPacket.gethOpCode());
-			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
+			throw new HttpException(HOpCode.BOX_ERROR, boxErrorS);
 		}
 		Date date = new Date();
 		// 是否在规定时间后上传
 		if (date.getTime() < userFile.getFileBase().getFileBaseNextUploadTime().getTime()) {
 			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_6, httpPacket.gethOpCode());
-			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
+			throw new HttpException(HOpCode.BOX_ERROR, boxErrorS);
 		}
 		FileBase fileBase = userFileAction.getFileBaseByMd5(userFile.getFileBase().getFileBaseMd5());
 		if (fileBase != null) {
@@ -150,7 +150,7 @@ public class UploadService implements IHttpListener {
 			boolean result = userFileAction.changeFileBase(userFile, fileBase);
 			if (!result) {
 				ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_7, httpPacket.gethOpCode());
-				throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
+				throw new HttpException(HOpCode.BOX_ERROR, boxErrorS);
 			}
 			UploadFileS.Builder builder = UploadFileS.newBuilder();
 			builder.setHOpCode(httpPacket.gethOpCode());
@@ -162,12 +162,12 @@ public class UploadService implements IHttpListener {
 		boolean result = userFileAction.updateFile(file, fileData.getFile());
 		if (!result) {
 			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_8, httpPacket.gethOpCode());
-			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
+			throw new HttpException(HOpCode.BOX_ERROR, boxErrorS);
 		}
 		result = userFileAction.updateUserFile(userFile, message.getUploadLength());
 		if (!result) {
 			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_9, httpPacket.gethOpCode());
-			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
+			throw new HttpException(HOpCode.BOX_ERROR, boxErrorS);
 		}
 		if ((message.getFileBasePos() + message.getUploadLength()) == userFile.getFileBase().getFileBaseTotalSize()) {
 			UploadFileS.Builder builder = UploadFileS.newBuilder();
@@ -181,8 +181,8 @@ public class UploadService implements IHttpListener {
 			builder.setHOpCode(httpPacket.gethOpCode());
 			builder.setResult(2);
 			builder.setUserFileId(userFile.getUserFileId());
-			builder.setWaitTime(CommonConfigBox.WAIT_TIME);
-			builder.setUploadMaxLength(CommonConfigBox.UPLOAD_MAX_LENGTH);
+			builder.setWaitTime(CommonConfig.WAIT_TIME);
+			builder.setUploadMaxLength(CommonConfig.UPLOAD_MAX_LENGTH);
 			builder.setFileBasePos((message.getFileBasePos() + message.getUploadLength()));
 			HttpPacket packet = new HttpPacket(httpPacket.gethOpCode(), builder.build());
 			return packet;
@@ -196,7 +196,7 @@ public class UploadService implements IHttpListener {
 
 	public static ErrorS createError(ErrorCode boxErrorCode, String errorHOpCode) {
 		ErrorS.Builder errorBuilder = ErrorS.newBuilder();
-		errorBuilder.setHOpCode(HOpCodeBox.BOX_ERROR);
+		errorBuilder.setHOpCode(HOpCode.BOX_ERROR);
 		errorBuilder.setErrorCode(boxErrorCode);
 		errorBuilder.setErrorHOpCode(errorHOpCode);
 		return errorBuilder.build();

@@ -9,7 +9,7 @@ public class Expand implements IExpandServer {
 
 	@Override
 	public void init(HttpServlet servlet) throws Exception {
-		HOpCodeBox.init();
+		HOpCode.init();
 		HttpManager.addHttpListener(new UploadService());
 	}
 }

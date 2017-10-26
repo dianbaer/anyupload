@@ -7,7 +7,7 @@ import org.anyupload.protobuf.UploadFileProto.UploadFileC;
 import org.anyupload.protobuf.UploadFileProto.UploadFileS;
 import org.grain.httpserver.HttpManager;
 
-public class HOpCodeBox {
+public class HOpCode {
 	public static String BOX_ERROR = "49999";
 	public static String MD5_CHECK = "50000";
 	public static String UPLOAD_FILE = "50001";

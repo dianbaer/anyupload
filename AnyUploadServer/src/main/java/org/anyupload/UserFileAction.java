@@ -15,7 +15,7 @@ import org.grain.httpserver.HttpConfig;
 public class UserFileAction implements IUserFileAction {
 	public static String FILE_BASE_PATH;
 	public static SimpleDateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	public static Map<String, UserFileExt> userFileMap = new ConcurrentHashMap<String, UserFileExt>();
+	public static Map<String, UserFile> userFileMap = new ConcurrentHashMap<String, UserFile>();
 	public static Map<String, FileBase> completeFileBaseMap = new ConcurrentHashMap<String, FileBase>();
 
 	public static boolean stringIsNull(String str) {
@@ -41,7 +41,7 @@ public class UserFileAction implements IUserFileAction {
 	}
 
 	@Override
-	public UserFileExt getUserFile(String userFileId) {
+	public UserFile getUserFile(String userFileId) {
 		if (stringIsNull(userFileId)) {
 			return null;
 		}
@@ -49,11 +49,11 @@ public class UserFileAction implements IUserFileAction {
 	}
 
 	@Override
-	public UserFileExt getUserFileComplete(String userFileId) {
+	public UserFile getUserFileComplete(String userFileId) {
 		if (stringIsNull(userFileId)) {
 			return null;
 		}
-		UserFileExt userFile = userFileMap.get(userFileId);
+		UserFile userFile = userFileMap.get(userFileId);
 		if (userFile != null) {
 			if (userFile.getFileBase().getFileBaseState() == FileBaseConfig.STATE_COMPLETE) {
 				return userFile;
@@ -63,11 +63,11 @@ public class UserFileAction implements IUserFileAction {
 	}
 
 	@Override
-	public UserFileExt createUserFile(String userFileName, String userFoldParentId, String createUserId, String fileBaseMd5, long fileBaseTotalSize, FileBase fileBase) {
+	public UserFile createUserFile(String userFileName, String userFoldParentId, String createUserId, String fileBaseMd5, long fileBaseTotalSize, FileBase fileBase) {
 		if (stringIsNull(userFileName) || stringIsNull(createUserId) || stringIsNull(fileBaseMd5)) {
 			return null;
 		}
-		UserFileExt userFile = new UserFileExt();
+		UserFile userFile = new UserFile();
 		Date date = new Date();
 		userFile.setUserFileId(UUID.randomUUID().toString().trim().replaceAll("-", ""));
 		userFile.setUserFileName(userFileName);
@@ -101,7 +101,7 @@ public class UserFileAction implements IUserFileAction {
 	}
 
 	@Override
-	public boolean changeFileBase(UserFileExt userFile, FileBase fileBase) {
+	public boolean changeFileBase(UserFile userFile, FileBase fileBase) {
 		userFile.setFileBaseId(fileBase.getFileBaseId());
 		userFile.setFileBase(fileBase);
 		return true;
@@ -116,7 +116,7 @@ public class UserFileAction implements IUserFileAction {
 			fileOutputStream = new FileOutputStream(file, true);
 			fileInputStream = new FileInputStream(chunkFile);
 
-			byte[] buffer = new byte[CommonConfigBox.ONCE_WRITE_FILE_SIZE];
+			byte[] buffer = new byte[CommonConfig.ONCE_WRITE_FILE_SIZE];
 			int bytesRead = -1;
 			while ((bytesRead = fileInputStream.read(buffer)) != -1) {
 				fileOutputStream.write(buffer, 0, bytesRead);
@@ -145,7 +145,7 @@ public class UserFileAction implements IUserFileAction {
 	}
 
 	@Override
-	public boolean updateUserFile(UserFileExt userFile, int uploadLength) {
+	public boolean updateUserFile(UserFile userFile, int uploadLength) {
 		Date date = new Date();
 		userFile.getFileBase().setFileBasePos(userFile.getFileBase().getFileBasePos() + uploadLength);
 		// 已完成
@@ -156,7 +156,7 @@ public class UserFileAction implements IUserFileAction {
 			// 存入md5映射表
 			completeFileBaseMap.put(userFile.getFileBase().getFileBaseMd5(), userFile.getFileBase());
 		} else {
-			long fileBaseNextUploadTimeLong = date.getTime() + CommonConfigBox.WAIT_TIME;
+			long fileBaseNextUploadTimeLong = date.getTime() + CommonConfig.WAIT_TIME;
 			Date fileBaseNextUploadTime = new Date(fileBaseNextUploadTimeLong);
 			userFile.getFileBase().setFileBaseNextUploadTime(fileBaseNextUploadTime);
 		}
@@ -165,7 +165,7 @@ public class UserFileAction implements IUserFileAction {
 
 	@Override
 	public void createFileBaseDir() {
-		FILE_BASE_PATH = HttpConfig.PROJECT_PATH + "/" + CommonConfigBox.FILE_BASE_PATH;
+		FILE_BASE_PATH = HttpConfig.PROJECT_PATH + "/" + CommonConfig.FILE_BASE_PATH;
 		File file = new File(FILE_BASE_PATH);
 		if (!file.exists()) {
 			file.mkdirs();

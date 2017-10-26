@@ -1,6 +1,6 @@
 package org.anyupload;
 
-public class CommonConfigBox {
+public class CommonConfig {
 
 	// 基础文件路径
 	public static String FILE_BASE_PATH = "FileBasePath";
