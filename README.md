@@ -20,6 +20,7 @@
 			|--dist（anyupload js打包版本）
 			|--images（anyupload image）
 			|--src（anyupload js未打包版本）
+				|--FileConfig.js（配置）
 		|--lib（依赖js）
 			|--jquery.min.js
 			|--juggle-all.js（解耦合的工具库：https://github.com/dianbaer/juggle）
@@ -30,6 +31,7 @@
 ### AnyUploadServer（899行代码）
 
 	|--src（服务器代码）
+		|--CommonConfig.java（配置）
 	|--protobuf（消息包生成工具）
 
 
