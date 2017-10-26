@@ -15,12 +15,12 @@
  	<!-- 扩展类，服务器启动时自动初始化这个类 -->
 	<context-param>
 		<param-name>Expand</param-name>
-		<param-value>server.Expand</param-value>
+		<param-value>org.anyupload.Expand</param-value>
 	</context-param>
  	<!-- 日志对象，需要传进日志对象grain-httpserver才能打印日志 -->
 	<context-param>
 		<param-name>ILog</param-name>
-		<param-value>log.HttpLog</param-value>
+		<param-value>org.anyupload.HttpLog</param-value>
 	</context-param>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

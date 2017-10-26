@@ -1,5 +1,5 @@
 syntax = "proto3";
-package protobuf.http;
+package org.anyupload.protobuf;
 message MD5CheckC{
 	string hOpCode=1;
 	string fileBaseMd5=2;//md5

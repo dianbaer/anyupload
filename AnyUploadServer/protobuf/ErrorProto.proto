@@ -1,5 +1,5 @@
 syntax = "proto3";
-package protobuf.http;
+package org.anyupload.protobuf;
 message ErrorS{
 	string hOpCode=1;
 	ErrorCode errorCode=2;
