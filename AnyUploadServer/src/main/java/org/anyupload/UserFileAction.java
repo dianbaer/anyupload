@@ -111,7 +111,6 @@ public class UserFileAction implements IUserFileAction {
 		userFile.setFileBaseId(fileBase.getFileBaseId());
 		userFile.setFileBase(fileBase);
 		return true;
-
 	}
 
 	@Override
@@ -121,7 +120,6 @@ public class UserFileAction implements IUserFileAction {
 		try {
 			fileOutputStream = new FileOutputStream(file, true);
 			fileInputStream = new FileInputStream(chunkFile);
-
 			byte[] buffer = new byte[CommonConfig.ONCE_WRITE_FILE_SIZE];
 			int bytesRead = -1;
 			while ((bytesRead = fileInputStream.read(buffer)) != -1) {
@@ -232,7 +230,6 @@ public class UserFileAction implements IUserFileAction {
 			HttpConfig.log.error("删除文件异常", e);
 			return false;
 		}
-
 	}
 
 	public static boolean createFold(String name) {
@@ -246,7 +243,5 @@ public class UserFileAction implements IUserFileAction {
 			HttpConfig.log.error("创建文件夹异常", e);
 			return false;
 		}
-
 	}
-
 }
