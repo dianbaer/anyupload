@@ -3,23 +3,41 @@ package org.anyupload;
 import java.util.Date;
 
 public class FileBase {
-
+	/**
+	 * uuid
+	 */
 	private String fileBaseId;
-
+	/**
+	 * 真实路径
+	 */
 	private String fileBaseRealPath;
-
+	/**
+	 * md5
+	 */
 	private String fileBaseMd5;
-
+	/**
+	 * 当前状态1完成，2正在上传
+	 */
 	private int fileBaseState;
-
+	/**
+	 * 总大小
+	 */
 	private long fileBaseTotalSize;
-
+	/**
+	 * 当前上传位置
+	 */
 	private long fileBasePos;
-
+	/**
+	 * 创建时间
+	 */
 	private Date fileBaseCreateTime;
-
+	/**
+	 * 完成时间
+	 */
 	private Date fileBaseCompleteTime;
-
+	/**
+	 * 下一次上传时间
+	 */
 	private Date fileBaseNextUploadTime;
 
 	public String getFileBaseId() {

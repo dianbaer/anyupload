@@ -8,8 +8,17 @@ import org.anyupload.protobuf.UploadFileProto.UploadFileS;
 import org.grain.httpserver.HttpManager;
 
 public class HOpCode {
+	/**
+	 * 错误
+	 */
 	public static String ERROR = "49999";
+	/**
+	 * md5校验
+	 */
 	public static String MD5_CHECK = "50000";
+	/**
+	 * 上传文件
+	 */
 	public static String UPLOAD_FILE = "50001";
 
 	public static void init() {

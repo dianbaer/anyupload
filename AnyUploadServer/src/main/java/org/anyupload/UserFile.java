@@ -3,25 +3,45 @@ package org.anyupload;
 import java.util.Date;
 
 public class UserFile {
-
+	/**
+	 * uuid
+	 */
 	private String userFileId;
-
+	/**
+	 * 文件名
+	 */
 	private String userFileName;
-
+	/**
+	 * 父类文件夹（没用）
+	 */
 	private String userFoldParentId;
-
+	/**
+	 * 创建时间
+	 */
 	private Date userFileCreateTime;
-
+	/**
+	 * 更新时间
+	 */
 	private Date userFileUpdateTime;
-
+	/**
+	 * 文件状态（没用）
+	 */
 	private int userFileState;
-
+	/**
+	 * 顶级文件夹id（没用）
+	 */
 	private String userFoldTopId;
-
+	/**
+	 * 创建者（没用）
+	 */
 	private String createUserId;
-
+	/**
+	 * 基础文件id（没用）
+	 */
 	private String fileBaseId;
-
+	/**
+	 * 基础文件对象
+	 */
 	private FileBase fileBase;
 
 	public String getUserFileId() {
