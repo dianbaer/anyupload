@@ -1,30 +1,404 @@
-.fileicon_ai{
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button, img {
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    line-height: 1;
+    font-family: "Microsoft YaHei";
+    font-weight: normal;
+    font-style: normal;
+    color: #333;
+    word-break: break-all
+}
+
+body {
+    font-family: "Microsoft YaHei";
+    position: relative;
+    background: none
+}
+
+body, input, select, textarea, button {
+    font-size: 12px;
+    line-height: 1
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+fieldset, img, abbr, acronym {
+    border: 0 none;
+}
+
+img {
+    vertical-align: top;
+}
+
+abbr, acronym {
+    font-variant: normal;
+}
+
+blockquote, q {
+    quotes: none
+}
+
+dl, ul, ol, menu, li {
+    list-style: none
+}
+
+input, button, textarea, select, optgroup, option {
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+}
+
+/* 输入控件字体 */
+input, select, textarea, button {
+    vertical-align: middle;
+    outline: none;
+}
+
+textarea {
+    resize: none;
+    overflow: auto;
+}
+
+input[type="button"] {
+    cursor: pointer;
+}
+
+button {
+    border: 0 none;
+    background-color: transparent;
+    cursor: pointer
+}
+
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal
+}
+
+table {
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+a:focus {
+    outline: none;
+}
+
+input::-ms-clear, input::-ms-reveal {
+    display: none;
+}
+
+.hide {
+    display: none;
+}
+
+.pb0 {
+    padding-bottom: 0 !important;
+}
+
+/* clearfix */
+.clearfix {
+    *zoom: 1;
+}
+
+.clearfix:after {
+    display: table;
+    line-height: 0;
+    content: "";
+    clear: both;
+}
+
+.clear {
+    clear: both;
+}
+
+/* public.omission */
+.fl {
+    float: left;
+    display: inline
+}
+
+.fr {
+    float: right;
+    display: inline
+}
+
+/*uploader_list_header*/
+.uploader_list_header {
+    width: 100%;
+
+    left: 0;
+    top: 0;
+    background-color: #f5f6f7;
+    height: 42px;
+    line-height: 42px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.uploader_list_header > div {
+    line-height: 42px;
+    text-align: center;
+}
+
+.uploader_list_header .file_status {
+    margin-top: 0;
+}
+
+.uploader_list_header .file_name {
+    text-align: left;
+}
+
+.uploadBoxT {
+    padding: 0 20px;
+    height: 46px;
+    line-height: 46px;
+    background-color: #fff;
+}
+
+.uploadBoxT p {
+    line-height: 46px;
+    font-size: 16px;
+}
+
+.uploadBoxT i {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    margin: 13px 0 0 14px;
+}
+
+.uploadBoxT i:hover {
+    opacity: .7;
+    filter: alpha(opacity=70);
+}
+
+.all_cancel {
+    background: url("../images/all_cancel.png") no-repeat center center;
+}
+
+.minimize {
+    background: url("../images/minimize.png") no-repeat center center;
+}
+
+.uploadBoxB ul {
+    overflow: auto;
+    margin-top: 42px;
+}
+
+.uploadBoxB ul li {
+    height: 56px;
+    line-height: 56px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+/*文件名*/
+.file_name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    position: relative;
+    width: 30%;
+    float: left;
+    font-size: 14px;
+}
+
+.file_icon {
+    width: 26px;
+    height: 32px;
+    background: url("../images/qitageshi.png") no-repeat center center;
+    position: absolute;
+    top: 12px;
+    left: 0;
+    font-size: 14px;
+}
+
+.fileicon_ai {
     background-image: url("../images/ai.png");
 }
-.fileicon_doc{
+
+.fileicon_doc {
     background-image: url("../images/doc.png");
 }
-.fileicon_jpg{
+
+.fileicon_jpg {
     background-image: url("../images/jpg.png");
 }
-.fileicon_pdf{
+
+.fileicon_pdf {
     background-image: url("../images/pdf.png");
 }
-.fileicon_png{
+
+.fileicon_png {
     background-image: url("../images/png.png");
 }
-.fileicon_ppt{
+
+.fileicon_ppt {
     background-image: url("../images/ppt.png");
 }
-.fileicon_psd{
+
+.fileicon_psd {
     background-image: url("../images/psd.png");
 }
-.fileicon_xls{
+
+.fileicon_xls {
     background-image: url("../images/xls.png");
 }
-.fileicon_txt{
+
+.fileicon_txt {
     background-image: url("../images/txt.png");
 }
-.fileicon_qitageshi{
+
+.fileicon_qitageshi {
     background-image: url("../images/qitageshi.png");
+}
+
+.file_name p {
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 56px;
+    text-indent: 43px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/*大小*/
+.file_size {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 15%;
+    float: left;
+    line-height: 56px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/*路径*/
+.file_path {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 20%;
+    float: left;
+    text-align: center;
+    line-height: 56px;
+    font-size: 14px;
+}
+
+.file_path > a {
+    color: #0B61A4;
+}
+
+.file_status {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 20%;
+    float: left;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.file_status span {
+    line-height: 20px;
+    display: block;
+    text-align: center;
+    font-size: 14px;
+}
+
+.file_operate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 15%;
+    float: left;
+    line-height: 56px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.file_operate > div {
+    width: 18px;
+    height: 24px;
+    display: inline-block;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+.file_operate > div:hover {
+    opacity: .7;
+    filter: alpha(opacity=70);
+}
+
+.pause {
+    background: url("../images/pause.png") no-repeat center center;
+}
+
+.start {
+    background: url("../images/start.png") no-repeat center center;
+}
+
+.cancel {
+    background: url("../images/cancel.png") no-repeat center center;
+}
+
+/*进度条*/
+.progress {
+    width: 100%;
+    height: 55px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #fff;
+}
+
+.file_status .processBox_PJY {
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 5px
+}
+
+.file_status .processBox_PJY > p {
+    width: 50%;
+    height: 8px;
+    background: #efefef;
+    margin: 0 auto;
+    overflow: hidden
+}
+
+.file_status .processBox_PJY > p > span {
+    display: inline-block;
+    background: #ffae00;
+    width: 20%;
+    height: 8px;
+    float: left
 }
