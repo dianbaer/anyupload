@@ -23,8 +23,30 @@
         this.closeArray = [];
         this.allNum = 0;
         this.nowCompleteNum = 0;
-        this.initView = function () {
+        this.ulContainer = null;
+        this.initView = function (container) {
+            this.createView(container);
             juggle.jugglerManager.juggler.add(this);
+        };
+        this.createView = function (container) {
+            var view = document.createElement("div");
+            var body =
+
+                '<div class="uploader_list_header">' +
+                '<div class="file_name">文件名</div>' +
+                '<div class="file_size">大小</div>' +
+                '<div class="file_path">上传目录</div>' +
+                '<div class="file_status">状态</div>' +
+                '<div class="file_operate">操作</div>' +
+                '<div class="clear"></div>' +
+                '</div>' +
+                '<div class="uploadBoxB">' +
+                '<ul id="anyupload_ul">' +
+                '</ul>' +
+                '</div>';
+            view.innerHTML = body;
+            container.append($(view));
+            this.ulContainer = $("#anyupload_ul");
         };
         // 关心消息数组
         this.listNotificationInterests = [notificationExt.MD5_CHECK_SUCCESS, notificationExt.MD5_CHECK_FAIL, notificationExt.UPLOAD_FILE_SUCCESS, notificationExt.UPLOAD_FILE_FAIL];
@@ -257,7 +279,7 @@
                 var file = fileList[i];
                 var uploadFileObj = new UploadFileObj();
                 uploadFileObj.init(file, fileConfig.getIncrementId());
-                $("#upload_box_upload_itemcontainer").append(uploadFileObj.view);
+                this.ulContainer.append(uploadFileObj.view);
                 uploadFileObj.addListener();
                 uploadFileObj.addEventListener(uploadEventType.ADD_WAIT_MD5_ARRAY, this.addWaitMd5Array, this);
                 uploadFileObj.addEventListener(uploadEventType.ADD_MD5_CHECK_ARRAY_AND_LOAD, this.addMd5CheckArrayAndLoad, this);
