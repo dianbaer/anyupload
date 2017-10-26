@@ -97,7 +97,9 @@
 
 ### AnyUploadServer怎么使用
 
-	服务器需要将代码融入到项目中，按照AnyUploadServer代码示例需要提供两个接口
+	如果测试，直接启动AnyUploadServer即可，不需要修改配置
+	
+	如果融入其他项目，按照AnyUploadServer代码示例需要提供两个接口
 	
 	message MD5CheckC{
 		string hOpCode=1;
