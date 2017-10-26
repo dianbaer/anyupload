@@ -12,7 +12,7 @@
 ## 项目目录结构：
 
 	
-### AnyUploadClient
+### AnyUploadClient（1000行代码）
 
 	|--js（js库）
 		|--anyupload（anyupload文件夹）
@@ -27,7 +27,7 @@
 	|--index.html（示例启动项目）
 
 
-### AnyUploadServer
+### AnyUploadServer（899行代码）
 
 	|--src（服务器代码）
 	|--protobuf（消息包生成工具）
