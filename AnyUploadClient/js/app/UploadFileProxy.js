@@ -4,6 +4,15 @@
     var UploadFileProxy = function () {
         juggle.Proxy.apply(this);
         this.url = null;
+        /**
+         * 校验md5
+         * @param uploadFileId 界面上的显示对象id
+         * @param fileBaseMd5 md5
+         * @param userFileName 文件名
+         * @param userFoldParentId 父类id（没用）
+         * @param fileBaseTotalSize 文件大小
+         * @param userFileId 文件id（没用）
+         */
         this.checkMD5 = function (uploadFileId, fileBaseMd5, userFileName, userFoldParentId, fileBaseTotalSize, userFileId) {
             var data = {
                 "hOpCode": "50000",
@@ -27,6 +36,7 @@
         this.checkMD5Success = function (event) {
             var result = JSON.parse(event.mData);
             var sendParam = event.mTarget.sendParam;
+            //返回错误
             if (result.hOpCode === "49999") {
                 this.notifyObservers(this.getNotification(notificationExt.MD5_CHECK_FAIL, {
                     "result": result,
@@ -34,6 +44,7 @@
                 }));
                 return;
             }
+            //protobuf传0则是null，纠正过来
             if (result.fileBasePos === null || result.fileBasePos === undefined) {
                 result.fileBasePos = 0;
             }
@@ -49,6 +60,14 @@
                 "sendParam": sendParam
             }));
         };
+        /**
+         * 上传文件
+         * @param uploadFileId 显示对象id
+         * @param userFileId 文件id
+         * @param fileBasePos 位置
+         * @param uploadLength 长度
+         * @param fileArray 文件块
+         */
         this.uploadFile = function (uploadFileId, userFileId, fileBasePos, uploadLength, fileArray) {
             var data = {
                 "hOpCode": "50001",
@@ -71,6 +90,7 @@
         this.uploadFileSuccess = function (event) {
             var result = JSON.parse(event.mData);
             var sendParam = event.mTarget.sendParam;
+            //错误的返回
             if (result.hOpCode === "49999") {
                 this.notifyObservers(this.getNotification(notificationExt.UPLOAD_FILE_FAIL, {
                     "result": result,
@@ -78,6 +98,7 @@
                 }));
                 return;
             }
+            //protobuf传0则是null，纠正过来
             if (result.fileBasePos === null || result.fileBasePos === undefined) {
                 result.fileBasePos = 0;
             }
