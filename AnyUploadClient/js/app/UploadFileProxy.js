@@ -3,6 +3,7 @@
     var notificationExt = window.anyupload.notificationExt;
     var UploadFileProxy = function () {
         juggle.Proxy.apply(this);
+        this.url = null;
         this.checkMD5 = function (uploadFileId, fileBaseMd5, userFileName, userFoldParentId, fileBaseTotalSize, userFileId) {
             var data = {
                 "hOpCode": 50000,
@@ -19,7 +20,7 @@
             };
             var httpClient = new juggle.HttpClient();
             httpClient.sendParam = sendParam;
-            httpClient.send(data, "http://localhost:8081/AnyUploadServer/s", null);
+            httpClient.send(data, this.url, null);
             httpClient.addEventListener(juggle.httpEventType.SUCCESS, this.checkMD5Success, this);
             httpClient.addEventListener(juggle.httpEventType.ERROR, this.checkMD5Fail, this);
             // var result = {
@@ -72,7 +73,7 @@
 
             var httpClient = new juggle.HttpClient();
             httpClient.sendParam = sendParam;
-            httpClient.sendFile(fileArray, data, "http://localhost:8081/AnyUploadServer/s", null);
+            httpClient.sendFile(fileArray, data, this.url, null);
             httpClient.addEventListener(juggle.httpEventType.SUCCESS, this.uploadFileSuccess, this);
             httpClient.addEventListener(juggle.httpEventType.ERROR, this.uploadFileFail, this);
             // var result = {

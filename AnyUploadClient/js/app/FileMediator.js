@@ -24,6 +24,7 @@
         this.allNum = 0;
         this.nowCompleteNum = 0;
         this.ulContainer = null;
+        this.uploadNumText = null;
         this.initView = function (container) {
             this.createView(container);
             juggle.jugglerManager.juggler.add(this);
@@ -31,7 +32,13 @@
         this.createView = function (container) {
             var view = document.createElement("div");
             var body =
-
+                '<div class="uploadBoxT clearfix">' +
+                '<p class="fl" id="anyupload_num">正在上传（' + this.nowCompleteNum + '/' + this.allNum + '）</p>' +
+                '<div class="fr">' +
+                '<i class="minimize"></i>' +
+                '<i class="all_cancel"></i>' +
+                '</div>' +
+                '</div>' +
                 '<div class="uploader_list_header">' +
                 '<div class="file_name">文件名</div>' +
                 '<div class="file_size">大小</div>' +
@@ -47,6 +54,7 @@
             view.innerHTML = body;
             container.append($(view));
             this.ulContainer = $("#anyupload_ul");
+            this.uploadNumText = $("#anyupload_num");
         };
         // 关心消息数组
         this.listNotificationInterests = [notificationExt.MD5_CHECK_SUCCESS, notificationExt.MD5_CHECK_FAIL, notificationExt.UPLOAD_FILE_SUCCESS, notificationExt.UPLOAD_FILE_FAIL];
@@ -295,7 +303,7 @@
                 this.uploadFileMap[uploadFileObj.id] = uploadFileObj;
                 this.allNum++;
             }
-            $("#upload_box_num_text").text("正在上传（" + this.nowCompleteNum + "/" + this.allNum + "）");
+            this.uploadNumText.text("正在上传（" + this.nowCompleteNum + "/" + this.allNum + "）");
         };
         this.removeUploadFile = function (uploadFileObj) {
             uploadFileObj.view.remove();
@@ -303,7 +311,7 @@
             if (uploadFileObj.status === fileConfig.STATUS_MD5_MOMENT_UPLOAD || uploadFileObj.status === fileConfig.STATUS_UPLOAD_SUCCESS) {
                 this.nowCompleteNum--;
             }
-            $("#upload_box_num_text").text("正在上传（" + this.nowCompleteNum + "/" + this.allNum + "）");
+            this.uploadNumText.text("正在上传（" + this.nowCompleteNum + "/" + this.allNum + "）");
             delete this.uploadFileMap[uploadFileObj.id];
         };
         this.addWaitMd5Array = function (event) {
@@ -356,7 +364,7 @@
         };
         this.onUploadComplete = function (event) {
             this.nowCompleteNum++;
-            $("#upload_box_num_text").text("正在上传（" + this.nowCompleteNum + "/" + this.allNum + "）");
+            this.uploadNumText.text("正在上传（" + this.nowCompleteNum + "/" + this.allNum + "）");
         };
         this.onOpenCancelChooseBox = function (event) {
             var uploadFileObj = event.mTarget;
