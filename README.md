@@ -94,6 +94,18 @@
 
 ```
 
+### AnyUploadClient js源码打包
+
+
+	cd AnyUploadClient/js/anyupload
+	
+	npm install -g grunt-cli
+
+	npm install
+	
+	grunt
+	
+
 
 ### AnyUploadServer怎么使用
 
@@ -130,6 +142,13 @@
 		string userFileId=5;//文件id
 		int32 waitTime=6;//等待时间
 	}
+	
+### AnyUploadServer打包
+
+
+	ant
+
+	
 	
 ### 基于grain与juggle：
 
