@@ -12,22 +12,24 @@
 
 	
 >AnyUploadClient
-|--js（js库）
-	|--anyupload（anyupload文件夹）
-		|--css（anyupload css）
-		|--dist（anyupload js打包版本）
-		|--images（anyupload image）
-		|--src（anyupload js未打包版本）
-	|--lib（依赖js）
-		|--jquery.min.js
-		|--juggle-all.js（解耦合的工具库：https://github.com/dianbaer/juggle）
-		|--spark-md5.js（用于分块计算md5）
-|--index.html（示例启动项目）
+
+	|--js（js库）
+		|--anyupload（anyupload文件夹）
+			|--css（anyupload css）
+			|--dist（anyupload js打包版本）
+			|--images（anyupload image）
+			|--src（anyupload js未打包版本）
+		|--lib（依赖js）
+			|--jquery.min.js
+			|--juggle-all.js（解耦合的工具库：https://github.com/dianbaer/juggle）
+			|--spark-md5.js（用于分块计算md5）
+	|--index.html（示例启动项目）
 
 
 >AnyUploadServer
-|--src（服务器代码）
-|--protobuf（消息包生成工具）
+
+	|--src（服务器代码）
+	|--protobuf（消息包生成工具）
 
 
 ### AnyUploadClient怎么使用：
