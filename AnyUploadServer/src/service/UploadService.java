@@ -17,8 +17,8 @@ import config.FileBaseConfig;
 import dao.model.base.FileBase;
 import dao.model.ext.UserFileExt;
 import http.HOpCodeBox;
-import protobuf.http.BoxErrorProto.BoxErrorCode;
-import protobuf.http.BoxErrorProto.BoxErrorS;
+import protobuf.http.ErrorProto.ErrorCode;
+import protobuf.http.ErrorProto.ErrorS;
 import protobuf.http.UploadFileProto.MD5CheckC;
 import protobuf.http.UploadFileProto.MD5CheckS;
 import protobuf.http.UploadFileProto.UploadFileC;
@@ -58,7 +58,7 @@ public class UploadService implements IHttpListener {
 			// 文件为空，则创建文件
 			userFile = userFileAction.createUserFile(message.getUserFileName(), message.getUserFoldParentId(), "xxxxx", message.getFileBaseMd5(), message.getFileBaseTotalSize(), fileBase);
 			if (userFile == null) {
-				BoxErrorS boxErrorS = createError(BoxErrorCode.ERROR_CODE_3, httpPacket.gethOpCode());
+				ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_3, httpPacket.gethOpCode());
 				throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
 			}
 			if (fileBase != null) {
@@ -85,7 +85,7 @@ public class UploadService implements IHttpListener {
 				// 更新，然后秒传
 				boolean result = userFileAction.changeFileBase(userFile, fileBase);
 				if (!result) {
-					BoxErrorS boxErrorS = createError(BoxErrorCode.ERROR_CODE_3, httpPacket.gethOpCode());
+					ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_3, httpPacket.gethOpCode());
 					throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
 				}
 				MD5CheckS.Builder builder = MD5CheckS.newBuilder();
@@ -112,44 +112,44 @@ public class UploadService implements IHttpListener {
 		UploadFileC message = (UploadFileC) httpPacket.getData();
 		UserFileExt userFile = userFileAction.getUserFile(message.getUserFileId());
 		if (userFile == null) {
-			BoxErrorS boxErrorS = createError(BoxErrorCode.ERROR_CODE_4, httpPacket.gethOpCode());
+			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_4, httpPacket.gethOpCode());
 			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		// 位置不对
 		if (message.getFileBasePos() != userFile.getFileBase().getFileBasePos()) {
-			BoxErrorS boxErrorS = createError(BoxErrorCode.ERROR_CODE_5, httpPacket.gethOpCode());
+			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_5, httpPacket.gethOpCode());
 			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		// 不能大于默认长度
 		if (message.getUploadLength() > CommonConfigBox.UPLOAD_MAX_LENGTH) {
-			BoxErrorS boxErrorS = createError(BoxErrorCode.ERROR_CODE_6, httpPacket.gethOpCode());
+			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_6, httpPacket.gethOpCode());
 			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		// 没有文件
 		if (httpPacket.fileList == null || httpPacket.fileList.size() == 0) {
-			BoxErrorS boxErrorS = createError(BoxErrorCode.ERROR_CODE_7, httpPacket.gethOpCode());
+			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_7, httpPacket.gethOpCode());
 			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		FileData fileData = httpPacket.fileList.get(0);
 		// 文件长度与消息长度不符
 		if ((int) fileData.getFile().length() != message.getUploadLength()) {
-			BoxErrorS boxErrorS = createError(BoxErrorCode.ERROR_CODE_6, httpPacket.gethOpCode());
+			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_6, httpPacket.gethOpCode());
 			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		// 不存在这个文件
 		File file = userFileAction.getFile(userFile.getFileBase().getFileBaseRealPath());
 		if (file == null) {
-			BoxErrorS boxErrorS = createError(BoxErrorCode.ERROR_CODE_8, httpPacket.gethOpCode());
+			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_8, httpPacket.gethOpCode());
 			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		if (file.length() != message.getFileBasePos()) {
-			BoxErrorS boxErrorS = createError(BoxErrorCode.ERROR_CODE_6, httpPacket.gethOpCode());
+			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_6, httpPacket.gethOpCode());
 			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		Date date = new Date();
 		// 是否在规定时间后上传
 		if (date.getTime() < userFile.getFileBase().getFileBaseNextUploadTime().getTime()) {
-			BoxErrorS boxErrorS = createError(BoxErrorCode.ERROR_CODE_9, httpPacket.gethOpCode());
+			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_9, httpPacket.gethOpCode());
 			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		FileBase fileBase = userFileAction.getFileBaseByMd5(userFile.getFileBase().getFileBaseMd5());
@@ -157,7 +157,7 @@ public class UploadService implements IHttpListener {
 			// 更新，然后秒传
 			boolean result = userFileAction.changeFileBase(userFile, fileBase);
 			if (!result) {
-				BoxErrorS boxErrorS = createError(BoxErrorCode.ERROR_CODE_10, httpPacket.gethOpCode());
+				ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_10, httpPacket.gethOpCode());
 				throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
 			}
 			UploadFileS.Builder builder = UploadFileS.newBuilder();
@@ -169,12 +169,12 @@ public class UploadService implements IHttpListener {
 		}
 		boolean result = userFileAction.updateFile(file, fileData.getFile());
 		if (!result) {
-			BoxErrorS boxErrorS = createError(BoxErrorCode.ERROR_CODE_11, httpPacket.gethOpCode());
+			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_11, httpPacket.gethOpCode());
 			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		result = userFileAction.updateUserFile(userFile, message.getUploadLength());
 		if (!result) {
-			BoxErrorS boxErrorS = createError(BoxErrorCode.ERROR_CODE_12, httpPacket.gethOpCode());
+			ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_12, httpPacket.gethOpCode());
 			throw new HttpException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		if ((message.getFileBasePos() + message.getUploadLength()) == userFile.getFileBase().getFileBaseTotalSize()) {
@@ -202,8 +202,8 @@ public class UploadService implements IHttpListener {
 		userFileAction.createFileBaseDir();
 	}
 
-	public static BoxErrorS createError(BoxErrorCode boxErrorCode, String errorHOpCode) {
-		BoxErrorS.Builder errorBuilder = BoxErrorS.newBuilder();
+	public static ErrorS createError(ErrorCode boxErrorCode, String errorHOpCode) {
+		ErrorS.Builder errorBuilder = ErrorS.newBuilder();
 		errorBuilder.setHOpCode(HOpCodeBox.BOX_ERROR);
 		errorBuilder.setErrorCode(boxErrorCode);
 		errorBuilder.setErrorHOpCode(errorHOpCode);

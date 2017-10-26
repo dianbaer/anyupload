@@ -1,12 +1,12 @@
 syntax = "proto3";
 package protobuf.http;
-message BoxErrorS{
+message ErrorS{
 	string hOpCode=1;
-	BoxErrorCode errorCode=2;
+	ErrorCode errorCode=2;
 	string errorHOpCode=3;
 	string extraMsg=4;
 }
-enum BoxErrorCode{
+enum ErrorCode{
 	ERROR_CODE_3=0;//md5校验失败
 	ERROR_CODE_4=1;//上传失败，不存在这个文件
 	ERROR_CODE_5=2;//上传失败，上传位置不对
