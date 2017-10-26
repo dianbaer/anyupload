@@ -22,14 +22,25 @@
 
 </head>
 <script type="text/javascript">
+    this.uploadFileButtonChange = function (e) {
+        if (!("FileReader" in window) || !("File" in window)) {
+            alert("您的浏览器不支持html5，请使用google，firefox，ie10等浏览器");
+            return;
+        }
+        var files = e.target.files;
+        fileMediator.upLoadFile(files);
+        $("#uploadFileButton").val("");
+    };
+    var fileMediator;
     window.onload = function () {
-        var fileMediator = new anyupload.FileMediator();
+        fileMediator = new anyupload.FileMediator();
         fileMediator.initView();
+        $("#uploadFileButton").on("change", this.uploadFileButtonChange);
 
     }
 </script>
 <body>
-<input type="file" class="myFile_PJY" multiple="multiple" id="allfile_head_uploadfilebutton"/>
+<input type="file" class="myFile_PJY" multiple="multiple" id="uploadFileButton"/>
 <div id="index_uploadbox">
     <div class="uploader_list_header">
         <div class="file_name">文件名</div>

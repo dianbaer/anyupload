@@ -24,23 +24,7 @@
         this.allNum = 0;
         this.nowCompleteNum = 0;
         this.initView = function () {
-            this.onChange(this, this.onUploadFileButtonChange);
             juggle.jugglerManager.juggler.add(this);
-        };
-        this.onChange = function (mediator, call) {
-            this.onLoadFunc = function (event) {
-                call.call(mediator, event);
-            };
-            $("#allfile_head_uploadfilebutton").on("change", this.onLoadFunc);
-        };
-        this.onUploadFileButtonChange = function (e) {
-            if (!("FileReader" in window) || !("File" in window)) {
-                alert("您的浏览器不支持html5，请使用google，firefox，ie10等浏览器");
-                return;
-            }
-            var files = e.target.files;
-            this.upLoadFile(files);
-            $("#allfile_head_uploadfilebutton").val("");
         };
         // 关心消息数组
         this.listNotificationInterests = [notificationExt.MD5_CHECK_SUCCESS, notificationExt.MD5_CHECK_FAIL, notificationExt.UPLOAD_FILE_SUCCESS, notificationExt.UPLOAD_FILE_FAIL];
@@ -290,7 +274,6 @@
                 this.allNum++;
             }
             $("#upload_box_num_text").text("正在上传（" + this.nowCompleteNum + "/" + this.allNum + "）");
-            $("#right_uploadnone_style").hide();
         };
         this.removeUploadFile = function (uploadFileObj) {
             uploadFileObj.view.remove();
