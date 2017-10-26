@@ -21,215 +21,167 @@ public final class BoxErrorProto {
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <pre>
-     *未知错误
-     * </pre>
-     *
-     * <code>ERROR_CODE_0 = 0;</code>
-     */
-    ERROR_CODE_0(0),
-    /**
-     * <pre>
-     *不存在这个用户
-     * </pre>
-     *
-     * <code>ERROR_CODE_1 = 1;</code>
-     */
-    ERROR_CODE_1(1),
-    /**
-     * <pre>
-     *创建用户顶级文件夹失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_2 = 2;</code>
-     */
-    ERROR_CODE_2(2),
-    /**
-     * <pre>
      *md5校验失败
      * </pre>
      *
-     * <code>ERROR_CODE_3 = 3;</code>
+     * <code>ERROR_CODE_3 = 0;</code>
      */
-    ERROR_CODE_3(3),
+    ERROR_CODE_3(0),
     /**
      * <pre>
      *上传失败，不存在这个文件
      * </pre>
      *
-     * <code>ERROR_CODE_4 = 4;</code>
+     * <code>ERROR_CODE_4 = 1;</code>
      */
-    ERROR_CODE_4(4),
+    ERROR_CODE_4(1),
     /**
      * <pre>
      *上传失败，上传位置不对
      * </pre>
      *
-     * <code>ERROR_CODE_5 = 5;</code>
+     * <code>ERROR_CODE_5 = 2;</code>
      */
-    ERROR_CODE_5(5),
+    ERROR_CODE_5(2),
     /**
      * <pre>
      *上传失败，长度不对
      * </pre>
      *
-     * <code>ERROR_CODE_6 = 6;</code>
+     * <code>ERROR_CODE_6 = 3;</code>
      */
-    ERROR_CODE_6(6),
+    ERROR_CODE_6(3),
     /**
      * <pre>
      *上传失败，没发送文件
      * </pre>
      *
-     * <code>ERROR_CODE_7 = 7;</code>
+     * <code>ERROR_CODE_7 = 4;</code>
      */
-    ERROR_CODE_7(7),
+    ERROR_CODE_7(4),
     /**
      * <pre>
      *上传失败，不存在实体文件
      * </pre>
      *
-     * <code>ERROR_CODE_8 = 8;</code>
+     * <code>ERROR_CODE_8 = 5;</code>
      */
-    ERROR_CODE_8(8),
+    ERROR_CODE_8(5),
     /**
      * <pre>
      *上传失败，时间超前
      * </pre>
      *
-     * <code>ERROR_CODE_9 = 9;</code>
+     * <code>ERROR_CODE_9 = 6;</code>
      */
-    ERROR_CODE_9(9),
+    ERROR_CODE_9(6),
     /**
      * <pre>
      *上传失败，更换基础文件失败
      * </pre>
      *
-     * <code>ERROR_CODE_10 = 10;</code>
+     * <code>ERROR_CODE_10 = 7;</code>
      */
-    ERROR_CODE_10(10),
+    ERROR_CODE_10(7),
     /**
      * <pre>
      *上传失败，写入文件失败
      * </pre>
      *
-     * <code>ERROR_CODE_11 = 11;</code>
+     * <code>ERROR_CODE_11 = 8;</code>
      */
-    ERROR_CODE_11(11),
+    ERROR_CODE_11(8),
     /**
      * <pre>
      *上传失败，更新数据失败
      * </pre>
      *
-     * <code>ERROR_CODE_12 = 12;</code>
+     * <code>ERROR_CODE_12 = 9;</code>
      */
-    ERROR_CODE_12(12),
+    ERROR_CODE_12(9),
     UNRECOGNIZED(-1),
     ;
 
     /**
      * <pre>
-     *未知错误
-     * </pre>
-     *
-     * <code>ERROR_CODE_0 = 0;</code>
-     */
-    public static final int ERROR_CODE_0_VALUE = 0;
-    /**
-     * <pre>
-     *不存在这个用户
-     * </pre>
-     *
-     * <code>ERROR_CODE_1 = 1;</code>
-     */
-    public static final int ERROR_CODE_1_VALUE = 1;
-    /**
-     * <pre>
-     *创建用户顶级文件夹失败
-     * </pre>
-     *
-     * <code>ERROR_CODE_2 = 2;</code>
-     */
-    public static final int ERROR_CODE_2_VALUE = 2;
-    /**
-     * <pre>
      *md5校验失败
      * </pre>
      *
-     * <code>ERROR_CODE_3 = 3;</code>
+     * <code>ERROR_CODE_3 = 0;</code>
      */
-    public static final int ERROR_CODE_3_VALUE = 3;
+    public static final int ERROR_CODE_3_VALUE = 0;
     /**
      * <pre>
      *上传失败，不存在这个文件
      * </pre>
      *
-     * <code>ERROR_CODE_4 = 4;</code>
+     * <code>ERROR_CODE_4 = 1;</code>
      */
-    public static final int ERROR_CODE_4_VALUE = 4;
+    public static final int ERROR_CODE_4_VALUE = 1;
     /**
      * <pre>
      *上传失败，上传位置不对
      * </pre>
      *
-     * <code>ERROR_CODE_5 = 5;</code>
+     * <code>ERROR_CODE_5 = 2;</code>
      */
-    public static final int ERROR_CODE_5_VALUE = 5;
+    public static final int ERROR_CODE_5_VALUE = 2;
     /**
      * <pre>
      *上传失败，长度不对
      * </pre>
      *
-     * <code>ERROR_CODE_6 = 6;</code>
+     * <code>ERROR_CODE_6 = 3;</code>
      */
-    public static final int ERROR_CODE_6_VALUE = 6;
+    public static final int ERROR_CODE_6_VALUE = 3;
     /**
      * <pre>
      *上传失败，没发送文件
      * </pre>
      *
-     * <code>ERROR_CODE_7 = 7;</code>
+     * <code>ERROR_CODE_7 = 4;</code>
      */
-    public static final int ERROR_CODE_7_VALUE = 7;
+    public static final int ERROR_CODE_7_VALUE = 4;
     /**
      * <pre>
      *上传失败，不存在实体文件
      * </pre>
      *
-     * <code>ERROR_CODE_8 = 8;</code>
+     * <code>ERROR_CODE_8 = 5;</code>
      */
-    public static final int ERROR_CODE_8_VALUE = 8;
+    public static final int ERROR_CODE_8_VALUE = 5;
     /**
      * <pre>
      *上传失败，时间超前
      * </pre>
      *
-     * <code>ERROR_CODE_9 = 9;</code>
+     * <code>ERROR_CODE_9 = 6;</code>
      */
-    public static final int ERROR_CODE_9_VALUE = 9;
+    public static final int ERROR_CODE_9_VALUE = 6;
     /**
      * <pre>
      *上传失败，更换基础文件失败
      * </pre>
      *
-     * <code>ERROR_CODE_10 = 10;</code>
+     * <code>ERROR_CODE_10 = 7;</code>
      */
-    public static final int ERROR_CODE_10_VALUE = 10;
+    public static final int ERROR_CODE_10_VALUE = 7;
     /**
      * <pre>
      *上传失败，写入文件失败
      * </pre>
      *
-     * <code>ERROR_CODE_11 = 11;</code>
+     * <code>ERROR_CODE_11 = 8;</code>
      */
-    public static final int ERROR_CODE_11_VALUE = 11;
+    public static final int ERROR_CODE_11_VALUE = 8;
     /**
      * <pre>
      *上传失败，更新数据失败
      * </pre>
      *
-     * <code>ERROR_CODE_12 = 12;</code>
+     * <code>ERROR_CODE_12 = 9;</code>
      */
-    public static final int ERROR_CODE_12_VALUE = 12;
+    public static final int ERROR_CODE_12_VALUE = 9;
 
 
     public final int getNumber() {
@@ -250,19 +202,16 @@ public final class BoxErrorProto {
 
     public static BoxErrorCode forNumber(int value) {
       switch (value) {
-        case 0: return ERROR_CODE_0;
-        case 1: return ERROR_CODE_1;
-        case 2: return ERROR_CODE_2;
-        case 3: return ERROR_CODE_3;
-        case 4: return ERROR_CODE_4;
-        case 5: return ERROR_CODE_5;
-        case 6: return ERROR_CODE_6;
-        case 7: return ERROR_CODE_7;
-        case 8: return ERROR_CODE_8;
-        case 9: return ERROR_CODE_9;
-        case 10: return ERROR_CODE_10;
-        case 11: return ERROR_CODE_11;
-        case 12: return ERROR_CODE_12;
+        case 0: return ERROR_CODE_3;
+        case 1: return ERROR_CODE_4;
+        case 2: return ERROR_CODE_5;
+        case 3: return ERROR_CODE_6;
+        case 4: return ERROR_CODE_7;
+        case 5: return ERROR_CODE_8;
+        case 6: return ERROR_CODE_9;
+        case 7: return ERROR_CODE_10;
+        case 8: return ERROR_CODE_11;
+        case 9: return ERROR_CODE_12;
         default: return null;
       }
     }
@@ -581,7 +530,7 @@ public final class BoxErrorProto {
       if (!getHOpCodeBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, hOpCode_);
       }
-      if (errorCode_ != protobuf.http.BoxErrorProto.BoxErrorCode.ERROR_CODE_0.getNumber()) {
+      if (errorCode_ != protobuf.http.BoxErrorProto.BoxErrorCode.ERROR_CODE_3.getNumber()) {
         output.writeEnum(2, errorCode_);
       }
       if (!getErrorHOpCodeBytes().isEmpty()) {
@@ -600,7 +549,7 @@ public final class BoxErrorProto {
       if (!getHOpCodeBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, hOpCode_);
       }
-      if (errorCode_ != protobuf.http.BoxErrorProto.BoxErrorCode.ERROR_CODE_0.getNumber()) {
+      if (errorCode_ != protobuf.http.BoxErrorProto.BoxErrorCode.ERROR_CODE_3.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(2, errorCode_);
       }
@@ -1201,14 +1150,13 @@ public final class BoxErrorProto {
       "\n\023BoxErrorProto.proto\022\rprotobuf.http\"t\n\t" +
       "BoxErrorS\022\017\n\007hOpCode\030\001 \001(\t\022.\n\terrorCode\030" +
       "\002 \001(\0162\033.protobuf.http.BoxErrorCode\022\024\n\014er" +
-      "rorHOpCode\030\003 \001(\t\022\020\n\010extraMsg\030\004 \001(\t*\373\001\n\014B" +
-      "oxErrorCode\022\020\n\014ERROR_CODE_0\020\000\022\020\n\014ERROR_C" +
-      "ODE_1\020\001\022\020\n\014ERROR_CODE_2\020\002\022\020\n\014ERROR_CODE_" +
-      "3\020\003\022\020\n\014ERROR_CODE_4\020\004\022\020\n\014ERROR_CODE_5\020\005\022" +
-      "\020\n\014ERROR_CODE_6\020\006\022\020\n\014ERROR_CODE_7\020\007\022\020\n\014E" +
-      "RROR_CODE_8\020\010\022\020\n\014ERROR_CODE_9\020\t\022\021\n\rERROR" +
-      "_CODE_10\020\n\022\021\n\rERROR_CODE_11\020\013\022\021\n\rERROR_C",
-      "ODE_12\020\014b\006proto3"
+      "rorHOpCode\030\003 \001(\t\022\020\n\010extraMsg\030\004 \001(\t*\305\001\n\014B" +
+      "oxErrorCode\022\020\n\014ERROR_CODE_3\020\000\022\020\n\014ERROR_C" +
+      "ODE_4\020\001\022\020\n\014ERROR_CODE_5\020\002\022\020\n\014ERROR_CODE_" +
+      "6\020\003\022\020\n\014ERROR_CODE_7\020\004\022\020\n\014ERROR_CODE_8\020\005\022" +
+      "\020\n\014ERROR_CODE_9\020\006\022\021\n\rERROR_CODE_10\020\007\022\021\n\r" +
+      "ERROR_CODE_11\020\010\022\021\n\rERROR_CODE_12\020\tb\006prot" +
+      "o3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

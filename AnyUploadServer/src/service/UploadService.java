@@ -9,7 +9,6 @@ import org.grain.httpserver.FileData;
 import org.grain.httpserver.HttpException;
 import org.grain.httpserver.HttpPacket;
 import org.grain.httpserver.IHttpListener;
-import org.grain.httpserver.ReplyFile;
 
 import action.IUserFileAction;
 import action.UserFileAction;
@@ -24,7 +23,6 @@ import protobuf.http.UploadFileProto.MD5CheckC;
 import protobuf.http.UploadFileProto.MD5CheckS;
 import protobuf.http.UploadFileProto.UploadFileC;
 import protobuf.http.UploadFileProto.UploadFileS;
-import protobuf.http.UploadFileProto.UserFileDownloadC;
 
 public class UploadService implements IHttpListener {
 	public IUserFileAction userFileAction;
@@ -34,7 +32,6 @@ public class UploadService implements IHttpListener {
 		HashMap<String, String> map = new HashMap<>();
 		map.put(HOpCodeBox.MD5_CHECK, "md5CheckHandle");
 		map.put(HOpCodeBox.UPLOAD_FILE, "uploadFileHandle");
-		map.put(HOpCodeBox.USERFILE_DOWNLOAD, "userFileDownloadHandle");
 		return map;
 	}
 
@@ -198,20 +195,6 @@ public class UploadService implements IHttpListener {
 			HttpPacket packet = new HttpPacket(httpPacket.gethOpCode(), builder.build());
 			return packet;
 		}
-	}
-
-	public ReplyFile userFileDownloadHandle(HttpPacket httpPacket) {
-		UserFileDownloadC message = (UserFileDownloadC) httpPacket.getData();
-		UserFileExt userFile = userFileAction.getUserFileComplete(message.getUserFileId());
-		if (userFile == null) {
-			return null;
-		}
-		File file = userFileAction.getFile(userFile.getFileBase().getFileBaseRealPath());
-		if (file == null) {
-			return null;
-		}
-		ReplyFile replyFile = new ReplyFile(file, userFile.getUserFileName());
-		return replyFile;
 	}
 
 	public UploadService() {

@@ -29,7 +29,3 @@ message UploadFileS{
 	string userFileId=5;//文件id
 	int32 waitTime=6;//等待时间
 }
-message UserFileDownloadC{
-	string hOpCode=1;
-	string userFileId=2;//文件id
-}
