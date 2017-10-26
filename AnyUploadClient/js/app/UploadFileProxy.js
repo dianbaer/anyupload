@@ -23,14 +23,6 @@
             httpClient.send(data, this.url, null);
             httpClient.addEventListener(juggle.httpEventType.SUCCESS, this.checkMD5Success, this);
             httpClient.addEventListener(juggle.httpEventType.ERROR, this.checkMD5Fail, this);
-            // var result = {
-            // "hOpCode" : 50000,
-            // "result" : 2,
-            // "fileBasePos" : 0,
-            // "uploadMaxLength" : 65536,
-            // "userFileId" : Math.uuid()
-            // }
-            // this.checkMD5Success(result, sendParam);
         };
         this.checkMD5Success = function (event) {
             var result = JSON.parse(event.mData);
@@ -76,15 +68,6 @@
             httpClient.sendFile(fileArray, data, this.url, null);
             httpClient.addEventListener(juggle.httpEventType.SUCCESS, this.uploadFileSuccess, this);
             httpClient.addEventListener(juggle.httpEventType.ERROR, this.uploadFileFail, this);
-            // var result = {
-            // "hOpCode" : 50001,
-            // "result" : 2,
-            // "fileBasePos" : fileBasePos + uploadLength,
-            // "uploadMaxLength" : 65536,
-            // "userFileId" : userFileId,
-            // "waitTime" : 640
-            // };
-            // this.uploadFileSuccess(result, sendParam);
         };
         this.uploadFileSuccess = function (event) {
             var result = JSON.parse(event.mData);
