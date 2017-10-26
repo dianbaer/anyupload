@@ -15,7 +15,13 @@ import org.grain.httpserver.HttpConfig;
 public class UserFileAction implements IUserFileAction {
 	public static String FILE_BASE_PATH;
 	public static SimpleDateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	/**
+	 * 文件map uuid->UserFile
+	 */
 	public static Map<String, UserFile> userFileMap = new ConcurrentHashMap<String, UserFile>();
+	/**
+	 * 已经上传完成的文件map md5->FileBase
+	 */
 	public static Map<String, FileBase> completeFileBaseMap = new ConcurrentHashMap<String, FileBase>();
 
 	public static boolean stringIsNull(String str) {
@@ -64,7 +70,7 @@ public class UserFileAction implements IUserFileAction {
 
 	@Override
 	public UserFile createUserFile(String userFileName, String userFoldParentId, String createUserId, String fileBaseMd5, long fileBaseTotalSize, FileBase fileBase) {
-		if (stringIsNull(userFileName) || stringIsNull(createUserId) || stringIsNull(fileBaseMd5)) {
+		if (stringIsNull(userFileName) || stringIsNull(fileBaseMd5)) {
 			return null;
 		}
 		UserFile userFile = new UserFile();

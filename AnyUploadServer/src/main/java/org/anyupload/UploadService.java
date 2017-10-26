@@ -48,7 +48,7 @@ public class UploadService implements IHttpListener {
 		FileBase fileBase = userFileAction.getFileBaseByMd5(message.getFileBaseMd5());
 		if (userFile == null) {
 			// 文件为空，则创建文件
-			userFile = userFileAction.createUserFile(message.getUserFileName(), message.getUserFoldParentId(), "xxxxx", message.getFileBaseMd5(), message.getFileBaseTotalSize(), fileBase);
+			userFile = userFileAction.createUserFile(message.getUserFileName(), message.getUserFoldParentId(), null, message.getFileBaseMd5(), message.getFileBaseTotalSize(), fileBase);
 			if (userFile == null) {
 				ErrorS boxErrorS = createError(ErrorCode.ERROR_CODE_0, httpPacket.gethOpCode());
 				throw new HttpException(HOpCode.ERROR, boxErrorS);
