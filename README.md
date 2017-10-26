@@ -9,10 +9,10 @@
 
 ![上传图](./anyupload.bmp "anyupload.bmp")
 
-#项目目录结构：
+## 项目目录结构：
 
 	
->AnyUploadClient
+### AnyUploadClient
 
 	|--js（js库）
 		|--anyupload（anyupload文件夹）
@@ -27,7 +27,7 @@
 	|--index.html（示例启动项目）
 
 
->AnyUploadServer
+### AnyUploadServer
 
 	|--src（服务器代码）
 	|--protobuf（消息包生成工具）
@@ -127,7 +127,7 @@
 		int32 waitTime=6;//等待时间
 	}
 	
-基于grain与juggle：
+### 基于grain与juggle：
 
 https://github.com/dianbaer/grain
 
