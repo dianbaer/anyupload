@@ -1,4 +1,4 @@
-package log;
+package org.anyupload;
 
 import org.grain.log.ILog;
 import org.slf4j.Logger;

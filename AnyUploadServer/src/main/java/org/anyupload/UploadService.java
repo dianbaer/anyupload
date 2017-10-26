@@ -1,28 +1,20 @@
-package service;
+package org.anyupload;
 
 import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.anyupload.protobuf.ErrorProto.ErrorCode;
+import org.anyupload.protobuf.ErrorProto.ErrorS;
+import org.anyupload.protobuf.UploadFileProto.MD5CheckC;
+import org.anyupload.protobuf.UploadFileProto.MD5CheckS;
+import org.anyupload.protobuf.UploadFileProto.UploadFileC;
+import org.anyupload.protobuf.UploadFileProto.UploadFileS;
 import org.grain.httpserver.FileData;
 import org.grain.httpserver.HttpException;
 import org.grain.httpserver.HttpPacket;
 import org.grain.httpserver.IHttpListener;
-
-import action.IUserFileAction;
-import action.UserFileAction;
-import config.CommonConfigBox;
-import config.FileBaseConfig;
-import dao.model.base.FileBase;
-import dao.model.ext.UserFileExt;
-import http.HOpCodeBox;
-import protobuf.http.ErrorProto.ErrorCode;
-import protobuf.http.ErrorProto.ErrorS;
-import protobuf.http.UploadFileProto.MD5CheckC;
-import protobuf.http.UploadFileProto.MD5CheckS;
-import protobuf.http.UploadFileProto.UploadFileC;
-import protobuf.http.UploadFileProto.UploadFileS;
 
 public class UploadService implements IHttpListener {
 	public IUserFileAction userFileAction;

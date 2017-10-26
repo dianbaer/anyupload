@@ -1,4 +1,4 @@
-package dao.model.base;
+package org.anyupload;
 
 import java.util.Date;
 

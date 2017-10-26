@@ -1,8 +1,6 @@
-package dao.model.ext;
+package org.anyupload;
 
 import java.util.Date;
-
-import dao.model.base.FileBase;
 
 public class UserFileExt {
 

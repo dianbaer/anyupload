@@ -1,4 +1,4 @@
-package config;
+package org.anyupload;
 
 public class CommonConfigBox {
 

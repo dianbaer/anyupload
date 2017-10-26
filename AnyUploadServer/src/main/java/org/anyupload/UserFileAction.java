@@ -1,4 +1,4 @@
-package action;
+package org.anyupload;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,11 +11,6 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.grain.httpserver.HttpConfig;
-
-import config.CommonConfigBox;
-import config.FileBaseConfig;
-import dao.model.base.FileBase;
-import dao.model.ext.UserFileExt;
 
 public class UserFileAction implements IUserFileAction {
 	public static String FILE_BASE_PATH;

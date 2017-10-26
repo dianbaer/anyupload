@@ -1,4 +1,4 @@
-package log;
+package org.anyupload;
 
 import org.apache.log4j.DailyRollingFileAppender;
 import org.apache.log4j.Priority;

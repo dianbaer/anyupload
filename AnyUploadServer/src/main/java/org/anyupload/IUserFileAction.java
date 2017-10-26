@@ -1,9 +1,6 @@
-package action;
+package org.anyupload;
 
 import java.io.File;
-
-import dao.model.base.FileBase;
-import dao.model.ext.UserFileExt;
 
 public interface IUserFileAction {
 	/**
