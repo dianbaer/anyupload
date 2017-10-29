@@ -154,9 +154,35 @@ https://www.threecss.com/AnyUploadClient/
 	ant
 
 	
-	
-### java服务器基于grain，js客户端基于juggle：
+
+
+### java服务器基于grain-httpserver
+
+
+github：
+
 
 https://github.com/dianbaer/grain
 
+
+码云：
+
+
+https://gitee.com/dianbaer/grain
+
+
+###js客户端基于juggle-juggler，juggle-mv，juggle-http：
+
+
+github：
+
+
 https://github.com/dianbaer/juggle
+
+
+github：
+
+
+https://gitee.com/dianbaer/basic
+
+
