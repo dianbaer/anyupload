@@ -171,7 +171,7 @@ https://github.com/dianbaer/grain
 https://gitee.com/dianbaer/grain
 
 
-###js客户端基于juggle-juggler，juggle-mv，juggle-http：
+### js客户端基于juggle-juggler，juggle-mv，juggle-http
 
 
 github：
@@ -180,7 +180,7 @@ github：
 https://github.com/dianbaer/juggle
 
 
-github：
+码云：
 
 
 https://gitee.com/dianbaer/basic
