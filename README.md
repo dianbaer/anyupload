@@ -14,6 +14,10 @@ https://www.threecss.com/AnyUploadClient/
 
 ![上传图](./anyupload.png "anyupload.png")
 
+
+![流程图](./anyuploadflow.png "anyuploadflow.png")
+
+
 ## 项目目录结构：
 
 	
