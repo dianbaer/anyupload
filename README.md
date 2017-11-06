@@ -162,7 +162,12 @@ https://www.threecss.com/AnyUploadClient/
 	
 
 
-### java服务器基于grain-httpserver
+### java服务器基于grain
+
+依赖以下库，共（1429行，学习成本极低）
+
+	grain-httpserver.jar（1318行）
+	grain-log.jar（111行）
 
 
 github：
@@ -177,8 +182,15 @@ https://github.com/dianbaer/grain
 https://gitee.com/dianbaer/grain
 
 
-### js客户端基于juggle-juggler，juggle-mv，juggle-http
+### js客户端基于juggle
 
+最精简依赖以下库，共（614行，学习成本极低）
+
+	juggle-help.js（33行）
+	juggle-event.js（256行）
+	juggle-http.js（99行）
+	juggle-mv.js（104行）
+	juggle-juggler.js（122行）
 
 github：
 
