@@ -34,7 +34,15 @@ https://www.threecss.com/AnyUploadClient/
 				|--FileConfig.js（配置）
 		|--lib（依赖js）
 			|--jquery.min.js
-			|--juggle-all.js（解耦合的工具库：https://github.com/dianbaer/juggle）
+			######################################
+			|--juggle-all.js（解耦合的工具库ALL IN ONE：https://github.com/dianbaer/juggle）
+			或
+			|--juggle-help.js
+			|--juggle-event.js
+			|--juggle-juggler.js    （解耦合的工具库small require：https://github.com/dianbaer/juggle）
+			|--juggle-http.js
+			|--juggle-mv.js
+			######################################
 			|--spark-md5.js（用于分块计算md5）
 	|--index.html（示例启动项目）
 
