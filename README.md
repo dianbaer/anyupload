@@ -55,8 +55,16 @@ https://www.threecss.com/AnyUploadClient/
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <!--juggle库-->
+    <!--juggle库 all in one-->
+    <!--
     <script src="js/lib/juggle-all.js" type="text/javascript"></script>
+    -->
+    <!--juggle库 small require-->
+    <script src="js/lib/juggle-help.js" type="text/javascript"></script>
+    <script src="js/lib/juggle-event.js" type="text/javascript"></script>
+    <script src="js/lib/juggle-juggler.js" type="text/javascript"></script>
+    <script src="js/lib/juggle-http.js" type="text/javascript"></script>
+    <script src="js/lib/juggle-mv.js" type="text/javascript"></script>
     <!--分块生成md5-->
     <script src="js/lib/spark-md5.js" type="text/javascript"></script>
     <script src="js/lib/jquery.min.js" type="text/javascript"></script>
@@ -96,7 +104,8 @@ https://www.threecss.com/AnyUploadClient/
 </script>
 <body>
 <!--上传按钮-->
-<input type="file" class="myFile_PJY" multiple="multiple" id="uploadFileButton"/>
+<input type="file" class="myFile_PJY" multiple="multiple" id="uploadFileButton"
+       style="margin-left: 50px;margin-top: 20px"/>
 <!--anyupload容器div-->
 <div id="anyUploadContainer" style="width: 800px;margin-top: 50px;"></div>
 </body>
