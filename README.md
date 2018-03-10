@@ -11,7 +11,7 @@
 
 ### 体验地址：
 
-https://www.threecss.com/AnyUploadClient/
+https://www.dianbaer.com/AnyUploadClient/
 
 
 ![上传图](./anyupload.png "anyupload.png")
